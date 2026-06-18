@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { authClient } from "@/lib/auth-client";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -28,7 +29,6 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  // ভ্যালিডেশন লজিক
   const validateForm = () => {
     let valid = true;
     let newErrors = { name: "", email: "", password: "", confirmPassword: "" };
@@ -68,18 +68,17 @@ const SignUp = () => {
     return valid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      console.log("Registration Successful!");
-      console.log("Name:", name);
-      console.log("Email:", email);
-      console.log("Password:", password);
-      console.log("Role:", role);
-    } else {
-      console.log("Registration Failed due to validation errors.");
-    }
+    const { data, error } = await authClient.signUp.email({
+      name: name,
+      email: email,
+      password: password,
+      role,
+    });
+
+    console.log("data, error :", data, error);
   };
 
   // ফর্মের জন্য স্লাইড ইন অ্যানিমেশন ভেরিয়েন্ট

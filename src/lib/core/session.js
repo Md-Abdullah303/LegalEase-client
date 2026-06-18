@@ -1,13 +1,10 @@
-// import { auth } from "../auth";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-// export const getUserSession = async()=>{
-//     const data = await auth.api.signUpEmail({
-//     body: {
-//         name: "John Doe", // required
-//         email: "john.doe@example.com", // required
-//         password: "password1234", // required
-//         image: "https://example.com/image.png",
-//         callbackURL: "https://example.com/callback",
-//     },
-// });
-// }
+export const getUserSession = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+
+  return session?.user || null;
+};

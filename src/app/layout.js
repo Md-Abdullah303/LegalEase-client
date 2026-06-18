@@ -1,8 +1,10 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/component/sheared/Navbar";
+// import Navbar from "@/component/heared/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/component/sheared/Footer";
+import { Toaster } from "react-hot-toast";
+import Navbar2 from "@/component/sheared/Navbar2";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,9 +31,12 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <Navbar2 />
           <main className="">{children}</main>
           <Footer />
+          <div>
+            <Toaster />
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -13,8 +13,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,7 +81,14 @@ const SignUp = () => {
       role,
     });
 
-    console.log("data, error :", data, error);
+    // console.log("data, error :", data, error);
+    if (data) {
+      toast.success("Successfully Register.");
+      router.push("/");
+      router.refresh("/");
+    } else if (error) {
+      toast.error("Something was wrong!");
+    }
   };
 
   // ফর্মের জন্য স্লাইড ইন অ্যানিমেশন ভেরিয়েন্ট

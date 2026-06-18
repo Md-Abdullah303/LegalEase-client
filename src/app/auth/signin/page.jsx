@@ -12,21 +12,23 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // ভ্যালিডেশন স্টেট
+  const router = useRouter();
+
   const [errors, setErrors] = useState({ email: "", password: "" });
 
-  // ভ্যালিডেশন লজিক ফাংশন
   const validateForm = () => {
     let valid = true;
     let newErrors = { email: "", password: "" };
 
-    // ১. ইমেইল ভ্যালিডেশন (Regex)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
       newErrors.email = "Email is required";
@@ -36,7 +38,6 @@ const SignIn = () => {
       valid = false;
     }
 
-    // ২. সহজ পাসওয়ার্ড ভ্যালিডেশন (১টি বড় হাতের, ১টি ছোট হাতের, ১টি সংখ্যা এবং ন্যূনতম ৮ ক্যারেক্টার)
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     if (!password) {
@@ -52,19 +53,23 @@ const SignIn = () => {
     return valid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      console.log("Validation Successful!");
-      console.log("Email:", email);
-      console.log("Password:", password);
-    } else {
-      console.log("Validation Failed.");
+    const { data, error } = await authClient.signIn.email({
+      email: email,
+      password: password,
+    });
+    if (data) {
+      toast.success("Successfully Login");
+      router.push("/");
+      router.refresh("/");
+    }
+    if (error) {
+      toast.error("Something was wrong!");
     }
   };
 
-  // অ্যানিমেশন ভেরিয়েন্ট
   const slideInVariants = {
     hidden: { opacity: 0, x: -30 },
     visible: {

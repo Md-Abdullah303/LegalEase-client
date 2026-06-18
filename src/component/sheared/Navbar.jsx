@@ -8,6 +8,7 @@ import { ModeToggle } from "../shadcn/ModeToggle";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import MyNavLink from "../UI/MyNavLink";
+import Link from "next/link";
 
 // import MyNavLink from "./MyNavLink";
 // import { navLinks } from "@/data/navLinks"; // ADDED
@@ -28,7 +29,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border bg-[#1d1d1d] shadow-sm">
+    <header className="sticky top-0 z-50 border base-primary-B-color base-primary-color shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 md:px-6 py-3">
         {/* Top Row */}
         <div className="flex items-center justify-between">
@@ -65,15 +66,18 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             <Input
               placeholder="Search here..."
-              className="w-[280px] xl:w-[350px]"
+              className="w-[280px] xl:w-[350px] shadow bg-[#d3d3d3] dark:bg-[#1d1d1d]"
             />
 
             <ModeToggle />
 
             <div className="flex items-center gap-2">
-              <Button variant="ghost">Log in</Button>
-
-              <Button>Get Started</Button>
+              <Link href={"/auth/signin"}>
+                <Button variant="ghost">Log in</Button>
+              </Link>
+              <Link href={"/auth/signup"}>
+                <Button>Get Started</Button>
+              </Link>
             </div>
           </div>
 

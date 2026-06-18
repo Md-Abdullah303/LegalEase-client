@@ -1,10 +1,9 @@
-"use client"; // <--- এই লাইনটি যুক্ত করা হয়েছে এররটি ফিক্স করার জন্য
-
+"use client";
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import footerLogo from "@/assests/logo.png";
-// React Icons Import
+
 import {
   FaXTwitter,
   FaLinkedinIn,
@@ -35,7 +34,7 @@ const Footer = () => {
   const socialIcons = [FaXTwitter, FaLinkedinIn, FaInstagram, FaGithub];
 
   return (
-    <footer className="bg-[#1d1d1d] text-[#a3a3a3] pt-16 pb-8 px-6 md:px-12 lg:px-24 font-sans border-t border-neutral-800">
+    <footer className="base-primary-B-color base-primary-color text-[#a3a3a3] pt-16 pb-8 px-6 md:px-12 lg:px-24 font-sans border-t border-neutral-800">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-neutral-800">
         {/* Brand Section */}
         <div className="lg:col-span-4 flex flex-col gap-6">
@@ -47,7 +46,7 @@ const Footer = () => {
               height={60}
               className="object-contain"
             />
-            <span className="text-2xl font-serif tracking-wide text-white italic">
+            <span className="text-2xl font-serif tracking-wide dark:text-white text-black italic">
               LegalEase
             </span>
           </div>
@@ -127,7 +126,7 @@ const Footer = () => {
             <input
               type="email"
               placeholder="your@email.com"
-              className="w-full bg-[#151515] border border-neutral-800 rounded px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-[#b4833b] transition-colors duration-200"
+              className="w-full dark:bg-[#151515] border border-neutral-800 rounded px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-[#b4833b] transition-colors duration-200"
             />
             <motion.button
               whileHover={{ scale: 1.01, backgroundColor: "#c5944a" }}

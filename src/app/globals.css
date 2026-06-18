@@ -2,6 +2,15 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+
+.base-primary-color{
+  @apply bg-[#e9e9e9]
+}
+.base-primary-B-color{
+  @apply dark:bg-[#1d1d1d]
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

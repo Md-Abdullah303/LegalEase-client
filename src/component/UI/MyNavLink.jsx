@@ -13,7 +13,7 @@ const MyNavLink = ({ href, children, className = "" }) => {
       href={href}
       className={`
         relative font-medium transition-all duration-200
-        hover:text-primary py-2 px-3 rounded-lg
+        hover:text-primary py-1 px-3 rounded-lg
         ${isActive ? "dark:bg-[#161616] bg-[#d6d6d6]" : "text-muted-foreground"}
         ${className}
       `}

@@ -67,7 +67,7 @@ const Navbar = ({ userData }) => {
                   priority
                 />
               </div>
-              <h1 className="text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap bg-gradient-to-r from-neutral-900 to-neutral-700 dark:from-neutral-50 dark:to-neutral-300 bg-clip-text text-transparent">
+              <h1 className="text-xl base-primary1-font md:text-2xl font-bold tracking-tight whitespace-nowrap bg-gradient-to-r from-neutral-900 to-neutral-700 dark:from-neutral-50 dark:to-neutral-300 bg-clip-text text-transparent">
                 Legal Ease
               </h1>
             </Link>

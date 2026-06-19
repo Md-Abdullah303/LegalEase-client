@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap');@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -8,6 +8,9 @@
 }
 .base-primary-B-color{
   @apply dark:bg-[#1d1d1d]
+}
+.base-primary1-font{
+font-family: "Shadows Into Light Two", cursive;
 }
 
 

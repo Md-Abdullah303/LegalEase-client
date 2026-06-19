@@ -66,7 +66,7 @@ const SignIn = () => {
       router.refresh("/");
     }
     if (error) {
-      toast.error("Something was wrong!");
+      toast.error(error?.message);
     }
   };
 

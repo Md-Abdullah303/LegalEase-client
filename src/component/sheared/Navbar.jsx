@@ -22,8 +22,8 @@ const Navbar = ({ userData }) => {
     try {
       await authClient.signOut();
       closeMenu();
-      router.refresh();
       router.push("/");
+      router.refresh("/");
     } catch (error) {
       console.error("Logout failed:", error);
     }

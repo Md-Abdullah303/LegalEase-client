@@ -21,7 +21,10 @@ import toast from "react-hot-toast";
 import { postHiringApplication } from "@/lib/actions/applications";
 
 const LawyerDetailsClient = ({ lawyer, user, areHeApplied }) => {
-  const alreadyApplied = areHeApplied ? true : false;
+  // console.log(areHeApplied);
+  // console.log(areHeApplied.length > 0);
+  // console.log(areHeApplied.length == 0);
+  const alreadyApplied = areHeApplied.length > 0 ? true : false;
   const router = useRouter();
 
   const [hireFormData, setHireFormData] = useState({
@@ -40,7 +43,7 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied }) => {
   const handleHireSubmit = async (e) => {
     e.preventDefault();
 
-    if (alreadyApplied) return;
+    if (alreadyApplied) return; // যদি আগেই অ্যাপ্লাই করে থাকে, তাহলে ফাংশন এখানেই থেমে যাবে
 
     if (user?.role !== "user") {
       router.push("/signin");

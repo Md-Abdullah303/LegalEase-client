@@ -6,6 +6,6 @@ export const isUserApplied = async (userId, lawyerId) => {
   );
 };
 
-export const getLawyerHirings = async (lawyerId) => {
+export const getLawyerHiringByLawerId = async (lawyerId) => {
   return await publicFetch(`/api/applications?lawyerId=${lawyerId}`);
 };

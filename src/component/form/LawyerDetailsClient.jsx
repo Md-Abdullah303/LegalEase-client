@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 import { postHiringApplication } from "@/lib/actions/applications";
 import CommentBoxForUserAndLawyer from "../lawyers/CommentBoxForUserAndLawyer";
 
-const LawyerDetailsClient = ({ lawyer, user, areHeApplied }) => {
+const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
   const applicationData = areHeApplied[0];
   console.log(applicationData);
   const alreadyApplied = areHeApplied.length > 0 ? true : false;
@@ -248,9 +248,15 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied }) => {
         </motion.div>
       </div>
       {/* LawyerDetailsClient.jsx এর নিচে এটা বসান */}
-      {applicationData?.status === "Approved" && (
-        <CommentBoxForUserAndLawyer userId={user?.id} lawyerId={lawyer?._id} />
-      )}
+      {applicationData?.status === "Approved" ||
+        (user?.role === "lawyer" && (
+          <CommentBoxForUserAndLawyer
+            userData={user}
+            userId={user?.id}
+            lawyerId={lawyer?._id}
+            comments={comments}
+          />
+        ))}
     </div>
   );
 };

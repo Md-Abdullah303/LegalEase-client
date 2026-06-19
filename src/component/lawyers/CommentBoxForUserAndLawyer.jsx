@@ -5,32 +5,42 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, MessageCircle, User, Briefcase } from "lucide-react";
 import toast from "react-hot-toast";
+import { createComment } from "@/lib/actions/comments";
+import { useRouter } from "next/navigation";
 
-const CommentBoxForUserAndLawyer = ({ userId, lawyerId }) => {
+const CommentBoxForUserAndLawyer = ({
+  userId,
+  lawyerId,
+  userData,
+  comments,
+}) => {
   const [comment, setComment] = useState("");
 
-  // ডামি ডেটা - এপিআই থেকে ডেটা আসলে এখানে সেটা ম্যাপ করবেন
-  const [messages] = useState([
-    {
-      id: 1,
-      sender: "user",
-      text: "Hello, I have a question about my case.",
-      name: "You",
-    },
-    {
-      id: 2,
-      sender: "lawyer",
-      text: "Sure, please provide me with the documents.",
-      name: "Lawyer",
-    },
-  ]);
+  const router = useRouter();
 
-  const handleComment = (e) => {
+  const messages = comments;
+
+  const handleComment = async (e) => {
     e.preventDefault();
     if (!comment.trim()) return;
 
-    const commentData = { comment, userId, lawyerId };
+    const commentData = {
+      text: comment,
+      userId,
+      lawyerId,
+      sender: userData?.role,
+      name: userData?.role === "user" ? "You" : "Lawyer",
+    };
     console.log("Comment Information:", commentData);
+
+    const res = await createComment(commentData);
+    if (res) {
+      toast.success("Message sent!");
+      setComment("");
+      router.refresh();
+    } else {
+      toast.error("Failed to send message. Please try again.");
+    }
 
     toast.success("Message sent!");
     setComment("");

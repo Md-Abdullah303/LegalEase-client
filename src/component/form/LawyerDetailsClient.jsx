@@ -19,11 +19,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { postHiringApplication } from "@/lib/actions/applications";
+import CommentBoxForUserAndLawyer from "../lawyers/CommentBoxForUserAndLawyer";
 
 const LawyerDetailsClient = ({ lawyer, user, areHeApplied }) => {
-  // console.log(areHeApplied);
-  // console.log(areHeApplied.length > 0);
-  // console.log(areHeApplied.length == 0);
+  const applicationData = areHeApplied[0];
+  console.log(applicationData);
   const alreadyApplied = areHeApplied.length > 0 ? true : false;
   const router = useRouter();
 
@@ -247,6 +247,10 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied }) => {
           </Card>
         </motion.div>
       </div>
+      {/* LawyerDetailsClient.jsx এর নিচে এটা বসান */}
+      {applicationData?.status === "Approved" && (
+        <CommentBoxForUserAndLawyer userId={user?.id} lawyerId={lawyer?._id} />
+      )}
     </div>
   );
 };

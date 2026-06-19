@@ -9,7 +9,7 @@ const LawyersDetailsPage = async ({ params }) => {
   const lawyer = await getLawyerByLawyerId(id);
   const user = await getUserSession();
   const areHeApplied = await isUserApplied(user?.id, lawyer._id);
-  console.log(areHeApplied);
+  // console.log(areHeApplied);
   return (
     <div className="min-h-screen bg-slate-50/50 dark:bg-black transition-colors">
       <LawyerDetailsClient

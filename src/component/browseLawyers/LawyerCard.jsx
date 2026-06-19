@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const LawyerCard = ({ lawyer }) => {
   // কার্ড লোড হওয়ার এনিমেশন ভ্যারিয়েন্ট
@@ -39,7 +41,7 @@ const LawyerCard = ({ lawyer }) => {
         </div>
 
         {/* Content Section */}
-        <CardContent className="p-6">
+        <CardContent className="pt-6 pb-2">
           <div className="flex justify-between items-start gap-2">
             {/* Name & Specialty */}
             <div className="flex-1">
@@ -72,6 +74,11 @@ const LawyerCard = ({ lawyer }) => {
             <div className="text-sm text-slate-400 dark:text-slate-500 font-medium mb-1 transition-colors">
               124 hires
             </div>
+          </div>
+          <div className="mt-4">
+            <Link href={`/lawyers/${lawyer._id}`}>
+              <Button className={"cursor-pointer"}>See Details</Button>
+            </Link>
           </div>
         </CardContent>
       </Card>

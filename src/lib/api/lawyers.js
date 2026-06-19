@@ -1,6 +1,9 @@
-const baseUrl = process.env.NEXT_SERVER_URL;
+import { publicFetch } from "../core/server";
 
 export const getLawyerByLawyerId = async (lawyerId) => {
-  const res = await fetch(`${baseUrl}/api/lawyers/${lawyerId}`);
-  return res.json() || null;
+  return await publicFetch(`/api/lawyers/${lawyerId}`);
+};
+
+export const getAllLawyers = async () => {
+  return await publicFetch(`/api/lawyers`);
 };

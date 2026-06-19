@@ -21,9 +21,9 @@ export const ServerMutation = async (path, data) => {
   return res.json();
 };
 
-export const postServerMutation = async (path, data) => {
+export const postServerMutation = async (path, data, method = "POST") => {
   const res = await fetch(`${baseUrl}${path}`, {
-    method: "POST",
+    method: method,
     headers: {
       "Content-Type": "application/json",
     },

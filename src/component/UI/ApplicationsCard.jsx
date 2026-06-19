@@ -1,7 +1,11 @@
+"use client";
+import { changeApplicationsStatus } from "@/lib/actions/applications";
+import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 const ApplicationsCard = ({ application }) => {
-  // স্ট্যাটাস অনুযায়ী কালার কোড
+  const router = useRouter();
   const getStatusColor = (status) => {
     switch (status) {
       case "Approved":
@@ -10,6 +14,29 @@ const ApplicationsCard = ({ application }) => {
         return "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400";
       default:
         return "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400";
+    }
+  };
+
+  const handleApproved = async () => {
+    const res = await changeApplicationsStatus(application?._id, {
+      status: "Approved",
+    });
+    if (res) {
+      router.refresh("/dashboard/lawyer/hiring-history");
+      toast.success("Updated..");
+    } else {
+      toast.error("Sorry try again later.");
+    }
+  };
+  const handleRejected = async () => {
+    const res = await changeApplicationsStatus(application?._id, {
+      status: "Rejected",
+    });
+    if (res) {
+      router.refresh("/dashboard/lawyer/hiring-history");
+      toast.success("Updated..");
+    } else {
+      toast.error("Sorry try again later.");
     }
   };
 
@@ -38,12 +65,22 @@ const ApplicationsCard = ({ application }) => {
 
         {/* অ্যাকশন বাটনস */}
         <div className="flex gap-3">
-          <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition-colors">
-            Approve
-          </button>
-          <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
-            Reject
-          </button>
+          {application.status !== "Approved" && (
+            <button
+              onClick={handleApproved}
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              Approve
+            </button>
+          )}
+          {application.status !== "Rejected" && (
+            <button
+              onClick={handleRejected}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              Reject
+            </button>
+          )}
         </div>
       </div>
     </div>

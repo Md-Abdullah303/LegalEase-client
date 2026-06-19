@@ -15,16 +15,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea"; // Textarea component না থাকলে সাধারণ <textarea> ব্যবহার করতে পারেন
+import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { postHiringApplication } from "@/lib/actions/applications";
 
-const LawyerDetailsClient = ({ lawyer }) => {
-  // ফর্ম ডেটা একটি অবজেক্টে রাখা হয়েছে, যাতে ভবিষ্যতে সহজে নতুন ফিল্ড যুক্ত করা যায়
+const LawyerDetailsClient = ({ lawyer, user, areHeApplied }) => {
+  const alreadyApplied = areHeApplied ? true : false;
+  const router = useRouter();
+
   const [hireFormData, setHireFormData] = useState({
     userName: "",
     reason: "",
-    // future fields can be added here easily:
-    // phone: "",
-    // date: ""
   });
 
   const handleInputChange = (e) => {
@@ -35,11 +37,31 @@ const LawyerDetailsClient = ({ lawyer }) => {
     }));
   };
 
-  const handleHireSubmit = (e) => {
+  const handleHireSubmit = async (e) => {
     e.preventDefault();
-    console.log("Hiring Request Data:", hireFormData);
-    console.log("Hiring Lawyer ID:", lawyer?._id);
-    // TODO: Send data to API
+
+    if (alreadyApplied) return;
+
+    if (user?.role !== "user") {
+      router.push("/signin");
+      toast.error("Plz sign in with UserID.");
+      return;
+    }
+
+    const hiringData = {
+      ...hireFormData,
+      lawyerId: lawyer?._id,
+      hiringApplicantId: user?.id,
+      status: "Pending",
+    };
+
+    const res = await postHiringApplication(hiringData);
+    if (res) {
+      router.refresh();
+      toast.success("Successfully Sent..");
+    } else {
+      toast.error("Something was wrong!");
+    }
   };
 
   // Framer Motion Variants
@@ -70,7 +92,7 @@ const LawyerDetailsClient = ({ lawyer }) => {
           <motion.div variants={fadeInUp}>
             <Card className="overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors px-3">
               <div className="md:flex">
-                <div className="relative  w-full md:w-[280px] h-[300px] shrink-0">
+                <div className="relative w-full md:w-[280px] h-[300px] shrink-0">
                   <Image
                     src={
                       lawyer?.image ||
@@ -113,7 +135,6 @@ const LawyerDetailsClient = ({ lawyer }) => {
                     </div>
                     <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                       <Users className="w-5 h-5 text-slate-400" />
-                      {/* ভবিষ্যতে কতোজন হায়ার করেছে তার ডেটা না পেলে ডিফল্ট 0 দেখাবে */}
                       <span>{lawyer?.hiresCount || 0} Hires</span>
                     </div>
                   </div>
@@ -176,7 +197,8 @@ const LawyerDetailsClient = ({ lawyer }) => {
                     onChange={handleInputChange}
                     placeholder="Enter your full name"
                     required
-                    className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus-visible:ring-indigo-500"
+                    disabled={alreadyApplied} // Added disable condition
+                    className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus-visible:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
 
@@ -196,16 +218,22 @@ const LawyerDetailsClient = ({ lawyer }) => {
                     placeholder="Briefly describe your case or reason..."
                     rows={4}
                     required
-                    className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus-visible:ring-indigo-500 resize-none"
+                    disabled={alreadyApplied} // Added disable condition
+                    className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus-visible:ring-indigo-500 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
 
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-6 text-lg font-medium rounded-xl transition-all shadow-md hover:shadow-lg"
+                  disabled={alreadyApplied} // Button disable condition
+                  className={`w-full py-6 text-lg font-medium rounded-xl transition-all shadow-md ${
+                    alreadyApplied
+                      ? "bg-slate-400 text-slate-100 cursor-not-allowed shadow-none"
+                      : "bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-lg"
+                  }`}
                 >
-                  Send Hiring Request
+                  {alreadyApplied ? "Already Applied" : "Send Hiring Request"}
                 </Button>
 
                 <p className="text-xs text-center text-slate-400 mt-4">

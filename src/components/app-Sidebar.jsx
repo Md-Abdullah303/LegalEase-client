@@ -43,6 +43,11 @@ export default async function AppSidebar() {
 
   const userItems = [
     {
+      title: "User Overview",
+      href: "/dashboard/user",
+      icon: LuLayoutDashboard,
+    },
+    {
       title: "Hiring History",
       href: "/dashboard/user/hiring-history",
       icon: LuHistory,

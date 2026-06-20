@@ -231,7 +231,9 @@ export default function LawyerProfile({ lawyerData, userData }) {
               <div className="relative group">
                 <div className="absolute inset-0 bg-blue-600/20 blur-3xl opacity-60 group-hover:opacity-100 transition-opacity rounded-full"></div>
                 <div className="relative">
-                  <img
+                  <Image
+                    width={600}
+                    height={400}
                     src={
                       preview ||
                       "https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168"

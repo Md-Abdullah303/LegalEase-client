@@ -9,8 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import HiringRow from "@/component/table/HiringRaw";
-// import HiringRow from "./HiringRow";
 
 const UserHiringTable = ({ hiringHistory }) => {
   const handlePay = (request) => {
@@ -33,15 +31,7 @@ const UserHiringTable = ({ hiringHistory }) => {
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {hiringHistory?.map((request) => (
-            <HiringRow
-              key={request._id}
-              request={request}
-              handlePay={handlePay}
-            />
-          ))}
-        </TableBody>
+        <TableBody>{/* here will i place the Table Row */}</TableBody>
       </Table>
     </div>
   );

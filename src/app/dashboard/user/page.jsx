@@ -6,8 +6,8 @@ import React from "react";
 const page = async () => {
   const userData = await getUserSession();
   const userHiringHistories = await getUserHiringHistory(userData?.id);
-  console.log(userHiringHistories);
 
+  // console.log(userHiringHistories);
   // console.log(userData);
 
   return (

@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { postHiringApplication } from "@/lib/actions/applications";
-import CommentBoxForUserAndLawyer from "../lawyers/CommentBoxForUserAndLawyer";
+import CommentSection from "../lawyers/CommentSection";
 
 const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
   const applicationData = areHeApplied[0];
@@ -77,12 +77,6 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   };
-
-  if (!lawyer) {
-    return (
-      <div className="text-center py-20 text-slate-500">Lawyer not found!</div>
-    );
-  }
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6">
@@ -252,16 +246,11 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
           </Card>
         </motion.div>
       </div>
-      {/* LawyerDetailsClient.jsx এর নিচে এটা বসান */}
-      {applicationData?.status === "Approved" ||
-        (user?.role === "lawyer" && (
-          <CommentBoxForUserAndLawyer
-            userData={user}
-            userId={user?.id}
-            lawyerId={lawyer?._id}
-            comments={comments}
-          />
-        ))}
+
+      {/* Comment Section */}
+      <div className="mt-10">
+        <CommentSection user={user} lawyer={lawyer} comments={comments} />
+      </div>
     </div>
   );
 };

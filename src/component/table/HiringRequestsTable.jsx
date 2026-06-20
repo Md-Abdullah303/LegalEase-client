@@ -48,7 +48,7 @@ const HiringRequestsTable = ({ applications }) => {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-[#1f1f1f] bg-white dark:bg-[#1f1f1f] shadow-sm overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
@@ -118,22 +118,26 @@ const HiringRequestsTable = ({ applications }) => {
                 </TableCell>
 
                 <TableCell className="text-right space-x-2">
-                  <Button
-                    onClick={handleApproved}
-                    variant="outline"
-                    size="sm"
-                    className="h-8 gap-1 text-emerald-600 border-emerald-200 hover:bg-emerald-50 dark:border-emerald-900 dark:hover:bg-emerald-900/20"
-                  >
-                    <CheckCircle className="w-3.5 h-3.5" /> Accept
-                  </Button>
-                  <Button
-                    onClick={handleRejected}
-                    variant="outline"
-                    size="sm"
-                    className="h-8 gap-1 text-red-600 border-red-200 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-900/20"
-                  >
-                    <XCircle className="w-3.5 h-3.5" /> Reject
-                  </Button>
+                  {item.status !== "Approved" && (
+                    <Button
+                      onClick={handleApproved}
+                      variant="outline"
+                      size="sm"
+                      className="h-8 gap-1 text-emerald-600 border-emerald-200 hover:bg-emerald-50 dark:border-emerald-900 dark:hover:bg-emerald-900/20"
+                    >
+                      <CheckCircle className="w-3.5 h-3.5" /> Accept
+                    </Button>
+                  )}
+                  {item.status !== "Rejected" && (
+                    <Button
+                      onClick={handleRejected}
+                      variant="outline"
+                      size="sm"
+                      className="h-8 gap-1 text-red-600 border-red-200 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-900/20"
+                    >
+                      <XCircle className="w-3.5 h-3.5" /> Reject
+                    </Button>
+                  )}
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

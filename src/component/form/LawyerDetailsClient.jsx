@@ -23,7 +23,8 @@ import CommentSection from "../lawyers/CommentSection";
 
 const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
   const applicationData = areHeApplied[0];
-  // console.log(applicationData);
+  const status = applicationData?.status;
+  // console.log(status);
   const alreadyApplied = areHeApplied.length > 0 ? true : false;
   const router = useRouter();
 
@@ -249,7 +250,12 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
 
       {/* Comment Section */}
       <div className="mt-10">
-        <CommentSection user={user} lawyer={lawyer} comments={comments} />
+        <CommentSection
+          user={user}
+          lawyer={lawyer}
+          comments={comments}
+          status={status}
+        />
       </div>
     </div>
   );

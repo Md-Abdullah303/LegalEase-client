@@ -19,11 +19,17 @@ import { createComment } from "@/lib/actions/comments";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function CommentSection({ user, lawyer, comments = [] }) {
+export default function CommentSection({
+  user,
+  lawyer,
+  comments = [],
+  status,
+}) {
   const [showAll, setShowAll] = useState(false);
   const [commentText, setCommentText] = useState("");
 
   const router = useRouter();
+  const commentPermision = user?.role === "user" && status === "Approved";
 
   const handleCommentSubmit = async () => {
     if (!commentText.trim()) return;
@@ -35,6 +41,7 @@ export default function CommentSection({ user, lawyer, comments = [] }) {
         user?.image ||
         "https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168",
       lawyerId: lawyer?._id,
+      lawyerName: lawyer?.name,
     };
 
     const res = await createComment(CommentData);
@@ -60,7 +67,7 @@ export default function CommentSection({ user, lawyer, comments = [] }) {
 
       <CardContent className="space-y-6">
         {/* Input Box */}
-        {user?.role === "user" && (
+        {commentPermision && (
           <div className="flex gap-4 items-start">
             <Avatar className="w-10 h-10 border border-slate-200 dark:border-slate-700">
               <AvatarFallback className="bg-slate-100 dark:bg-slate-800">

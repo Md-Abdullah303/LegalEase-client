@@ -15,19 +15,17 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-const UserDashboardHome = ({ userData, userHiringHistories }) => {
-  const totalComment = userHiringHistories.length || "0";
+const UserDashboardHome = ({ userData, userHiringHistories, userComments }) => {
+  const totalHires = userHiringHistories.length || "0";
   const pendingCount = userHiringHistories.filter(
     (request) => request.status === "Pending",
   ).length;
-  const approvedCount = userHiringHistories.filter(
-    (request) => request.status === "Approved",
-  ).length;
+  const userCommentsLength = userComments.length || "0";
 
   const stats = [
     {
       title: "Total Hires",
-      count: approvedCount || 0,
+      count: totalHires || 0,
       icon: <FiBriefcase className="w-6 h-6 text-blue-500" />,
       bg: "bg-blue-100",
     },
@@ -45,7 +43,7 @@ const UserDashboardHome = ({ userData, userHiringHistories }) => {
     },
     {
       title: "Total Comments",
-      count: totalComment,
+      count: userCommentsLength || 0,
       icon: <FiMessageSquare className="w-6 h-6 text-green-500" />,
       bg: "bg-green-100",
     },

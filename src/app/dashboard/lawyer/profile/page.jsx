@@ -5,9 +5,9 @@ import { getLawyerByLawyerId } from "@/lib/api/lawyers";
 
 const page = async () => {
   const userData = await getUserSession();
-  //   console.log(userData?.id);
-
   const fetchLawyerData = await getLawyerByLawyerId(userData?.id);
+
+  //   console.log(userData?.id);
   // console.log(fetchLawyerData);
 
   return (

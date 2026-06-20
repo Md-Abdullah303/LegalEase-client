@@ -23,7 +23,7 @@ import CommentBoxForUserAndLawyer from "../lawyers/CommentBoxForUserAndLawyer";
 
 const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
   const applicationData = areHeApplied[0];
-  console.log(applicationData);
+  // console.log(applicationData);
   const alreadyApplied = areHeApplied.length > 0 ? true : false;
   const router = useRouter();
 
@@ -54,7 +54,12 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
     const hiringData = {
       ...hireFormData,
       lawyerId: lawyer?._id,
+      lawyerName: lawyer?.name,
+      lawyerSalary: lawyer?.salary,
+      lawyerSpecialty: lawyer?.specialty,
+      lawyerHrRate: lawyer?.hourlyRate,
       hiringApplicantId: user?.id,
+      hiringApplicantName: user?.name,
       status: "Pending",
     };
 

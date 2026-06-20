@@ -1,6 +1,7 @@
 import { publicFetch } from "../core/server";
 
 export const getLawyerByLawyerId = async (lawyerId) => {
+  // console.log(lawyerId);
   return await publicFetch(`/api/lawyers/${lawyerId}`);
 };
 

@@ -11,7 +11,7 @@ const LawyersDetailsPage = async ({ params }) => {
   const user = await getUserSession();
   const areHeApplied = await isUserApplied(user?.id, lawyer._id);
   const comments = await getComments();
-  // console.log(areHeApplied);
+  // console.log(lawyer);
   return (
     <div className="min-h-screen bg-slate-50/50 dark:bg-black transition-colors">
       <LawyerDetailsClient

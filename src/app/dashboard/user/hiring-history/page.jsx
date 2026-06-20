@@ -1,13 +1,13 @@
 // import UserHiringTable from "@/component/table/UserHiringTable";
 import UserHiringTable from "@/component/table/UserHiringTable";
-import { getUserHiringHistory } from "@/lib/api/users";
+import { getUserHiringHistory as getUserHiringHistoryByUserId } from "@/lib/api/users";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
 const UserHiringHistoryPage = async () => {
   const user = await getUserSession();
-  const userHistory = await getUserHiringHistory(user.id);
-  //   console.log(userHistory);
+  const userHistory = await getUserHiringHistoryByUserId(user.id);
+  // console.log(userHistory);
 
   return (
     <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">

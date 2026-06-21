@@ -334,7 +334,9 @@ export default function LawyerProfile({ lawyerData, userData }) {
                           <input {...getInputProps()} />
                           {preview ? (
                             <div className="relative">
-                              <img
+                              <Image
+                                width={600}
+                                height={400}
                                 src={preview}
                                 alt="preview"
                                 className="h-28 w-28 rounded-3xl object-cover border-2 border-gray-200 dark:border-[#333] shadow-md"

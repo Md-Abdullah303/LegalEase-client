@@ -11,18 +11,15 @@ import {
   DollarSign,
   ShieldCheck,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function AdminDashboardHome() {
-  // Static Data (Tomar dewa data theke neya)
-  const adminData = {
-    name: "Ridme",
-    email: "mdabdulla01715940008+user5@gmail.com",
-    role: "Admin",
-    location: "Chandpur, Bangladesh",
-    bio: "Bio is Bio. Overseeing the LegalEase platform operations, managing users, and ensuring smooth legal consultations.",
-    image: "https://i.ibb.co/LDR30Dbz/images.jpg",
-  };
-
+export default function AdminDashboardHome({
+  adminData,
+  totalUsersData,
+  totalLawyerData,
+  totalApprovedData,
+}) {
   // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,7 +44,7 @@ export default function AdminDashboardHome() {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold tracking-tight">
-          Welcome back, {adminData.name}!{" "}
+          Welcome back, {adminData?.name || `N/A`}!{" "}
           <span className="inline-block origin-bottom-right animate-wave">
             👋
           </span>
@@ -71,26 +68,35 @@ export default function AdminDashboardHome() {
           {/* Top Section: Avatar, Name, Role, Button */}
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800/60">
             <div className="flex items-center gap-5">
-              <img
-                src={adminData.image}
-                alt={adminData.name}
+              <Image
+                width={600}
+                height={400}
+                src={
+                  adminData?.image ||
+                  `https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168`
+                }
+                alt={adminData?.name || `N/A`}
                 className="w-20 h-20 rounded-full object-cover border-2 border-zinc-200 dark:border-zinc-700"
               />
               <div>
-                <h2 className="text-2xl font-bold">{adminData.name}</h2>
+                <h2 className="text-2xl font-bold">
+                  {adminData?.name || `N/A`}
+                </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <ShieldCheck className="w-4 h-4 text-amber-600 dark:text-[#E5D4B6]" />
                   <span className="text-sm font-medium text-amber-700 dark:text-[#E5D4B6] uppercase tracking-wider">
-                    {adminData.role}
+                    {adminData?.role || `N/A`}
                   </span>
                 </div>
               </div>
             </div>
 
-            <button className="flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-[#E5D4B6] dark:text-black dark:hover:opacity-90">
-              <Edit3 className="w-4 h-4" />
-              MANAGE PROFILE
-            </button>
+            <Link href={"/dashboard/admin/profile"}>
+              <button className="flex items-center cursor-pointer gap-2 px-5 py-2.5 rounded-full font-medium transition-all bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-[#E5D4B6] dark:text-black dark:hover:opacity-90">
+                <Edit3 className="w-4 h-4" />
+                MANAGE PROFILE
+              </button>
+            </Link>
           </div>
 
           {/* Middle Section: Contact & Location Info */}
@@ -104,7 +110,7 @@ export default function AdminDashboardHome() {
                   Email
                 </p>
                 <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                  {adminData.email}
+                  {adminData?.email || `N/A`}
                 </p>
               </div>
             </div>
@@ -118,7 +124,7 @@ export default function AdminDashboardHome() {
                   Location
                 </p>
                 <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                  {adminData.location}
+                  {adminData?.location || `N/A`}
                 </p>
               </div>
             </div>
@@ -130,7 +136,7 @@ export default function AdminDashboardHome() {
               Bio / About
             </p>
             <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
-              {adminData.bio}
+              {adminData?.bio || `N/A`}
             </p>
           </div>
         </motion.div>
@@ -146,7 +152,7 @@ export default function AdminDashboardHome() {
                 Total Users
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
-                1,240
+                {totalUsersData.length || 0}
               </h3>
             </div>
             <div className="p-3 rounded-full bg-zinc-100 dark:bg-zinc-800/50">
@@ -163,7 +169,7 @@ export default function AdminDashboardHome() {
                 Total Lawyers
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
-                345
+                {totalLawyerData.length || 0}
               </h3>
             </div>
             <div className="p-3 rounded-full bg-zinc-100 dark:bg-zinc-800/50">
@@ -180,7 +186,7 @@ export default function AdminDashboardHome() {
                 Approved Hires
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
-                89
+                {totalApprovedData?.length || 0}
               </h3>
             </div>
             <div className="p-3 rounded-full bg-zinc-100 dark:bg-zinc-800/50">

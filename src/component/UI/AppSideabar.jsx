@@ -15,6 +15,8 @@ import { ImProfile } from "react-icons/im";
 import { LucideBarChart3 } from "lucide-react";
 import MobileSidebar from "./MobileSidebar";
 import { getUserSession } from "@/lib/core/session";
+import MySideNavLink from "./MySideNavLink";
+import { MdOutlineGroupAdd } from "react-icons/md";
 
 export default async function AppSidebar({ pathName }) {
   const user = await getUserSession();
@@ -79,7 +81,7 @@ export default async function AppSidebar({ pathName }) {
     {
       title: "Manage All Users",
       href: "/dashboard/admin/all-users-manage",
-      icon: LuUsers,
+      icon: MdOutlineGroupAdd,
     },
     {
       title: "Manage Users",
@@ -148,14 +150,14 @@ export default async function AppSidebar({ pathName }) {
             </p>
             <nav className="space-y-1">
               {menuItems.map((item) => (
-                <Link
+                <MySideNavLink
                   key={item.title}
                   href={item.href}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-md text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-900 hover:text-neutral-950 dark:hover:text-neutral-50 transition-colors group"
                 >
                   <item.icon className="h-4 w-4 shrink-0 text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-neutral-50 transition-colors" />
                   <span className="text-sm font-medium">{item.title}</span>
-                </Link>
+                </MySideNavLink>
               ))}
             </nav>
           </div>

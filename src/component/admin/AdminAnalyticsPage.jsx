@@ -10,12 +10,32 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
-export default function AnalyticsPage() {
+export default function AnalyticsPage({
+  totalUsersData,
+  totalLawyerData,
+  totalHiresData,
+  topCategories,
+}) {
   // Static Mock Data
   const stats = [
-    { title: "Total Users", value: "1,240", increase: "+12%", icon: Users },
-    { title: "Total Lawyers", value: "345", increase: "+5%", icon: Scale },
-    { title: "Total Hires", value: "89", increase: "+18%", icon: Briefcase },
+    {
+      title: "Total Users",
+      value: totalUsersData.length || "0",
+      increase: "+12%",
+      icon: Users,
+    },
+    {
+      title: "Total Lawyers",
+      value: totalLawyerData.length || "0",
+      increase: "+5%",
+      icon: Scale,
+    },
+    {
+      title: "Total Hires",
+      value: totalHiresData.length || 0,
+      increase: "+18%",
+      icon: Briefcase,
+    },
     {
       title: "Total Revenue",
       value: "$12,450",
@@ -28,21 +48,12 @@ export default function AnalyticsPage() {
   const monthlyRevenue = [
     { month: "Jan", amount: 30, value: "$3k" },
     { month: "Feb", amount: 45, value: "$4.5k" },
-    { month: "Mar", amount: 35, value: "$3.5k" },
-    { month: "Apr", amount: 60, value: "$6k" },
+    { month: "Mar", amount: 55, value: "$3.5k" },
+    { month: "Apr", amount: 40, value: "$6k" },
     { month: "May", amount: 80, value: "$8k" },
     { month: "Jun", amount: 100, value: "$10k" }, // Current high
   ];
 
-  // Data for Categories
-  const topCategories = [
-    { name: "Criminal Law", percentage: 75, count: 120 },
-    { name: "Corporate Law", percentage: 60, count: 95 },
-    { name: "Family Law", percentage: 45, count: 65 },
-    { name: "Real Estate", percentage: 30, count: 40 },
-  ];
-
-  // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.1 } },

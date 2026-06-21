@@ -15,3 +15,11 @@ export const getAllLawyersData = async () => {
 export const getApprovedData = async () => {
   return await publicFetch(`/api/allUsers?role=lawyer&status=true`);
 };
+
+export const getHiresData = async () => {
+  return await publicFetch(`/api/hires?status=true`);
+};
+
+export const getTopCategories = async () => {
+  return await publicFetch(`/api/topcategories`);
+};

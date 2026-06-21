@@ -15,16 +15,20 @@ import {
 } from "react-icons/fi";
 import { CgSpinner } from "react-icons/cg";
 import Image from "next/image";
+import { updatedUserData } from "@/lib/actions/users";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-export default function UpdateProfilePage() {
-  // ১. সাধারণ State ম্যানেজমেন্ট
+export default function UpdateProfilePage({ user }) {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    address: "",
-    linkedin: "",
-    bio: "",
-    imageFile: null, // ছবি এখানে সেভ হবে
+    fullName: user?.name || "",
+    phone: user?.phone || "",
+    address: user?.address || "",
+    linkedin: user?.linkedinUrl || "",
+    bio: user?.bio || "",
+    imageFile: null,
   });
 
   const [previewImg, setPreviewImg] = useState(null);
@@ -32,12 +36,10 @@ export default function UpdateProfilePage() {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
 
-  // ইনপুটের ডেটা স্টেটে সেভ করার ফাংশন
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ড্র্যাগ এবং ড্রপ হ্যান্ডলার
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -72,19 +74,26 @@ export default function UpdateProfilePage() {
     fileInputRef.current?.click();
   };
 
-  // ২. ফর্ম সাবমিট এবং ImgBB-তে আপলোড করার লজিক
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ভ্যালিডেশন: কোনো ফিল্ড খালি আছে কি না চেক করা হচ্ছে
+    // এখানে imageFile বাদে সবগুলোকে চেক করা হচ্ছে (ইমেজ অপশনাল হলে)
+    const { fullName, phone, address, linkedin, bio } = formData;
+
+    if (!fullName || !phone || !address || !linkedin || !bio) {
+      toast.error("Please fill in all the fields before saving!");
+      return; // এখানেই প্রসেস আটকে যাবে
+    }
+
     setIsUploading(true);
     let uploadedImageUrl = "";
 
     try {
-      // যদি ইউজার ছবি সিলেক্ট করে থাকে, তবে আগে সেটি ImgBB তে আপলোড হবে
       if (formData.imageFile) {
         const imgFormData = new FormData();
         imgFormData.append("image", formData.imageFile);
 
-        // .env.local থেকে সিক্রেট কী আনা হচ্ছে
         const imgbbKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
         const response = await fetch(
@@ -104,20 +113,25 @@ export default function UpdateProfilePage() {
         }
       }
 
-      // ডাটাবেসে পাঠানোর জন্য ফাইনাল অবজেক্ট
       const finalDataToSubmit = {
         name: formData.fullName,
         phone: formData.phone,
         address: formData.address,
         linkedinUrl: formData.linkedin,
         bio: formData.bio,
-        image: uploadedImageUrl, // ImgBB থেকে পাওয়া URL
+        image: uploadedImageUrl,
       };
 
-      console.log("🔥 Final Data Saved:", finalDataToSubmit);
-      // TODO: এখানে আপনার ব্যাকএন্ডে API Call (fetch বা axios) করবেন
+      const result = await updatedUserData(user?.id, finalDataToSubmit);
+      if (result) {
+        toast.success("Profile Updated.");
+        router.push("/dashboard/user");
+      } else {
+        toast.error("Something went wrong!");
+      }
     } catch (error) {
       console.error("Error during submission:", error);
+      toast.error("Failed to update profile.");
     } finally {
       setIsUploading(false);
     }
@@ -136,13 +150,12 @@ export default function UpdateProfilePage() {
             Update Profile
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Ensure your client information is up to date.
+            Ensure all fields are filled to save changes.
           </p>
         </div>
 
-        {/* ৩. সাধারণ HTML ফর্ম */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Drag & Drop Image Upload Section */}
+          {/* বাকি সব কোড একই থাকবে */}
           <div className="flex flex-col items-center mb-8">
             <label className="block text-sm font-semibold text-gray-700 dark:text-[#d9bfa2] mb-3 w-full text-left uppercase tracking-wider">
               Profile Picture
@@ -198,121 +211,77 @@ export default function UpdateProfilePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Full Name */}
+            {/* Input fields */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wider">
                 Full Name <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-lg" />
-                <input
-                  type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  placeholder="Jane Carter"
-                  required
-                  className="w-full pl-12 p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white focus:border-[#c4a482] dark:focus:border-[#d9bfa2] outline-none transition-all placeholder-gray-400 dark:placeholder-gray-600"
-                />
-              </div>
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                className="w-full p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white"
+              />
             </div>
-
-            {/* Phone Number */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wider">
-                Phone Number
+                Phone Number <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <FiPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-lg" />
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full pl-12 p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white focus:border-[#c4a482] dark:focus:border-[#d9bfa2] outline-none transition-all placeholder-gray-400 dark:placeholder-gray-600"
-                />
-              </div>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white"
+              />
             </div>
-
-            {/* Address */}
             <div className="md:col-span-2">
               <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wider">
-                Address (City / Area)
+                Address <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <FiMapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-lg" />
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  placeholder="New York, NY"
-                  className="w-full pl-12 p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white focus:border-[#c4a482] dark:focus:border-[#d9bfa2] outline-none transition-all placeholder-gray-400 dark:placeholder-gray-600"
-                />
-              </div>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white"
+              />
             </div>
-
-            {/* LinkedIn Profile */}
             <div className="md:col-span-2">
               <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wider">
-                LinkedIn Profile
+                LinkedIn <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <FiLinkedin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-lg" />
-                <input
-                  type="url"
-                  name="linkedin"
-                  value={formData.linkedin}
-                  onChange={handleChange}
-                  placeholder="https://linkedin.com/in/username"
-                  className="w-full pl-12 p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white focus:border-[#c4a482] dark:focus:border-[#d9bfa2] outline-none transition-all placeholder-gray-400 dark:placeholder-gray-600"
-                />
-              </div>
+              <input
+                type="url"
+                name="linkedin"
+                value={formData.linkedin}
+                onChange={handleChange}
+                className="w-full p-4 h-14 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white"
+              />
             </div>
-
-            {/* Bio */}
             <div className="md:col-span-2">
               <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wider">
-                Bio / About Me
+                Bio <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <FiFileText className="absolute left-4 top-5 text-gray-400 dark:text-gray-500 text-lg" />
-                <textarea
-                  name="bio"
-                  value={formData.bio}
-                  onChange={handleChange}
-                  rows="4"
-                  placeholder="Tell us a bit about yourself or your business..."
-                  className="w-full pl-12 p-4 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white focus:border-[#c4a482] dark:focus:border-[#d9bfa2] outline-none transition-all placeholder-gray-400 dark:placeholder-gray-600 resize-none"
-                />
-              </div>
+              <textarea
+                name="bio"
+                value={formData.bio}
+                onChange={handleChange}
+                rows="4"
+                className="w-full p-4 rounded-lg bg-[#fdfdfc] dark:bg-[#1a1a1a] border border-[#e5ded5] dark:border-[#333] text-gray-900 dark:text-white"
+              />
             </div>
           </div>
 
-          {/* Submit Button */}
           <div className="pt-4">
-            <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               type="submit"
               disabled={isUploading}
-              className={`w-full flex items-center justify-center py-4 bg-[#222] hover:bg-black text-[#d9bfa2] dark:bg-[#d9bfa2] dark:hover:bg-[#cbb092] dark:text-[#0a0a0a] font-bold text-lg uppercase tracking-widest rounded-lg transition-all shadow-md ${
-                isUploading ? "opacity-70 cursor-not-allowed" : ""
-              }`}
+              className="w-full py-4 bg-[#222] text-[#d9bfa2] rounded-lg font-bold"
             >
-              {isUploading ? (
-                <>
-                  <CgSpinner className="animate-spin text-2xl mr-3" />
-                  Uploading & Saving...
-                </>
-              ) : (
-                <>
-                  <FiSave className="text-xl mr-3" />
-                  Save Changes
-                </>
-              )}
-            </motion.button>
+              {isUploading ? "Uploading..." : "Save Changes"}
+            </button>
           </div>
         </form>
       </div>

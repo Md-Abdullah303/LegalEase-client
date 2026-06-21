@@ -7,11 +7,11 @@ import UpdateProfilePage from "./UpdateProfilePage";
 
 const page = async () => {
   const user = await getUserSession();
-  const userData = (await getUserProfile(user.id)) || null;
-  //   console.log(userData[0]);
+  // const userData = (await getUserProfile(user.id)) || null;
+  // console.log(userData);
   return (
     <div className="">
-      <UpdateProfilePage />
+      <UpdateProfilePage user={user} />
     </div>
   );
 };

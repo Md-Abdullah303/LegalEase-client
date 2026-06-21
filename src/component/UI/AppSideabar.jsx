@@ -8,14 +8,15 @@ import {
   LuUserCog,
   LuDollarSign,
   LuUsers,
+  LuBriefcase,
+  LuCircleDollarSign,
 } from "react-icons/lu";
-import { getUserSession } from "@/lib/core/session";
 import { ImProfile } from "react-icons/im";
-import { CiGrid42 } from "react-icons/ci";
-import MobileSidebar from "@/component/UI/MobileSidebar";
-// import MobileSidebar from "./MobileSidebar"; // আপনার MobileSidebar ফাইলটির সঠিক পাথ দিন
+import { LucideBarChart3 } from "lucide-react";
+import MobileSidebar from "./MobileSidebar";
+import { getUserSession } from "@/lib/core/session";
 
-export default async function AppSidebar() {
+export default async function AppSidebar({ pathName }) {
   const user = await getUserSession();
 
   const lawyerItems = [
@@ -65,16 +66,40 @@ export default async function AppSidebar() {
   ];
 
   const adminItems = [
-    { title: "Analytics", href: "/dashboard/admin/analytics", icon: CiGrid42 },
     {
-      title: "All Transactions",
-      href: "/dashboard/admin/all-transactions",
-      icon: LuDollarSign,
+      title: "Dashboard Overview",
+      href: "/dashboard/admin",
+      icon: LuLayoutDashboard,
+    },
+    {
+      title: "Analytics Overview",
+      href: "/dashboard/admin/analytics",
+      icon: LucideBarChart3,
+    },
+    {
+      title: "Manage All Users",
+      href: "/dashboard/admin/all-users-manage",
+      icon: LuUsers,
     },
     {
       title: "Manage Users",
       href: "/dashboard/admin/manage-users",
       icon: LuUsers,
+    },
+    {
+      title: "Manage Lawyers",
+      href: "/dashboard/admin/manage-lawyers",
+      icon: LuBriefcase,
+    },
+    {
+      title: "All Transactions",
+      href: "/dashboard/admin/all-transactions",
+      icon: LuCircleDollarSign,
+    },
+    {
+      title: "Admin Profile",
+      href: "/dashboard/admin/profile",
+      icon: ImProfile,
     },
   ];
 

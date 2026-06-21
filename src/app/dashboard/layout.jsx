@@ -1,8 +1,10 @@
-// import AppSidebar from "@/components/ui/app-sidebar";
+// "use client";
 
-import AppSidebar from "@/components/app-Sidebar";
+import AppSidebar from "@/component/UI/AppSideabar";
+// import { usePathname } from "next/navigation";
 
 export default function Layout({ children }) {
+  // const pathName = usePathname();
   return (
     <div className="flex flex-col lg:flex-row w-full bg-neutral-50 dark:bg-neutral-950 min-h-screen">
       {/* রেস্পন্সিভ সাইডবার কম্পোনেন্ট */}

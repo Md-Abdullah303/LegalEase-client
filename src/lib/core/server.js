@@ -32,3 +32,13 @@ export const postServerMutation = async (path, data, method = "POST") => {
   });
   return res.json() || null;
 };
+
+export const deleteServerMutation = async (path) => {
+  const res = await fetch(`${baseUrl}${path}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.json();
+};

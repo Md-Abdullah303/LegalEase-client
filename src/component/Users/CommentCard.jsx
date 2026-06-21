@@ -4,8 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2, MessageSquare, Eye } from "lucide-react";
 import Link from "next/link";
+import { CommentEditModal } from "../modals/CommentEditModal";
+import { CommentDeleteModal } from "../modals/CommentDeleteModal";
 
 export default function CommentCard({ comment, onEdit, onDelete }) {
+  // console.log(comment);
   return (
     <Card className="hover:shadow-md transition-shadow bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
       <CardContent className="p-4 flex flex-col h-full justify-between">
@@ -31,7 +34,7 @@ export default function CommentCard({ comment, onEdit, onDelete }) {
                 })
               : "N/A"}
           </span>
-          <div className="flex gap-1">
+          <div className="flex gap-1 items-center">
             {/* View Button */}
             <Link href={`/lawyers/${comment?.lawyerId}`}>
               <Button
@@ -42,27 +45,15 @@ export default function CommentCard({ comment, onEdit, onDelete }) {
               </Button>
             </Link>
 
-            {/* Edit Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onEdit(comment)}
-              className="h-8 w-8 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
-              title="Edit Comment"
-            >
-              <Pencil className="w-3.5 h-3.5" />
-            </Button>
-
-            {/* Delete Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onDelete(comment._id)}
-              className="h-8 w-8 text-red-500 hover:bg-red-50 dark:hover:bg-red-950"
-              title="Delete Comment"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-            </Button>
+            <CommentEditModal
+              userId={comment?.userId}
+              lawyerId={comment?.lawyerId}
+              currentComment={comment?.comment}
+            />
+            <CommentDeleteModal
+              userId={comment?.userId}
+              lawyerId={comment?.lawyerId}
+            />
           </div>
         </div>
       </CardContent>

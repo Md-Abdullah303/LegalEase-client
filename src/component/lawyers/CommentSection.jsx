@@ -18,6 +18,8 @@ import {
 import { createComment } from "@/lib/actions/comments";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { CommentEditModal } from "../modals/CommentEditModal";
+import { CommentDeleteModal } from "../modals/CommentDeleteModal";
 
 export default function CommentSection({
   user,
@@ -132,21 +134,16 @@ export default function CommentSection({
 
                         {/* Edit & Delete Buttons (Only show for comment owner) */}
                         {user?.id === comment?.userId && (
-                          <div className="flex gap-1">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="w-6 h-6 hover:text-blue-500"
-                            >
-                              <Pencil className="w-3 h-3" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="w-6 h-6 hover:text-red-500"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                            </Button>
+                          <div className="flex gap-1 items-center">
+                            <CommentEditModal
+                              userId={user?.id}
+                              lawyerId={lawyer?._id}
+                              currentComment={comment?.comment}
+                            />
+                            <CommentDeleteModal
+                              userId={user?.id}
+                              lawyerId={lawyer?._id}
+                            />
                           </div>
                         )}
                       </div>

@@ -48,7 +48,7 @@ import { Spinner } from "@/components/ui/spinner";
 const STAR_RATING_ICONS = {
   filled: <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />,
   half: <StarHalf className="w-5 h-5 fill-yellow-400 text-yellow-400" />,
-  empty: <Star className="w-5 h-5 text-gray-400" />,
+  empty: <Star className="w-5 h-5 text-gray-300 dark:text-gray-600" />,
 };
 
 const renderStars = (rating) => {
@@ -204,32 +204,32 @@ export default function LawyerProfile({ lawyerData, userData }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#070912] text-white">
+      <div className="min-h-screen flex items-center justify-center bg-[#fcf9f5] dark:bg-[#0a0a0a] text-gray-900 dark:text-white">
         <Spinner />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#070912] transition-colors py-10 px-4 sm:px-6 lg:px-8 text-slate-100">
+    <div className="min-h-screen bg-[#fcf9f5] dark:bg-[#0a0a0a] transition-colors py-10 px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-gray-100">
       <div className="max-w-6xl mx-auto space-y-10">
         {/* Header Title */}
         <motion.div {...fadeInUp}>
-          <h1 className="text-4xl font-extrabold tracking-tighter text-white">
+          <h1 className="text-4xl font-extrabold tracking-tighter text-gray-900 dark:text-white">
             Attorney Hub
           </h1>
-          <p className="text-lg text-slate-400 mt-2">
+          <p className="text-lg text-gray-500 dark:text-gray-400 mt-2">
             Build and optimize your legal professional portfolio.
           </p>
         </motion.div>
 
-        {/* 1. TOP SECTION: Primary Information Box (preserved structure from image_0.png/image_1.png) */}
+        {/* 1. TOP SECTION: Primary Information Box */}
         <motion.div {...fadeInUp} transition={{ delay: 0.1 }}>
-          <Card className="relative overflow-hidden shadow-2xl border-slate-700 bg-[#101422] group rounded-3xl">
-            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600" />
+          <Card className="relative overflow-hidden shadow-sm border border-gray-200 dark:border-[#222] bg-white dark:bg-[#121212] group rounded-3xl">
+            <div className="absolute top-0 left-0 right-0 h-2 bg-[#c4a482]" />
             <CardContent className="pt-12 pb-10 px-8 sm:px-12 flex flex-col md:flex-row items-center md:items-start gap-10">
               <div className="relative group">
-                <div className="absolute inset-0 bg-blue-600/20 blur-3xl opacity-60 group-hover:opacity-100 transition-opacity rounded-full"></div>
+                <div className="absolute inset-0 bg-[#c4a482]/20 blur-3xl opacity-60 group-hover:opacity-100 transition-opacity rounded-full"></div>
                 <div className="relative">
                   <Image
                     width={600}
@@ -239,7 +239,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
                       "https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168"
                     }
                     alt={lawyerData?.name || "lawyer img"}
-                    className="h-32 w-32 rounded-3xl object-cover border-4 border-[#101422] shadow-inner transition-transform group-hover:scale-105 duration-300"
+                    className="h-32 w-32 rounded-3xl object-cover border-4 border-white dark:border-[#121212] shadow-sm transition-transform group-hover:scale-105 duration-300"
                   />
                   {/* Edit overlay icon for image only */}
                   <div
@@ -253,54 +253,54 @@ export default function LawyerProfile({ lawyerData, userData }) {
 
               <div className="flex-grow space-y-6 text-center md:text-left">
                 <div>
-                  <h3 className="font-extrabold text-white text-3xl tracking-tight leading-tight">
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-3xl tracking-tight leading-tight">
                     {lawyerData?.name || "Johan Lebart"}
                   </h3>
-                  <p className="text-base text-slate-400 font-medium">
+                  <p className="text-base text-gray-500 dark:text-gray-400 font-medium mt-1">
                     {lawyerData?.email ||
                       "mdabdulla01715940008+lawyer3@gmail.com"}
                   </p>
                 </div>
 
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1a2034] text-slate-300 border border-slate-700 mt-2">
-                  <Award className="w-5 h-5 text-indigo-400" />
-                  <span className="text-sm font-semibold uppercase tracking-wider text-slate-100">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-50 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-[#333] mt-2">
+                  <Award className="w-5 h-5 text-[#c4a482]" />
+                  <span className="text-sm font-semibold uppercase tracking-wider text-gray-800 dark:text-gray-200">
                     Expected Comp:
                   </span>
-                  <span className="text-lg font-bold text-white">
+                  <span className="text-lg font-bold text-gray-900 dark:text-white">
                     {lawyerData?.salary || lawyerData?.expectedBill ? (
                       `$${lawyerData?.salary || lawyerData?.expectedBill}`
                     ) : (
-                      <span className="text-gray-500 font-normal italic">
+                      <span className="text-gray-400 font-normal italic">
                         Set Rate
                       </span>
                     )}
                   </span>
                 </div>
 
-                {/* Rating Display (preserved concept from image_0.png) */}
+                {/* Rating Display */}
                 {lawyerData?.rating > 0 && (
                   <div className="flex items-center gap-1.5 justify-center md:justify-start">
                     {renderStars(lawyerData.rating)}
-                    <span className="text-lg font-semibold text-white ml-2">
+                    <span className="text-lg font-semibold text-gray-900 dark:text-white ml-2">
                       {lawyerData.rating.toFixed(1)} / 5
                     </span>
                   </div>
                 )}
               </div>
 
-              {/* Editing primary box (as conceptualized from image_1.png Edit button) */}
+              {/* Editing primary box */}
               <Dialog open={isPrimaryOpen} onOpenChange={setIsPrimaryOpen}>
                 <DialogTrigger asChild>
                   <Button
                     variant="outline"
-                    className="self-center md:self-start border-slate-700 dark:border-slate-700 text-slate-300 hover:border-indigo-500 hover:text-white hover:bg-indigo-950/20 shadow-sm gap-2 rounded-2xl px-5 py-6 transition-all"
+                    className="self-center md:self-start border-gray-200 dark:border-[#333] text-gray-700 dark:text-gray-300 hover:border-[#c4a482] hover:text-[#c4a482] hover:bg-[#c4a482]/10 shadow-sm gap-2 rounded-2xl px-5 py-6 transition-all"
                   >
                     <Edit2 className="w-5 h-5" />
                     Edit Primary Info
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md bg-[#101422] border-slate-700">
+                <DialogContent className="sm:max-w-md bg-white dark:bg-[#121212] border-gray-200 dark:border-[#222]">
                   <form
                     onSubmit={(e) =>
                       handleUpdate(e, "Primary", setIsPrimaryOpen)
@@ -308,10 +308,10 @@ export default function LawyerProfile({ lawyerData, userData }) {
                     className="space-y-6"
                   >
                     <DialogHeader>
-                      <DialogTitle className="text-white text-2xl font-bold">
+                      <DialogTitle className="text-gray-900 dark:text-white text-2xl font-bold">
                         Edit Primary Info
                       </DialogTitle>
-                      <DialogDescription className="text-slate-400">
+                      <DialogDescription className="text-gray-500 dark:text-gray-400">
                         Update your identity, rate, and upload a new profile
                         image.
                       </DialogDescription>
@@ -320,16 +320,16 @@ export default function LawyerProfile({ lawyerData, userData }) {
                     {/* Drag & Drop Image Upload Zone */}
                     <FieldGroup className="space-y-6">
                       <Field>
-                        <Label className="text-slate-200">
+                        <Label className="text-gray-700 dark:text-gray-300">
                           Profile Image (Drag & Drop or Click)
                         </Label>
                         <div
                           {...getRootProps()}
                           className={`mt-2 border-2 border-dashed rounded-3xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors ${
                             isDragActive
-                              ? "border-blue-600 bg-blue-950/20"
-                              : "border-slate-700 bg-[#161a2b]"
-                          } hover:border-blue-500`}
+                              ? "border-[#c4a482] bg-[#c4a482]/10"
+                              : "border-gray-300 dark:border-[#333] bg-gray-50 dark:bg-[#1a1a1a]"
+                          } hover:border-[#c4a482]`}
                         >
                           <input {...getInputProps()} />
                           {preview ? (
@@ -337,7 +337,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
                               <img
                                 src={preview}
                                 alt="preview"
-                                className="h-28 w-28 rounded-3xl object-cover border-2 border-slate-700 shadow-xl"
+                                className="h-28 w-28 rounded-3xl object-cover border-2 border-gray-200 dark:border-[#333] shadow-md"
                               />
                               <button
                                 type="button"
@@ -349,11 +349,11 @@ export default function LawyerProfile({ lawyerData, userData }) {
                             </div>
                           ) : (
                             <>
-                              <UploadCloud className="w-12 h-12 text-slate-600 mb-3" />
-                              <p className="text-sm text-slate-500 mt-2 font-medium">
+                              <UploadCloud className="w-12 h-12 text-gray-400 dark:text-gray-600 mb-3" />
+                              <p className="text-sm text-gray-500 mt-2 font-medium">
                                 Drag & drop an image or click to choose
                               </p>
-                              <p className="text-xs text-slate-600">
+                              <p className="text-xs text-gray-400 mt-1">
                                 Max file size: 5MB
                               </p>
                             </>
@@ -362,7 +362,10 @@ export default function LawyerProfile({ lawyerData, userData }) {
                       </Field>
 
                       <Field>
-                        <Label htmlFor="edit-name" className="text-slate-200">
+                        <Label
+                          htmlFor="edit-name"
+                          className="text-gray-700 dark:text-gray-300"
+                        >
                           Full Name
                         </Label>
                         <Input
@@ -370,11 +373,14 @@ export default function LawyerProfile({ lawyerData, userData }) {
                           name="name"
                           defaultValue={lawyerData?.name}
                           required
-                          className="bg-[#1a2034] border-slate-700 text-white p-6 rounded-xl"
+                          className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white p-6 rounded-xl"
                         />
                       </Field>
                       <Field>
-                        <Label htmlFor="edit-salary" className="text-slate-200">
+                        <Label
+                          htmlFor="edit-salary"
+                          className="text-gray-700 dark:text-gray-300"
+                        >
                           Expected Salary / Bill (USD)
                         </Label>
                         <Input
@@ -386,7 +392,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
                           defaultValue={
                             lawyerData?.salary || lawyerData?.expectedBill
                           }
-                          className="bg-[#1a2034] border-slate-700 text-white p-6 rounded-xl"
+                          className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white p-6 rounded-xl"
                         />
                       </Field>
                     </FieldGroup>
@@ -395,14 +401,14 @@ export default function LawyerProfile({ lawyerData, userData }) {
                         <Button
                           type="button"
                           variant="ghost"
-                          className="text-slate-400 hover:text-white"
+                          className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                         >
                           Cancel
                         </Button>
                       </DialogClose>
                       <Button
                         type="submit"
-                        className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold p-6 rounded-xl"
+                        className="bg-gray-900 hover:bg-black dark:bg-[#d9bfa2] dark:hover:bg-[#c4a482] text-white dark:text-black font-bold p-6 rounded-xl"
                         disabled={loading}
                       >
                         {loading ? (
@@ -422,21 +428,21 @@ export default function LawyerProfile({ lawyerData, userData }) {
 
         {/* BOTTOM SECTIONS: 2 Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* 2. Bio Box (from preserved structure) */}
+          {/* 2. Bio Box */}
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-            <Card className="flex flex-col h-full justify-between shadow-2xl border-slate-700 bg-[#101422] rounded-3xl p-8">
+            <Card className="flex flex-col h-full justify-between shadow-sm border border-gray-200 dark:border-[#222] bg-white dark:bg-[#121212] rounded-3xl p-8">
               <CardHeader className="p-0 mb-6">
-                <CardTitle className="text-2xl font-bold text-white flex items-center gap-3">
-                  <award className="w-6 h-6 text-indigo-400" /> Attorney Bio
+                <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                  <Award className="w-6 h-6 text-[#c4a482]" /> Attorney Bio
                 </CardTitle>
-                <CardDescription className="text-slate-400">
+                <CardDescription className="text-gray-500 dark:text-gray-400 mt-1">
                   Your professional background and narrative.
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-0 flex-grow space-y-6">
-                <p className="text-base text-slate-300 leading-relaxed min-h-[100px]">
+                <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed min-h-[100px]">
                   {lawyerData?.bio || (
-                    <span className="text-destructive text-sm font-normal italic">
+                    <span className="text-red-500 text-sm font-normal italic">
                       None (Please Add)
                     </span>
                   )}
@@ -451,13 +457,13 @@ export default function LawyerProfile({ lawyerData, userData }) {
                       defaultValue={lawyerData?.bio}
                       placeholder="Share your experience and legal philosophy..."
                       rows={6}
-                      className="bg-[#1a2034] border-slate-700 text-white rounded-xl resize-none"
+                      className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white rounded-xl resize-none"
                     />
                   </Field>
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 p-6 rounded-xl"
+                    className="w-full bg-gray-900 hover:bg-black dark:bg-[#d9bfa2] dark:hover:bg-[#c4a482] text-white dark:text-black font-semibold p-6 rounded-xl"
                   >
                     {loading ? (
                       <Loader2 className="w-5 h-5 animate-spin mr-2" />
@@ -471,16 +477,16 @@ export default function LawyerProfile({ lawyerData, userData }) {
             </Card>
           </motion.div>
 
-          {/* 3. Location Box (from preserved structure) */}
+          {/* 3. Location Box */}
           <motion.div {...fadeInUp} transition={{ delay: 0.25 }}>
-            <Card className="flex flex-col h-full justify-between shadow-2xl border-slate-700 bg-[#101422] rounded-3xl p-8">
+            <Card className="flex flex-col h-full justify-between shadow-sm border border-gray-200 dark:border-[#222] bg-white dark:bg-[#121212] rounded-3xl p-8">
               <CardHeader className="p-0 mb-6 flex-row items-center justify-between gap-4">
                 <div>
-                  <CardTitle className="text-2xl font-bold text-white flex items-center gap-3">
-                    <MapPin className="w-6 h-6 text-blue-400" /> Chamber
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                    <MapPin className="w-6 h-6 text-[#c4a482]" /> Chamber
                     Location
                   </CardTitle>
-                  <CardDescription className="text-slate-400">
+                  <CardDescription className="text-gray-500 dark:text-gray-400 mt-1">
                     Where clients physically consult you.
                   </CardDescription>
                 </div>
@@ -488,19 +494,19 @@ export default function LawyerProfile({ lawyerData, userData }) {
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"
-                      className="border-slate-700 text-slate-300 hover:bg-[#1a2034]"
+                      className="border-gray-200 dark:border-[#333] text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]"
                     >
                       <Edit2 className="w-4 h-4 mr-2" /> Edit
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md bg-[#101422] border-slate-700">
+                  <DialogContent className="sm:max-w-md bg-white dark:bg-[#121212] border-gray-200 dark:border-[#222]">
                     <form
                       onSubmit={(e) =>
                         handleUpdate(e, "Location", setIsLocationOpen)
                       }
                     >
                       <DialogHeader>
-                        <DialogTitle className="text-white text-2xl font-bold">
+                        <DialogTitle className="text-gray-900 dark:text-white text-2xl font-bold">
                           Update Location
                         </DialogTitle>
                       </DialogHeader>
@@ -508,7 +514,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
                         <Field>
                           <Label
                             htmlFor="edit-location"
-                            className="text-slate-200"
+                            className="text-gray-700 dark:text-gray-300"
                           >
                             Chamber/City Address
                           </Label>
@@ -518,17 +524,23 @@ export default function LawyerProfile({ lawyerData, userData }) {
                             defaultValue={lawyerData?.location}
                             placeholder="e.g., Dhaka, Bangladesh"
                             required
-                            className="bg-[#1a2034] border-slate-700 text-white p-6 rounded-xl"
+                            className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white p-6 rounded-xl"
                           />
                         </Field>
                       </FieldGroup>
                       <DialogFooter>
                         <DialogClose asChild>
-                          <Button variant="ghost" className="text-slate-400">
+                          <Button
+                            variant="ghost"
+                            className="text-gray-500 dark:text-gray-400"
+                          >
                             Cancel
                           </Button>
                         </DialogClose>
-                        <Button type="submit" className="bg-indigo-600">
+                        <Button
+                          type="submit"
+                          className="bg-gray-900 dark:bg-[#d9bfa2] text-white dark:text-black hover:bg-black dark:hover:bg-[#c4a482]"
+                        >
                           Save Location
                         </Button>
                       </DialogFooter>
@@ -537,30 +549,30 @@ export default function LawyerProfile({ lawyerData, userData }) {
                 </Dialog>
               </CardHeader>
               <CardContent className="p-0 flex-grow space-y-4">
-                <p className="text-2xl text-slate-100 font-extrabold transition-colors">
+                <p className="text-2xl text-gray-900 dark:text-white font-extrabold transition-colors">
                   {lawyerData?.location || (
-                    <span className="text-destructive text-sm font-normal italic">
+                    <span className="text-red-500 text-sm font-normal italic">
                       None (Please Add)
                     </span>
                   )}
                 </p>
-                <div className="w-full h-40 bg-[#1a2034] rounded-2xl border border-slate-700 flex items-center justify-center text-slate-500 italic">
+                <div className="w-full h-40 bg-gray-50 dark:bg-[#1a1a1a] rounded-2xl border border-gray-200 dark:border-[#333] flex items-center justify-center text-gray-400 dark:text-gray-500 italic shadow-inner">
                   Static Map Conceptualized
                 </div>
               </CardContent>
             </Card>
           </motion.div>
 
-          {/* 4. Professional Information (from preserved structure) */}
+          {/* 4. Professional Information */}
           <motion.div {...fadeInUp} transition={{ delay: 0.3 }}>
-            <Card className="flex flex-col h-full justify-between shadow-2xl border-slate-700 bg-[#101422] rounded-3xl p-8">
+            <Card className="flex flex-col h-full justify-between shadow-sm border border-gray-200 dark:border-[#222] bg-white dark:bg-[#121212] rounded-3xl p-8">
               <CardHeader className="p-0 mb-8 flex-row items-center justify-between gap-4">
                 <div>
-                  <CardTitle className="text-2xl font-bold text-white flex items-center gap-3">
-                    <Briefcase className="w-6 h-6 text-violet-400" /> Profession
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                    <Briefcase className="w-6 h-6 text-[#c4a482]" /> Profession
                     Details
                   </CardTitle>
-                  <CardDescription className="text-slate-400">
+                  <CardDescription className="text-gray-500 dark:text-gray-400 mt-1">
                     Practice areas, rates, and experience.
                   </CardDescription>
                 </div>
@@ -568,61 +580,73 @@ export default function LawyerProfile({ lawyerData, userData }) {
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"
-                      className="border-slate-700 text-slate-300 hover:bg-[#1a2034]"
+                      className="border-gray-200 dark:border-[#333] text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]"
                     >
                       <Edit2 className="w-4 h-4 mr-2" /> Edit
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md bg-[#101422] border-slate-700">
+                  <DialogContent className="sm:max-w-md bg-white dark:bg-[#121212] border-gray-200 dark:border-[#222]">
                     <form
                       onSubmit={(e) =>
                         handleUpdate(e, "Profession", setIsProfOpen)
                       }
                     >
                       <DialogHeader>
-                        <DialogTitle className="text-white text-2xl font-bold">
+                        <DialogTitle className="text-gray-900 dark:text-white text-2xl font-bold">
                           Edit Details
                         </DialogTitle>
                       </DialogHeader>
                       <FieldGroup className="py-6 space-y-5">
                         <Field>
-                          <Label className="text-slate-200">Specialty</Label>
+                          <Label className="text-gray-700 dark:text-gray-300">
+                            Specialty
+                          </Label>
                           <Input
                             name="specialty"
                             defaultValue={lawyerData?.specialty}
                             placeholder="e.g., Criminal Law"
-                            className="bg-[#1a2034] border-slate-700"
+                            className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white"
                           />
                         </Field>
                         <div className="grid grid-cols-2 gap-4">
                           <Field>
-                            <Label>Experience</Label>
+                            <Label className="text-gray-700 dark:text-gray-300">
+                              Experience
+                            </Label>
                             <Input
                               name="experience"
                               defaultValue={lawyerData?.experience}
                               placeholder="e.g., 5 Yrs"
-                              className="bg-[#1a2034] border-slate-700"
+                              className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white"
                             />
                           </Field>
                           <Field>
-                            <Label>Hourly Rate (USD)</Label>
+                            <Label className="text-gray-700 dark:text-gray-300">
+                              Hourly Rate (USD)
+                            </Label>
                             <Input
                               type="number"
                               name="hourlyRate"
                               defaultValue={lawyerData?.hourlyRate}
                               placeholder="e.g., 150"
-                              className="bg-[#1a2034] border-slate-700"
+                              className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white"
                             />
                           </Field>
                         </div>
                       </FieldGroup>
                       <DialogFooter>
                         <DialogClose asChild>
-                          <Button variant="ghost" className="text-slate-400">
+                          <Button
+                            variant="ghost"
+                            className="text-gray-500 dark:text-gray-400"
+                          >
                             Cancel
                           </Button>
                         </DialogClose>
-                        <Button type="submit" className="bg-indigo-600">
+                        <Button
+                          type="submit"
+                          className="bg-gray-900 dark:bg-[#d9bfa2] text-white dark:text-black hover:bg-black dark:hover:bg-[#c4a482]"
+                        >
                           Save Details
                         </Button>
                       </DialogFooter>
@@ -633,17 +657,17 @@ export default function LawyerProfile({ lawyerData, userData }) {
               <CardContent className="p-0 flex-grow grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {[
                   {
-                    icon: <Award className="w-5 h-5 text-indigo-400" />,
+                    icon: <Award className="w-5 h-5 text-[#c4a482]" />,
                     label: "Specialty",
                     value: lawyerData?.specialty,
                   },
                   {
-                    icon: <Briefcase className="w-5 h-5 text-violet-400" />,
+                    icon: <Briefcase className="w-5 h-5 text-[#c4a482]" />,
                     label: "Experience",
                     value: lawyerData?.experience,
                   },
                   {
-                    icon: <DollarSign className="w-5 h-5 text-emerald-400" />,
+                    icon: <DollarSign className="w-5 h-5 text-[#c4a482]" />,
                     label: "Hourly Rate",
                     value: lawyerData?.hourlyRate
                       ? `$${lawyerData.hourlyRate}/hr`
@@ -652,15 +676,15 @@ export default function LawyerProfile({ lawyerData, userData }) {
                 ].map((info, index) => (
                   <div
                     key={index}
-                    className="bg-[#1a2034] border border-slate-700 rounded-2xl p-6 flex flex-col items-center text-center gap-3 shadow-md hover:border-indigo-700 hover:scale-105 transition"
+                    className="bg-gray-50 dark:bg-[#1a1a1a] border border-gray-200 dark:border-[#333] rounded-2xl p-6 flex flex-col items-center text-center gap-3 shadow-sm hover:border-[#c4a482] dark:hover:border-[#c4a482] hover:scale-105 transition"
                   >
                     {info.icon}
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
+                    <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
                       {info.label}
                     </p>
-                    <p className="text-lg font-bold text-slate-100">
+                    <p className="text-lg font-bold text-gray-900 dark:text-white">
                       {info.value || (
-                        <span className="text-gray-500 italic">Set</span>
+                        <span className="text-gray-400 italic">Set</span>
                       )}
                     </p>
                   </div>
@@ -669,38 +693,38 @@ export default function LawyerProfile({ lawyerData, userData }) {
             </Card>
           </motion.div>
 
-          {/* 5. NEW Hiring Readiness (conceptualized from preserved structure) */}
+          {/* 5. Hiring Readiness */}
           <motion.div {...fadeInUp} transition={{ delay: 0.35 }}>
-            <Card className="shadow-2xl border-slate-700 bg-[#101422] rounded-3xl p-8 flex flex-col md:flex-row h-full items-center justify-between gap-6">
+            <Card className="shadow-sm border border-gray-200 dark:border-[#222] bg-white dark:bg-[#121212] rounded-3xl p-8 flex flex-col md:flex-row h-full items-center justify-between gap-6">
               <div className="flex-grow space-y-2 text-center md:text-left">
-                <CardTitle className="text-2xl font-bold text-white flex items-center justify-center md:justify-start gap-3">
+                <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center justify-center md:justify-start gap-3">
                   <Star className="w-7 h-7 text-yellow-400" /> Active Hiring
                   State
                 </CardTitle>
-                <p className="text-base text-slate-400">
-                  Toggle your visibility to legalEase clients and accept
+                <p className="text-base text-gray-500 dark:text-gray-400 mt-2">
+                  Toggle your visibility to LegalEase clients and accept
                   consults.
                 </p>
               </div>
               <div className="shrink-0 flex items-center gap-6">
                 {lawyerData?.status === true ? (
-                  <div className="flex flex-col items-center gap-2 p-6 bg-emerald-950/20 rounded-2xl border border-emerald-800">
-                    <CheckCircle className="w-12 h-12 text-emerald-400" />
-                    <span className="text-sm font-bold text-emerald-300">
+                  <div className="flex flex-col items-center gap-2 p-6 bg-green-50 dark:bg-green-900/20 rounded-2xl border border-green-200 dark:border-green-900/50">
+                    <CheckCircle className="w-12 h-12 text-green-500 dark:text-green-400" />
+                    <span className="text-sm font-bold text-green-700 dark:text-green-300">
                       Ready For Hires
                     </span>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center gap-2 p-6 bg-red-950/20 rounded-2xl border border-red-800">
-                    <BiXCircle className="w-12 h-12 text-red-400" />
-                    <span className="text-sm font-bold text-red-300">
+                  <div className="flex flex-col items-center gap-2 p-6 bg-red-50 dark:bg-red-900/20 rounded-2xl border border-red-200 dark:border-red-900/50">
+                    <BiXCircle className="w-12 h-12 text-red-500 dark:text-red-400" />
+                    <span className="text-sm font-bold text-red-700 dark:text-red-300">
                       Not Visible
                     </span>
                   </div>
                 )}
                 <Button
                   onClick={handleHiringStatus}
-                  className="p-8 rounded-2xl font-bold text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white transition-all disabled:opacity-50 disabled:pointer-events-none"
+                  className="p-8 rounded-2xl font-bold text-lg bg-gray-900 hover:bg-black dark:bg-[#d9bfa2] dark:hover:bg-[#c4a482] text-white dark:text-black transition-all disabled:opacity-50 disabled:pointer-events-none"
                   disabled={loading || lawyerData?.status === true}
                 >
                   {loading ? (

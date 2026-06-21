@@ -7,7 +7,7 @@ import {
   XCircle,
   User,
   Inbox,
-} from "lucide-react"; // Inbox আইকন যোগ করেছি
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -33,32 +33,41 @@ const HiringRequestsTable = ({ applications }) => {
   // Empty State চেক করা
   if (!applications || applications.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 px-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 text-center">
-        <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
-          <Inbox className="w-8 h-8 text-slate-400 dark:text-slate-500" />
+      <div className="flex flex-col items-center justify-center py-24 px-4 rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 bg-gradient-to-b from-slate-50/50 to-white dark:from-[#1a1a1a]/50 dark:to-[#1a1a1a]/20 text-center shadow-sm">
+        <div className="w-16 h-16 bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 rounded-2xl flex items-center justify-center mb-5 rotate-3 hover:rotate-0 transition-transform">
+          <Inbox className="w-8 h-8 text-indigo-400 dark:text-indigo-500" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-          No Hiring Requests
+        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">
+          No Hiring Requests Yet
         </h3>
-        <p className="text-slate-500 dark:text-slate-400 max-w-sm mt-1">
-          Currently, there are no pending or active hiring requests to display.
+        <p className="text-slate-500 dark:text-slate-400 max-w-sm mt-2 text-sm leading-relaxed">
+          Currently, there are no pending or active hiring requests. New
+          applications will appear here once submitted by clients.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[#1f1f1f] bg-white dark:bg-[#1f1f1f] shadow-sm overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1a1a1a] shadow-sm overflow-hidden transition-all">
       <Table>
-        <TableHeader>
-          <TableRow className="hover:bg-transparent">
-            <TableHead>Client</TableHead>
-            <TableHead>Request Date</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+        <TableHeader className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm">
+          <TableRow className="border-b border-slate-200 dark:border-slate-800 hover:bg-transparent">
+            <TableHead className="font-semibold text-slate-700 dark:text-slate-300 h-12">
+              Client
+            </TableHead>
+            <TableHead className="font-semibold text-slate-700 dark:text-slate-300 h-12">
+              Request Date
+            </TableHead>
+            <TableHead className="font-semibold text-slate-700 dark:text-slate-300 h-12">
+              Status
+            </TableHead>
+            <TableHead className="text-right font-semibold text-slate-700 dark:text-slate-300 h-12">
+              Actions
+            </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="divide-y divide-slate-100 dark:divide-slate-800/60">
           {applications?.map((item) => {
             const handleApproved = async () => {
               const res = await changeApplicationsStatus(item._id, {
@@ -85,18 +94,23 @@ const HiringRequestsTable = ({ applications }) => {
             };
 
             return (
-              <TableRow key={item._id}>
-                <TableCell className="flex items-center gap-3 font-medium">
-                  <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
-                    <User className="w-4 h-4 text-slate-500" />
+              <TableRow
+                key={item._id}
+                className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors border-none group"
+              >
+                <TableCell className="flex items-center gap-3 font-medium py-4">
+                  <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                   </div>
-                  {item?.userName}
+                  <span className="text-slate-700 dark:text-slate-200">
+                    {item?.userName}
+                  </span>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="text-slate-600 dark:text-slate-400">
                   {item?.createdAt
                     ? new Date(item.createdAt).toLocaleDateString("en-US", {
-                        month: "long",
+                        month: "short",
                         day: "numeric",
                         year: "numeric",
                       })
@@ -105,55 +119,65 @@ const HiringRequestsTable = ({ applications }) => {
 
                 <TableCell>
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                    className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${
                       item.status === "Approved"
-                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400"
+                        ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20"
                         : item.status === "Rejected"
-                          ? "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400"
-                          : "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400"
+                          ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20"
+                          : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20"
                     }`}
                   >
                     {item.status}
                   </span>
                 </TableCell>
 
-                <TableCell className="text-right space-x-2">
-                  {item.status !== "Approved" && (
-                    <Button
-                      onClick={handleApproved}
-                      variant="outline"
-                      size="sm"
-                      className="h-8 gap-1 text-emerald-600 border-emerald-200 hover:bg-emerald-50 dark:border-emerald-900 dark:hover:bg-emerald-900/20"
-                    >
-                      <CheckCircle className="w-3.5 h-3.5" /> Accept
-                    </Button>
-                  )}
-                  {item.status !== "Rejected" && (
-                    <Button
-                      onClick={handleRejected}
-                      variant="outline"
-                      size="sm"
-                      className="h-8 gap-1 text-red-600 border-red-200 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-900/20"
-                    >
-                      <XCircle className="w-3.5 h-3.5" /> Reject
-                    </Button>
-                  )}
-
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
+                <TableCell className="text-right py-4">
+                  <div className="flex items-center justify-end gap-2 opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-opacity">
+                    {item.status !== "Approved" && (
                       <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 ml-2"
+                        onClick={handleApproved}
+                        variant="outline"
+                        size="sm"
+                        className="h-8 gap-1.5 bg-transparent text-emerald-600 border-emerald-200 hover:bg-emerald-50 hover:border-emerald-300 dark:text-emerald-400 dark:border-emerald-900/50 dark:hover:bg-emerald-900/20 dark:hover:border-emerald-800 transition-colors"
                       >
-                        <MoreHorizontal className="w-4 h-4" />
+                        <CheckCircle className="w-3.5 h-3.5" /> Accept
                       </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>View Details</DropdownMenuItem>
-                      <DropdownMenuItem>Contact</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                    )}
+                    {item.status !== "Rejected" && (
+                      <Button
+                        onClick={handleRejected}
+                        variant="outline"
+                        size="sm"
+                        className="h-8 gap-1.5 bg-transparent text-rose-600 border-rose-200 hover:bg-rose-50 hover:border-rose-300 dark:text-rose-400 dark:border-rose-900/50 dark:hover:bg-rose-900/20 dark:hover:border-rose-800 transition-colors"
+                      >
+                        <XCircle className="w-3.5 h-3.5" /> Reject
+                      </Button>
+                    )}
+
+                    {/* future applyfication */}
+                    {/* <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 ml-1 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800"
+                        >
+                          <MoreHorizontal className="w-4 h-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        align="end"
+                        className="w-40 dark:bg-[#1a1a1a] dark:border-slate-800"
+                      >
+                        <DropdownMenuItem className="cursor-pointer dark:focus:bg-slate-800 dark:hover:text-white">
+                          View Details
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer dark:focus:bg-slate-800 dark:hover:text-white">
+                          Contact
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu> */}
+                  </div>
                 </TableCell>
               </TableRow>
             );

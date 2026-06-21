@@ -11,7 +11,7 @@ const MySideNavLink = ({ children, href, className }) => {
     <Link
       href={href}
       className={`${className}
-    ${isActive ? `bg-gray-200 border-l-4 border-[#A8823C]` : ``}
+    ${isActive ? `bg-gray-200 dark:bg-[#1d1d1d] border-l-4 border-[#A8823C]` : ``}
     `}
     >
       {children}

@@ -101,6 +101,12 @@ const SignUp = () => {
     },
   };
 
+  const handleGoogleLogin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-row-reverse font-sans transition-colors duration-300">
       {/* ডান পাশ: ইমেজ এবং ব্র্যান্ডিং সেকশন */}
@@ -432,6 +438,7 @@ const SignUp = () => {
             transition={{ delay: 0.5 }}
           >
             <Button
+              onClick={handleGoogleLogin}
               type="button"
               variant="outline"
               className="w-full border-border bg-card text-foreground hover:bg-accent font-medium py-6 rounded flex items-center justify-center gap-2.5 text-sm transition-colors duration-200"

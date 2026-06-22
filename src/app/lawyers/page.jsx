@@ -1,8 +1,14 @@
 import LawyersContainer from "@/component/browseLawyers/LawyersContainer";
+import LawyerFilter from "@/component/UI/filteringForLayer";
 import { getAllLawyers } from "@/lib/api/lawyers";
 import React from "react";
 
-const BrowsLawyersPage = async () => {
+const BrowsLawyersPage = async ({ searchParams }) => {
+  const searchQuery = await searchParams;
+
+  const { search, salary, popularity } = searchQuery;
+  console.log(search);
+  const query = `?search=${search}`;
   const lawyers = await getAllLawyers();
   //   console.log(lawyers);
   return (
@@ -11,6 +17,9 @@ const BrowsLawyersPage = async () => {
       <h1 className="text-2xl md:text-4xl font-bold">
         Browse <span>Expert Lawyers</span>
       </h1>
+
+      <LawyerFilter />
+
       <div className="">
         <LawyersContainer lawyers={lawyers} />
       </div>

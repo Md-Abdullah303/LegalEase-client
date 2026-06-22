@@ -2,12 +2,12 @@ import { getUserSession } from "@/lib/core/session";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const layout = async ({ children }) => {
+const UserLayout = async ({ children }) => {
   const user = await getUserSession();
-  if (user.role !== "lawyer") {
+  if (user.role !== "user") {
     return redirect("/forbidden");
   }
   return children;
 };
 
-export default layout;
+export default UserLayout;

@@ -21,7 +21,13 @@ import toast from "react-hot-toast";
 import { postHiringApplication } from "@/lib/actions/applications";
 import CommentSection from "../lawyers/CommentSection";
 
-const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
+const LawyerDetailsClient = ({
+  lawyer,
+  user,
+  lawyerHiresHistory,
+  areHeApplied,
+  comments,
+}) => {
   const applicationData = areHeApplied[0];
   const status = applicationData?.status;
   // console.log(status);
@@ -44,11 +50,17 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
   const handleHireSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      router.push("/auth/signup");
+      toast.error("Please signup first");
+      return;
+    }
+
     if (alreadyApplied) return; // যদি আগেই অ্যাপ্লাই করে থাকে, তাহলে ফাংশন এখানেই থেমে যাবে
 
     if (user?.role !== "user") {
-      router.push("/signin");
-      toast.error("Plz sign in with UserID.");
+      router.push("/auth/signin");
+      toast.error("Please sign in with UserID.");
       return;
     }
 
@@ -138,7 +150,7 @@ const LawyerDetailsClient = ({ lawyer, user, areHeApplied, comments }) => {
                     </div>
                     <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                       <Users className="w-5 h-5 text-slate-400" />
-                      <span>{lawyer?.hiresCount || 0} Hires</span>
+                      <span>{lawyerHiresHistory.length || 0} Hires</span>
                     </div>
                   </div>
                 </CardContent>

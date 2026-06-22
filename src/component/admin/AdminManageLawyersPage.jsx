@@ -63,14 +63,52 @@ const lawyers = [
   },
 ];
 
-export default function ManageLawyersPage() {
+export default function ManageLawyersPage({ totalLawyerData }) {
+  const approvedCount = totalLawyerData.filter(
+    (item) => item.status === true,
+  ).length;
+  const pendingCount = totalLawyerData.filter(
+    (item) => item.status !== true,
+  ).length;
+  // console.log(approvedCount);
+
+  const statsData = [
+    {
+      id: "total",
+      title: "Total Lawyers",
+      value: totalLawyerData.length || "0",
+      icon: Users,
+      iconColor: "text-indigo-500",
+    },
+    {
+      id: "published",
+      title: "Approved",
+      value: approvedCount || 0,
+      icon: ShieldCheck,
+      iconColor: "text-emerald-500",
+    },
+    {
+      id: "pending",
+      title: "Pending",
+      value: pendingCount || 0,
+      icon: Clock3,
+      iconColor: "text-amber-500",
+    },
+    {
+      id: "blocked",
+      title: "Blocked",
+      value: 0,
+      icon: Ban,
+      iconColor: "text-rose-500",
+    },
+  ];
+
   return (
     <div className="space-y-8 p-6">
       {/* Header */}
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Manage Lawyers</h1>
-
           <p className="text-muted-foreground">
             Manage lawyer profiles, publishing status and actions.
           </p>
@@ -78,68 +116,34 @@ export default function ManageLawyersPage() {
 
         <div className="relative w-full lg:w-[350px]">
           <Search className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
-
           <Input placeholder="Search lawyers..." className="pl-10" />
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Total Lawyers</p>
+        {statsData.map((stat) => {
+          const IconComponent = stat.icon; // Lucide icon কম্পোনেন্ট অ্যাসাইন করা হচ্ছে
 
-                <h2 className="mt-2 text-3xl font-bold">120</h2>
-              </div>
-
-              <Users className="h-10 w-10 text-indigo-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Published</p>
-
-                <h2 className="mt-2 text-3xl font-bold">92</h2>
-              </div>
-
-              <ShieldCheck className="h-10 w-10 text-emerald-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Pending</p>
-
-                <h2 className="mt-2 text-3xl font-bold">18</h2>
-              </div>
-
-              <Clock3 className="h-10 w-10 text-amber-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Blocked</p>
-
-                <h2 className="mt-2 text-3xl font-bold">10</h2>
-              </div>
-
-              <Ban className="h-10 w-10 text-rose-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
+          return (
+            <motion.div
+              key={stat.id}
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Card>
+                <CardContent className="flex items-center justify-between p-6">
+                  <div>
+                    <p className="text-muted-foreground text-sm">
+                      {stat.title}
+                    </p>
+                    <h2 className="mt-2 text-3xl font-bold">{stat.value}</h2>
+                  </div>
+                  <IconComponent className={`h-10 w-10 ${stat.iconColor}`} />
+                </CardContent>
+              </Card>
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Table */}
@@ -162,33 +166,33 @@ export default function ManageLawyersPage() {
               </TableHeader>
 
               <TableBody>
-                {lawyers.map((lawyer) => (
-                  <TableRow key={lawyer.id}>
+                {totalLawyerData.map((lawyer) => (
+                  <TableRow key={lawyer?._id}>
                     <TableCell>
                       <div>
-                        <h3 className="font-medium">{lawyer.name}</h3>
-
+                        <h3 className="font-medium">{lawyer?.name || "N/A"}</h3>
                         <p className="text-muted-foreground text-sm">
-                          {lawyer.email}
+                          {lawyer?.email || "N/A"}
                         </p>
                       </div>
                     </TableCell>
 
-                    <TableCell>{lawyer.category}</TableCell>
-
-                    <TableCell>{lawyer.fee}</TableCell>
+                    <TableCell>
+                      {lawyer?.specialty ||
+                        (lawyer?.status === true ? "N/A" : "waiting")}
+                    </TableCell>
+                    <TableCell>
+                      {lawyer?.salary ||
+                        (lawyer?.status === true ? "N/A" : "waiting")}
+                    </TableCell>
 
                     <TableCell>
-                      {lawyer.status === "Published" && (
-                        <Badge className="bg-emerald-500">Published</Badge>
+                      {lawyer?.status === true && (
+                        <Badge className="bg-emerald-500">Approved</Badge>
                       )}
 
-                      {lawyer.status === "Pending" && (
-                        <Badge className="bg-amber-500">Pending</Badge>
-                      )}
-
-                      {lawyer.status === "Blocked" && (
-                        <Badge className="bg-rose-500">Blocked</Badge>
+                      {lawyer.status !== true && (
+                        <Badge className="bg-yellow-500">Pending</Badge>
                       )}
                     </TableCell>
 
@@ -198,13 +202,14 @@ export default function ManageLawyersPage() {
                           <Eye className="h-4 w-4" />
                         </Button>
 
-                        <Button size="icon" variant="outline">
+                        {/* futurely added */}
+                        {/* <Button size="icon" variant="outline">
                           <CheckCircle className="h-4 w-4 text-emerald-500" />
                         </Button>
 
                         <Button size="icon" variant="outline">
                           <XCircle className="h-4 w-4 text-amber-500" />
-                        </Button>
+                        </Button> */}
 
                         <Button size="icon" variant="destructive">
                           <Trash2 className="h-4 w-4" />
@@ -220,13 +225,9 @@ export default function ManageLawyersPage() {
           {/* Pagination */}
           <div className="mt-6 flex items-center justify-end gap-2">
             <Button variant="outline">Previous</Button>
-
             <Button>1</Button>
-
             <Button variant="outline">2</Button>
-
             <Button variant="outline">3</Button>
-
             <Button variant="outline">Next</Button>
           </div>
         </CardContent>

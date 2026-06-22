@@ -1,10 +1,12 @@
 import ManageLawyersPage from "@/component/admin/AdminManageLawyersPage";
+import { getAllLawyersData } from "@/lib/api/admin";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const totalLawyerData = await getAllLawyersData();
   return (
     <div>
-      <ManageLawyersPage />
+      <ManageLawyersPage totalLawyerData={totalLawyerData} />
     </div>
   );
 };

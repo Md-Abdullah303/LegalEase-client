@@ -55,9 +55,13 @@ const LawyerDashboardHome = ({ lawyer }) => {
           <div className="flex gap-6 items-center">
             <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#c4a482]">
               <Image
-                src={lawyer?.image}
+                width={600}
+                height={400}
+                src={
+                  lawyer?.image ||
+                  `https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168`
+                }
                 alt={lawyer?.name}
-                fill
                 className="object-cover"
               />
             </div>
@@ -87,7 +91,7 @@ const LawyerDashboardHome = ({ lawyer }) => {
               <p className="text-[10px] uppercase font-bold text-gray-400">
                 EMAIL
               </p>
-              <p className="font-medium">{lawyer?.email}</p>
+              <p className="font-medium">{lawyer?.email || "N/A"}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -98,7 +102,7 @@ const LawyerDashboardHome = ({ lawyer }) => {
               <p className="text-[10px] uppercase font-bold text-gray-400">
                 LOCATION
               </p>
-              <p className="font-medium">{lawyer?.location}</p>
+              <p className="font-medium">{lawyer?.location || "N/A"}</p>
             </div>
           </div>
         </div>
@@ -108,7 +112,7 @@ const LawyerDashboardHome = ({ lawyer }) => {
             BIO / ABOUT
           </p>
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            {lawyer?.bio}
+            {lawyer?.bio || "N/A"}
           </p>
         </div>
       </motion.div>

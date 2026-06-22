@@ -27,43 +27,77 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AdminManageUserShowModal } from "../modals/AdminManageUserShowModal";
 
-const users = [
-  {
-    id: 1,
-    name: "Abdullah",
-    email: "abdullah@gmail.com",
-    role: "Admin",
-    status: "Active",
-    joined: "12 Jun 2026",
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    email: "sarah@gmail.com",
-    role: "Lawyer",
-    status: "Active",
-    joined: "10 Jun 2026",
-  },
-  {
-    id: 3,
-    name: "David Brown",
-    email: "david@gmail.com",
-    role: "User",
-    status: "Suspended",
-    joined: "05 Jun 2026",
-  },
-  {
-    id: 4,
-    name: "Emily Wilson",
-    email: "emily@gmail.com",
-    role: "User",
-    status: "Active",
-    joined: "01 Jun 2026",
-  },
-];
+// const users = [
+//   {
+//     id: 1,
+//     name: "Abdullah",
+//     email: "abdullah@gmail.com",
+//     role: "Admin",
+//     status: "Active",
+//     joined: "12 Jun 2026",
+//   },
+//   {
+//     id: 2,
+//     name: "Sarah Johnson",
+//     email: "sarah@gmail.com",
+//     role: "Lawyer",
+//     status: "Active",
+//     joined: "10 Jun 2026",
+//   },
+//   {
+//     id: 3,
+//     name: "David Brown",
+//     email: "david@gmail.com",
+//     role: "User",
+//     status: "Suspended",
+//     joined: "05 Jun 2026",
+//   },
+//   {
+//     id: 4,
+//     name: "Emily Wilson",
+//     email: "emily@gmail.com",
+//     role: "User",
+//     status: "Active",
+//     joined: "01 Jun 2026",
+//   },
+// ];
 
-export default function AdminManageUsers() {
+export default function AdminManageUsers({
+  totalMembers,
+  totalLawyerData,
+  totalUsersData,
+  totalAdmin,
+}) {
+  // কার্ডগুলোর জন্য সেফ কনফিগারেশন অ্যারে
+  const STATS_CARDS = [
+    {
+      label: "Total Users",
+      value: totalMembers.length || 0,
+      icon: Users,
+      iconColor: "text-blue-500",
+    },
+    {
+      label: "Clients",
+      value: totalUsersData.length || 0,
+      icon: UserCheck,
+      iconColor: "text-emerald-500",
+    },
+    {
+      label: "Lawyers",
+      value: totalLawyerData.length || 0,
+      icon: Scale,
+      iconColor: "text-amber-500",
+    },
+    {
+      label: "Admins",
+      value: totalAdmin.length || 0,
+      icon: Shield,
+      iconColor: "text-violet-500",
+    },
+  ];
+
   return (
     <div className="space-y-8 p-6">
       {/* Header */}
@@ -85,57 +119,24 @@ export default function AdminManageUsers() {
 
       {/* Stats */}
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        <motion.div whileHover={{ y: -5 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Total Users</p>
-                <h2 className="mt-2 text-3xl font-bold">2,450</h2>
-              </div>
-
-              <Users className="h-10 w-10 text-blue-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div whileHover={{ y: -5 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Clients</p>
-                <h2 className="mt-2 text-3xl font-bold">1,920</h2>
-              </div>
-
-              <UserCheck className="h-10 w-10 text-emerald-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div whileHover={{ y: -5 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Lawyers</p>
-                <h2 className="mt-2 text-3xl font-bold">500</h2>
-              </div>
-
-              <Scale className="h-10 w-10 text-amber-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div whileHover={{ y: -5 }}>
-          <Card>
-            <CardContent className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-muted-foreground text-sm">Admins</p>
-                <h2 className="mt-2 text-3xl font-bold">30</h2>
-              </div>
-
-              <Shield className="h-10 w-10 text-violet-500" />
-            </CardContent>
-          </Card>
-        </motion.div>
+        {STATS_CARDS.map((card, index) => {
+          const IconComponent = card.icon;
+          return (
+            <motion.div key={index} whileHover={{ y: -5 }}>
+              <Card>
+                <CardContent className="flex items-center justify-between p-6">
+                  <div>
+                    <p className="text-muted-foreground text-sm">
+                      {card.label}
+                    </p>
+                    <h2 className="mt-2 text-3xl font-bold">{card.value}</h2>
+                  </div>
+                  <IconComponent className={`h-10 w-10 ${card.iconColor}`} />
+                </CardContent>
+              </Card>
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Table */}
@@ -147,42 +148,42 @@ export default function AdminManageUsers() {
                 <TableRow>
                   <TableHead>User</TableHead>
                   <TableHead>Role</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead>Joined</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
 
               <TableBody>
-                {users.map((user) => (
+                {totalUsersData.map((user) => (
                   <TableRow
-                    key={user.id}
+                    key={user._id}
                     className="transition-all hover:bg-muted/50"
                   >
                     <TableCell>
                       <div>
-                        <h3 className="font-medium">{user.name}</h3>
+                        <h3 className="font-medium">{user?.name || "N/A"}</h3>
 
                         <p className="text-muted-foreground text-sm">
-                          {user.email}
+                          {user?.email || "N/A"}
                         </p>
                       </div>
                     </TableCell>
 
+                    {/* Role */}
                     <TableCell>
-                      {user.role === "Admin" && (
+                      {user?.role === "admin" && (
                         <Badge className="bg-violet-500 hover:bg-violet-500">
                           Admin
                         </Badge>
                       )}
 
-                      {user.role === "Lawyer" && (
+                      {user.role === "lawyer" && (
                         <Badge className="bg-amber-500 hover:bg-amber-500">
                           Lawyer
                         </Badge>
                       )}
 
-                      {user.role === "User" && (
+                      {user.role === "user" && (
                         <Badge className="bg-emerald-500 hover:bg-emerald-500">
                           User
                         </Badge>
@@ -190,34 +191,21 @@ export default function AdminManageUsers() {
                     </TableCell>
 
                     <TableCell>
-                      {user.status === "Active" ? (
-                        <Badge
-                          variant="outline"
-                          className="border-emerald-500 text-emerald-500"
-                        >
-                          Active
-                        </Badge>
-                      ) : (
-                        <Badge
-                          variant="outline"
-                          className="border-rose-500 text-rose-500"
-                        >
-                          Suspended
-                        </Badge>
-                      )}
+                      {user?.createdAt
+                        ? new Date(user?.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "long",
+                              day: "numeric",
+                              year: "numeric",
+                            },
+                          )
+                        : "N/A"}
                     </TableCell>
-
-                    <TableCell>{user.joined}</TableCell>
 
                     <TableCell>
                       <div className="flex justify-end gap-2">
-                        <Button size="icon" variant="outline">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-
-                        <Button size="icon" variant="outline">
-                          <UserCog className="h-4 w-4 text-blue-500" />
-                        </Button>
+                        <AdminManageUserShowModal user={user} />
 
                         <Button size="icon" variant="destructive">
                           <Trash2 className="h-4 w-4" />

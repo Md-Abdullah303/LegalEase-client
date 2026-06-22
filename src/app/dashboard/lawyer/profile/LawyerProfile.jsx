@@ -38,6 +38,7 @@ import {
   StarHalf,
   X,
   Loader2,
+  Phone,
 } from "lucide-react";
 import { updateLawyerByLawyerId } from "@/lib/actions/lawyers";
 import { useRouter } from "next/navigation";
@@ -251,7 +252,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
                 </div>
               </div>
 
-              <div className="flex-grow space-y-6 text-center md:text-left">
+              <div className="flex-grow space-y-4 text-center md:text-left">
                 <div>
                   <h3 className="font-extrabold text-gray-900 dark:text-white text-3xl tracking-tight leading-tight">
                     {lawyerData?.name || "Johan Lebart"}
@@ -259,6 +260,11 @@ export default function LawyerProfile({ lawyerData, userData }) {
                   <p className="text-base text-gray-500 dark:text-gray-400 font-medium mt-1">
                     {lawyerData?.email ||
                       "mdabdulla01715940008+lawyer3@gmail.com"}
+                  </p>
+                  {/* Phone Number Display */}
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mt-1 flex items-center justify-center md:justify-start gap-2">
+                    <Phone className="w-4 h-4 text-[#c4a482]" />
+                    {lawyerData?.phone || "No phone number added"}
                   </p>
                 </div>
 
@@ -312,13 +318,13 @@ export default function LawyerProfile({ lawyerData, userData }) {
                         Edit Primary Info
                       </DialogTitle>
                       <DialogDescription className="text-gray-500 dark:text-gray-400">
-                        Update your identity, rate, and upload a new profile
-                        image.
+                        Update your identity, contact, rate, and upload a new
+                        profile image.
                       </DialogDescription>
                     </DialogHeader>
 
                     {/* Drag & Drop Image Upload Zone */}
-                    <FieldGroup className="space-y-6">
+                    <FieldGroup className="space-y-4">
                       <Field>
                         <Label className="text-gray-700 dark:text-gray-300">
                           Profile Image (Drag & Drop or Click)
@@ -378,6 +384,25 @@ export default function LawyerProfile({ lawyerData, userData }) {
                           className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white p-6 rounded-xl"
                         />
                       </Field>
+
+                      {/* Phone Number Input Field added here */}
+                      <Field>
+                        <Label
+                          htmlFor="edit-phone"
+                          className="text-gray-700 dark:text-gray-300"
+                        >
+                          Phone Number
+                        </Label>
+                        <Input
+                          type="tel"
+                          id="edit-phone"
+                          name="phone"
+                          placeholder="e.g., +880 1715-940008"
+                          defaultValue={lawyerData?.phone}
+                          className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white p-6 rounded-xl"
+                        />
+                      </Field>
+
                       <Field>
                         <Label
                           htmlFor="edit-salary"
@@ -719,7 +744,9 @@ export default function LawyerProfile({ lawyerData, userData }) {
                 ) : (
                   <div className="flex flex-col items-center gap-2 p-6 bg-red-50 dark:bg-red-900/20 rounded-2xl border border-red-200 dark:border-red-900/50">
                     <BiXCircle className="w-12 h-12 text-red-500 dark:text-red-400" />
-                    <span className="text-sm font-bold text-red-700 dark:text-red-300">
+                    <span className="text-sm font-bold text-red-700 dark:text-green-300">
+                      {" "}
+                      {/* নোট: এখানে dark:text-red-300 করা ভালো */}
                       Not Visible
                     </span>
                   </div>

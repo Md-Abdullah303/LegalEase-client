@@ -1,8 +1,6 @@
 "use client";
 
 // Place this file at: app/dashboard/admin/manage-users/page.jsx
-// UI only — no fetch/mutation logic wired up yet. Swap the MOCK_USERS array
-// for real data, and fill in the TODO handlers when the API routes are ready.
 
 import { motion } from "motion/react";
 import {
@@ -36,95 +34,96 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
+import Image from "next/image";
 
-// ---- design tokens (kept local to this page for now) ----
-const NAVY = "#1B2A4A";
-const BRASS = "#A8823C";
-const CANVAS = "#F5F4F0";
-const INK = "#161D2E";
-const INK_MUTED = "#5B6472";
-const BORDER = "#E4E1DA";
-const DESTRUCTIVE = "#B3261E";
-
+// ---- design tokens transformed into Tailwind-friendly objects ----
 const ROLE_CONFIG = {
-  admin: { label: "Admin", icon: Shield, color: NAVY, bg: "#1B2A4A14" },
-  lawyer: { label: "Lawyer", icon: Scale, color: BRASS, bg: "#A8823C16" },
-  user: { label: "Client", icon: User, color: INK_MUTED, bg: "#5B647214" },
+  admin: {
+    label: "Admin",
+    icon: Shield,
+    className:
+      "text-[#1B2A4A] bg-[#1B2A4A]/10 border-[#1B2A4A]/20 dark:text-blue-400 dark:bg-blue-500/10 dark:border-blue-500/20",
+  },
+  lawyer: {
+    label: "Lawyer",
+    icon: Scale,
+    className:
+      "text-[#A8823C] bg-[#A8823C]/10 border-[#A8823C]/20 dark:text-[#A8823C] dark:bg-[#A8823C]/10 dark:border-[#A8823C]/30",
+  },
+  user: {
+    label: "Client",
+    icon: User,
+    className:
+      "text-[#5B6472] bg-[#5B6472]/10 border-[#5B6472]/20 dark:text-zinc-400 dark:bg-zinc-800 dark:border-zinc-700",
+  },
 };
 
-const MOCK_USERS = [
-  {
-    id: 1,
-    name: "Ayesha Rahman",
-    email: "ayesha.rahman@gmail.com",
-    role: "admin",
-    joined: "Jan 14, 2025",
-    avatar: "AR",
-  },
-  {
-    id: 2,
-    name: "Tanvir Hossain",
-    email: "tanvir.legal@gmail.com",
-    role: "lawyer",
-    joined: "Feb 02, 2025",
-    avatar: "TH",
-  },
-  {
-    id: 3,
-    name: "Nusrat Jahan",
-    email: "nusrat.j@gmail.com",
-    role: "user",
-    joined: "Feb 19, 2025",
-    avatar: "NJ",
-  },
-  {
-    id: 4,
-    name: "Imran Chowdhury",
-    email: "imran.c@outlook.com",
-    role: "lawyer",
-    joined: "Mar 03, 2025",
-    avatar: "IC",
-  },
-  {
-    id: 5,
-    name: "Farzana Akter",
-    email: "farzana.akter@gmail.com",
-    role: "user",
-    joined: "Mar 21, 2025",
-    avatar: "FA",
-  },
-  {
-    id: 6,
-    name: "Shahriar Kabir",
-    email: "shahriar.k@gmail.com",
-    role: "lawyer",
-    joined: "Apr 09, 2025",
-    avatar: "SK",
-  },
-  {
-    id: 7,
-    name: "Mehjabin Islam",
-    email: "mehjabin.i@gmail.com",
-    role: "user",
-    joined: "Apr 27, 2025",
-    avatar: "MI",
-  },
-  {
-    id: 8,
-    name: "Rafiqul Karim",
-    email: "rafiqul.karim@gmail.com",
-    role: "admin",
-    joined: "May 11, 2025",
-    avatar: "RK",
-  },
-];
-
-const STATS = [
-  { label: "Total members", value: 142, icon: Users, color: NAVY },
-  { label: "Lawyers", value: 56, icon: Briefcase, color: BRASS },
-  { label: "Clients", value: 83, icon: User, color: INK_MUTED },
-  { label: "Joined this month", value: 12, icon: TrendingUp, color: NAVY },
-];
+// const totalUsersData = [
+//   {
+//     id: 1,
+//     name: "Ayesha Rahman",
+//     email: "ayesha.rahman@gmail.com",
+//     role: "admin",
+//     joined: "Jan 14, 2025",
+//     avatar: "AR",
+//   },
+//   {
+//     id: 2,
+//     name: "Tanvir Hossain",
+//     email: "tanvir.legal@gmail.com",
+//     role: "lawyer",
+//     joined: "Feb 02, 2025",
+//     avatar: "TH",
+//   },
+//   {
+//     id: 3,
+//     name: "Nusrat Jahan",
+//     email: "nusrat.j@gmail.com",
+//     role: "user",
+//     joined: "Feb 19, 2025",
+//     avatar: "NJ",
+//   },
+//   {
+//     id: 4,
+//     name: "Imran Chowdhury",
+//     email: "imran.c@outlook.com",
+//     role: "lawyer",
+//     joined: "Mar 03, 2025",
+//     avatar: "IC",
+//   },
+//   {
+//     id: 5,
+//     name: "Farzana Akter",
+//     email: "farzana.akter@gmail.com",
+//     role: "user",
+//     joined: "Mar 21, 2025",
+//     avatar: "FA",
+//   },
+//   {
+//     id: 6,
+//     name: "Shahriar Kabir",
+//     email: "shahriar.k@gmail.com",
+//     role: "lawyer",
+//     joined: "Apr 09, 2025",
+//     avatar: "SK",
+//   },
+//   {
+//     id: 7,
+//     name: "Mehjabin Islam",
+//     email: "mehjabin.i@gmail.com",
+//     role: "user",
+//     joined: "Apr 27, 2025",
+//     avatar: "MI",
+//   },
+//   {
+//     id: 8,
+//     name: "Rafiqul Karim",
+//     email: "rafiqul.karim@gmail.com",
+//     role: "admin",
+//     joined: "May 11, 2025",
+//     avatar: "RK",
+//   },
+// ];
 
 const containerVariants = {
   hidden: {},
@@ -141,12 +140,7 @@ function RoleBadge({ role }) {
   const Icon = config.icon;
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium"
-      style={{
-        color: config.color,
-        backgroundColor: config.bg,
-        borderColor: `${config.color}33`,
-      }}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${config.className}`}
     >
       <Icon className="h-3.5 w-3.5" />
       {config.label}
@@ -154,31 +148,59 @@ function RoleBadge({ role }) {
   );
 }
 
-export default function ManageUsersPage() {
+export default function ManageUsersPage({
+  totalMembers,
+  totalLawyerData,
+  totalUsersData,
+}) {
+  const STATS = [
+    {
+      label: "Total members",
+      value: totalMembers.length || 0,
+      icon: Users,
+      colorClass:
+        "text-[#1B2A4A] bg-[#1B2A4A]/10 dark:text-blue-400 dark:bg-blue-500/10",
+    },
+    {
+      label: "Lawyers",
+      value: totalLawyerData.length || 0,
+      icon: Briefcase,
+      colorClass:
+        "text-[#A8823C] bg-[#A8823C]/10 dark:text-[#A8823C] dark:bg-[#A8823C]/20",
+    },
+    {
+      label: "Clients",
+      value: totalUsersData.label || 0,
+      icon: User,
+      colorClass:
+        "text-[#5B6472] bg-[#5B6472]/10 dark:text-zinc-400 dark:bg-zinc-800",
+    },
+    {
+      label: "Joined this month",
+      value: totalMembers.length || 0,
+      icon: TrendingUp,
+      colorClass:
+        "text-[#1B2A4A] bg-[#1B2A4A]/10 dark:text-blue-400 dark:bg-blue-500/10",
+    },
+  ];
   return (
-    <div className="min-h-screen" style={{ backgroundColor: CANVAS }}>
+    // Light Background: #F5F4F0, Dark Background: black
+    <div className="min-h-screen bg-[#F5F4F0] dark:bg-black transition-colors duration-200">
       <div className="mx-auto max-w-6xl px-6 py-10">
         {/* Page header */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-8 flex flex-col gap-2 border-b pb-6"
-          style={{ borderColor: BORDER }}
+          className="mb-8 flex flex-col gap-2 border-b border-[#E4E1DA] dark:border-zinc-800 pb-6"
         >
-          <p
-            className="text-xs font-medium uppercase tracking-wider"
-            style={{ color: BRASS }}
-          >
+          <p className="text-xs font-medium uppercase tracking-wider text-[#A8823C]">
             Admin · Member directory
           </p>
-          <h1
-            className="font-serif text-3xl font-semibold"
-            style={{ color: INK }}
-          >
+          <h1 className="font-serif text-3xl font-semibold text-[#161D2E] dark:text-zinc-100">
             Manage users
           </h1>
-          <p className="max-w-xl text-sm" style={{ color: INK_MUTED }}>
+          <p className="max-w-xl text-sm text-[#5B6472] dark:text-zinc-400">
             View every account on LegalEase, promote a client to lawyer, demote
             a lawyer back to client, or remove an account entirely.
           </p>
@@ -197,22 +219,17 @@ export default function ManageUsersPage() {
               <motion.div
                 key={stat.label}
                 variants={itemVariants}
-                className="rounded-xl border bg-white p-4"
-                style={{ borderColor: BORDER }}
+                className="rounded-xl border border-[#E4E1DA] dark:border-zinc-800 bg-white dark:bg-[#1d1d1d] p-4 shadow-sm transition-colors"
               >
                 <div
-                  className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg"
-                  style={{
-                    backgroundColor: `${stat.color}14`,
-                    color: stat.color,
-                  }}
+                  className={`mb-3 flex h-9 w-9 items-center justify-center rounded-lg ${stat.colorClass}`}
                 >
                   <Icon className="h-4.5 w-4.5" />
                 </div>
-                <p className="text-2xl font-semibold" style={{ color: INK }}>
+                <p className="text-2xl font-semibold text-[#161D2E] dark:text-white">
                   {stat.value}
                 </p>
-                <p className="text-xs" style={{ color: INK_MUTED }}>
+                <p className="text-xs text-[#5B6472] dark:text-zinc-400">
                   {stat.label}
                 </p>
               </motion.div>
@@ -223,31 +240,21 @@ export default function ManageUsersPage() {
         {/* Toolbar */}
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full max-w-sm">
-            <Search
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-              style={{ color: INK_MUTED }}
-            />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5B6472] dark:text-zinc-400" />
             <Input
               placeholder="Search by name or email"
-              className="pl-9"
-              // TODO: wire up onChange to filter MOCK_USERS / query param
+              className="pl-9 bg-white dark:bg-zinc-950 text-[#161D2E] dark:text-zinc-100 border-[#E4E1DA] dark:border-zinc-800 focus-visible:ring-zinc-400"
             />
           </div>
           <div className="flex items-center gap-2">
             {["All", "Admin", "Lawyer", "Client"].map((label, i) => (
               <button
                 key={label}
-                className="rounded-full border px-3 py-1.5 text-xs font-medium transition-colors"
-                style={
+                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
                   i === 0
-                    ? {
-                        backgroundColor: NAVY,
-                        borderColor: NAVY,
-                        color: "#fff",
-                      }
-                    : { borderColor: BORDER, color: INK_MUTED }
-                }
-                // TODO: wire up role filter
+                    ? "bg-[#1B2A4A] border-[#1B2A4A] text-white dark:bg-[#E5D4B6] dark:border-[#E5D4B6] dark:text-black"
+                    : "border-[#E4E1DA] dark:border-zinc-800 text-[#5B6472] dark:text-zinc-400 hover:bg-white/50 dark:hover:bg-zinc-800"
+                }`}
               >
                 {label}
               </button>
@@ -255,97 +262,108 @@ export default function ManageUsersPage() {
           </div>
         </div>
 
-        {/* Table */}
+        {/* Table Panel */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="overflow-hidden rounded-xl border bg-white"
-          style={{ borderColor: BORDER }}
+          className="overflow-hidden rounded-xl border border-[#E4E1DA] dark:border-zinc-800 bg-white dark:bg-[#1d1d1d] shadow-sm transition-colors"
         >
           <Table>
             <TableHeader>
-              <TableRow style={{ borderColor: BORDER }}>
-                <TableHead style={{ color: INK_MUTED }}>Member</TableHead>
-                <TableHead style={{ color: INK_MUTED }}>Email</TableHead>
-                <TableHead style={{ color: INK_MUTED }}>Role</TableHead>
-                <TableHead style={{ color: INK_MUTED }}>Joined</TableHead>
-                <TableHead className="text-right" style={{ color: INK_MUTED }}>
+              <TableRow className="border-[#E4E1DA] dark:border-zinc-800 hover:bg-transparent">
+                <TableHead className="text-[#5B6472] dark:text-zinc-400">
+                  Member
+                </TableHead>
+                <TableHead className="text-[#5B6472] dark:text-zinc-400">
+                  Email
+                </TableHead>
+                <TableHead className="text-[#5B6472] dark:text-zinc-400">
+                  Role
+                </TableHead>
+                <TableHead className="text-[#5B6472] dark:text-zinc-400">
+                  Joined
+                </TableHead>
+                <TableHead className="text-right text-[#5B6472] dark:text-zinc-400">
                   Actions
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {MOCK_USERS.map((user) => (
+              {totalMembers.map((user) => (
                 <TableRow
-                  key={user.id}
-                  className="group transition-colors"
-                  style={{ borderColor: BORDER }}
+                  key={user._id}
+                  className="group border-[#E4E1DA] dark:border-zinc-800 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/40 transition-colors"
                 >
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <Avatar
-                        className="h-9 w-9 border-2"
-                        style={{ borderColor: `${BRASS}55` }}
-                      >
-                        <AvatarFallback
-                          className="text-xs font-medium"
-                          style={{ backgroundColor: `${NAVY}10`, color: NAVY }}
-                        >
-                          {user.avatar}
-                        </AvatarFallback>
+                      <Avatar className="h-9 w-9 border border-[#A8823C]/30 dark:border-zinc-700">
+                        <Image
+                          src={
+                            user?.image ||
+                            `https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168`
+                          }
+                          alt="user img"
+                          width={600}
+                          height={400}
+                          className="rounded-full bg-center bg-contain w-full"
+                        />
                       </Avatar>
-                      <span className="font-medium" style={{ color: INK }}>
+                      <span className="font-medium text-[#161D2E] dark:text-zinc-100">
                         {user.name}
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell style={{ color: INK_MUTED }}>
+                  <TableCell className="text-[#5B6472] dark:text-zinc-400">
                     {user.email}
                   </TableCell>
                   <TableCell>
                     <RoleBadge role={user.role} />
                   </TableCell>
-                  <TableCell style={{ color: INK_MUTED }}>
-                    {user.joined}
+                  <TableCell className="text-[#5B6472] dark:text-zinc-400">
+                    {user.createdAt
+                      ? new Date(user?.createdAt).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : "June 19, 2026"}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-8 gap-1 text-xs"
+                      {user?._id === "6a34678e5f84932c67ade68c" || (
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-8 gap-1 text-xs text-[#5B6472] dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                            >
+                              Change role
+                              <MoreVertical className="h-3.5 w-3.5" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent
+                            align="end"
+                            className="dark:bg-[#1d1d1d] dark:border-zinc-800"
                           >
-                            Change role
-                            <MoreVertical className="h-3.5 w-3.5" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>
-                            {/* TODO: PATCH /users/:id { role: "user" } */}
-                            Make client
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            {/* TODO: PATCH /users/:id { role: "lawyer" } */}
-                            Make lawyer
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            {/* TODO: PATCH /users/:id { role: "admin" } */}
-                            Make admin
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem
-                            className="gap-2"
-                            style={{ color: DESTRUCTIVE }}
-                          >
-                            <Trash2 className="h-3.5 w-3.5" />
-                            {/* TODO: DELETE /users/:id */}
-                            Remove user
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                            <DropdownMenuItem className="dark:focus:bg-zinc-800 dark:text-zinc-200">
+                              Make client
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="dark:focus:bg-zinc-800 dark:text-zinc-200">
+                              Make lawyer
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="dark:focus:bg-zinc-800 dark:text-zinc-200">
+                              Make admin
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator className="dark:bg-zinc-800" />
+                            <DropdownMenuItem className="gap-2 text-[#B3261E] dark:text-red-400 focus:text-[#B3261E] dark:focus:text-red-400 dark:focus:bg-red-950/20">
+                              <Trash2 className="h-3.5 w-3.5" />
+                              Remove user
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
@@ -354,31 +372,43 @@ export default function ManageUsersPage() {
           </Table>
         </motion.div>
 
-        {/* Pagination (UI only) */}
-        <div
-          className="mt-4 flex items-center justify-between text-xs"
-          style={{ color: INK_MUTED }}
-        >
+        {/* Pagination */}
+        <div className="mt-4 flex items-center justify-between text-xs text-[#5B6472] dark:text-zinc-400">
           <span>Showing 8 of 142 members</span>
           <div className="flex items-center gap-1">
-            <Button variant="outline" size="sm" className="h-7 px-3 text-xs">
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-7 px-3 text-xs border-[#E4E1DA] dark:border-zinc-800 dark:bg-[#1d1d1d]"
+            >
               Previous
             </Button>
             <Button
               variant="outline"
               size="sm"
-              className="h-7 px-3 text-xs"
-              style={{ borderColor: NAVY, color: NAVY }}
+              className="h-7 px-3 text-xs border-[#1B2A4A] text-[#1B2A4A] dark:border-[#E5D4B6] dark:text-[#E5D4B6] dark:bg-zinc-900"
             >
               1
             </Button>
-            <Button variant="ghost" size="sm" className="h-7 px-3 text-xs">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 px-3 text-xs dark:hover:bg-zinc-800"
+            >
               2
             </Button>
-            <Button variant="ghost" size="sm" className="h-7 px-3 text-xs">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 px-3 text-xs dark:hover:bg-zinc-800"
+            >
               3
             </Button>
-            <Button variant="outline" size="sm" className="h-7 px-3 text-xs">
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-7 px-3 text-xs border-[#E4E1DA] dark:border-zinc-800 dark:bg-[#1d1d1d]"
+            >
               Next
             </Button>
           </div>

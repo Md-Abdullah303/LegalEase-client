@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { editAdminData } from "@/lib/actions/admin";
 import { useRouter } from "next/navigation";
 import { UploadCloud, Loader2, Image as ImageIcon } from "lucide-react"; // আইকনের জন্য lucide-react ব্যবহার করা হয়েছে
+import Image from "next/image";
 
 export default function AdminProfilePage({ adminData }) {
   const router = useRouter();
@@ -140,7 +141,9 @@ export default function AdminProfilePage({ adminData }) {
             <CardContent className="flex flex-col items-center text-center space-y-3">
               {/* ডাটাবেজে ইমেজ থাকলে সেটা দেখাবে, না থাকলে ডিফল্ট প্লেসহোল্ডার */}
               {form.image ? (
-                <img
+                <Image
+                  width={600}
+                  height={400}
                   src={form.image}
                   alt="Admin Avatar"
                   className="w-24 h-24 rounded-full object-cover border-2 border-[#E5D4B6]"

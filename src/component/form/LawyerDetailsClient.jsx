@@ -32,7 +32,7 @@ const LawyerDetailsClient = ({
 }) => {
   const applicationData = areHeApplied[0];
   const status = applicationData?.status;
-  console.log(status);
+  // console.log(status);
   const alreadyApplied = areHeApplied.length > 0 ? true : false;
   const router = useRouter();
 
@@ -93,7 +93,7 @@ const LawyerDetailsClient = ({
     show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   };
 
-  console.log(lawyer?.hourlyRate);
+  console.log(lawyer?.hire);
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6">
@@ -154,7 +154,9 @@ const LawyerDetailsClient = ({
                     </div>
                     <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                       <Users className="w-5 h-5 text-slate-400" />
-                      <span>{lawyerHiresHistory.length || 0} Hires</span>
+                      <span>
+                        {lawyer?.hire || lawyerHiresHistory.length || 0} Hires
+                      </span>
                     </div>
                   </div>
                 </CardContent>

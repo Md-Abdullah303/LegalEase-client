@@ -14,9 +14,23 @@ import { ModeToggle } from "../shadcn/ModeToggle";
 
 const Navbar = ({ userData }) => {
   const [open, setOpen] = useState(false);
+  // ১. সার্চের ভ্যালু ট্র্যাকিংয়ের জন্য স্টেট ডিক্লেয়ারেশন
+  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
   const closeMenu = () => setOpen(false);
+
+  // ২. সার্চ সাবমিট হ্যান্ডলার ফাংশন
+  const handleSearchSubmit = (e) => {
+    e.preventDefault(); // পেজ রিফ্রেশ হওয়া বন্ধ করবে
+    if (!searchQuery.trim()) return; // ফাঁকা সার্চ ইগনোর করবে
+
+    // লয়ার ব্রাউজ পেজে কুয়েরি প্যারামিটারসহ রিডাইরেক্ট করবে
+    router.push(`/lawyers?search=${encodeURIComponent(searchQuery.trim())}`);
+
+    // সার্চ হয়ে গেলে মোবাইল মেনু খোলা থাকলে তা বন্ধ করে দেবে
+    setOpen(false);
+  };
 
   const handleLogout = async () => {
     try {
@@ -82,14 +96,22 @@ const Navbar = ({ userData }) => {
             </ul>
           </div>
 
+          {/* ডেস্কটপ সার্চ বক্স */}
           <div className="hidden lg:flex items-center gap-4 flex-1 justify-end max-w-xl">
-            <div className="relative w-full max-w-xs xl:max-w-sm">
+            {/* ৩. ইনপুট ফিল্ডকে form ট্যাগ দিয়ে র‍্যাপ করা হয়েছে */}
+            <form
+              onSubmit={handleSearchSubmit}
+              className="relative w-full max-w-xs xl:max-w-sm"
+            >
               <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search here..."
                 className="w-full pl-9 pr-4 h-9 shadow-sm bg-neutral-100 dark:bg-neutral-900 border-none focus-visible:ring-1 focus-visible:ring-[#a17232]"
               />
-            </div>
+            </form>
 
             <ModeToggle />
 
@@ -146,14 +168,19 @@ const Navbar = ({ userData }) => {
           </div>
         </div>
 
+        {/* মোবাইল রেসপন্সিভ সার্চ বক্স ও মেনু */}
         <div className="lg:hidden">
-          <div className="mt-3 relative">
+          {/* ৩. মোবাইল ইনপুট ফিল্ডকেও form ট্যাগ দিয়ে র‍্যাপ করা হয়েছে */}
+          <form onSubmit={handleSearchSubmit} className="mt-3 relative">
             <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search here..."
               className="w-full pl-9 bg-neutral-100 dark:bg-neutral-900 border-none h-9"
             />
-          </div>
+          </form>
 
           {open && (
             <div className="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 animate-in fade-in slide-in-from-top-4 duration-200">

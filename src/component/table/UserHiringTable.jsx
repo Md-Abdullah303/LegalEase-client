@@ -13,8 +13,10 @@ import {
 
 const UserHiringTable = ({ hiringHistory }) => {
   const handlePay = async (historyData) => {
-    console.log(`History Data From HandlePay => ${historyData}`);
+    console.log("History Data From HandlePay =>", historyData);
+    // এখানে আপনার পেমেন্ট গেটওয়ে (যেমন: Stripe/SSLCommerz) ইন্টিগ্রেশনের লজিক বসবে
   };
+
   return (
     <div className="w-full rounded-md border bg-white dark:bg-[#1f1f1f] shadow-sm overflow-hidden">
       <Table>
@@ -59,14 +61,46 @@ const UserHiringTable = ({ hiringHistory }) => {
                   {history?.status}
                 </span>
               </TableCell>
+
               <TableCell className="text-right">
                 {history?.status === "Approved" ? (
-                  <button
-                    onClick={() => handlePay(history)}
-                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
-                  >
-                    Pay Now
-                  </button>
+                  history?.isPaid ? (
+                    <span className="inline-block px-3 py-1.5 text-sm font-semibold text-green-600 bg-green-100 dark:bg-green-950/50 dark:text-green-400 rounded-md border border-green-200 dark:border-green-900">
+                      Paid
+                    </span>
+                  ) : (
+                    <>
+                      <form action="/api/checkout_sessions" method="POST">
+                        <input
+                          type="hidden"
+                          name="userId"
+                          value={history?.hiringApplicantId}
+                        />
+                        <input
+                          type="hidden"
+                          name="price"
+                          value={history?.lawyerHrRate}
+                        />
+                        <input
+                          type="hidden"
+                          name="lawyerId"
+                          value={history?.lawyerId}
+                        />
+                        <input
+                          type="hidden"
+                          name="lawyerName"
+                          value={history?.lawyerName}
+                        />
+
+                        <button
+                          onClick={() => handlePay(history)}
+                          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors shadow-sm"
+                        >
+                          Pay Now
+                        </button>
+                      </form>
+                    </>
+                  )
                 ) : (
                   <span className="text-sm text-gray-400 dark:text-gray-600 italic">
                     Awaiting Action

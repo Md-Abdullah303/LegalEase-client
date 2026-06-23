@@ -25,6 +25,7 @@ const UserDashboardHome = ({
   userHiringHistories,
   userComments,
   userServerData,
+  totalPay,
 }) => {
   const totalHires = userHiringHistories?.length || 0;
   const pendingCount =
@@ -49,7 +50,7 @@ const UserDashboardHome = ({
     },
     {
       title: "To Pay",
-      count: 0,
+      count: totalPay.length || 0,
       icon: (
         <FiCreditCard className="w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
       ),

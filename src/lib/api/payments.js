@@ -5,3 +5,7 @@ export const getIsPaid = async (userId, lawyerId) => {
     `/api/singleData/payment?userId=${userId}&lawyerId=${lawyerId}`,
   );
 };
+
+export const getTotalPay = async (userId) => {
+  return await publicFetch(`/api/multiple/payment?userId=${userId}`);
+};

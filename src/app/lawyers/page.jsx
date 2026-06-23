@@ -7,13 +7,14 @@ import React from "react";
 
 const BrowsLawyersPage = async ({ searchParams }) => {
   const searchQuery = await searchParams;
-  const lawyers = await getAllLawyers();
   const user = await getUserSession();
 
   const { search, salary, popularity } = searchQuery;
-  const query = `?search=${search}`;
-  // console.log(search);
-  //   console.log(lawyers);
+  const query = `?search=${search || ""}&salary=${salary || ""}&popularity=${popularity || ""}`;
+  console.log(query);
+
+  const lawyers = await getAllLawyers(query);
+
   return (
     <div className="max-w-7xl md:w-[90%] mx-auto py-10">
       <p>Find Your COUNSEL</p>

@@ -16,7 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const LawyerDashboardHome = ({ lawyer }) => {
+const LawyerDashboardHome = ({ lawyer, totalHires }) => {
   const stats = [
     {
       title: "HOURLY RATE",
@@ -33,7 +33,11 @@ const LawyerDashboardHome = ({ lawyer }) => {
       count: lawyer?.status ? "Available" : "Busy",
       icon: <FiCheckCircle />,
     },
-    { title: "TOTAL HIRES", count: "0", icon: <FiBriefcase /> },
+    {
+      title: "TOTAL HIRES",
+      count: totalHires.length || "0",
+      icon: <FiBriefcase />,
+    },
   ];
 
   return (

@@ -83,35 +83,32 @@ const LegalCategories = () => {
             const IconComponent = category.icon;
 
             return (
-              <Link
+              <Card
                 key={category.id}
-                href={`/lawyers?category=${encodeURIComponent(category.slug)}`}
-                className="block group"
+                className="h-full rounded-none border border-border bg-card transition-all duration-300 group-hover:border-[#c4a482] group-hover:shadow-md"
               >
-                <Card className="h-full rounded-none border border-border bg-card transition-all duration-300 group-hover:border-[#c4a482] group-hover:shadow-md">
-                  <CardContent className="p-8 flex flex-col items-start gap-4">
-                    {/* আইকন কন্টেইনার */}
-                    <div className="p-3 bg-neutral-100 dark:bg-zinc-900 group-hover:bg-[#c4a482] group-hover:text-black text-[#c4a482] transition-colors duration-300">
-                      <IconComponent className="w-6 h-6" />
-                    </div>
+                <CardContent className="p-8 flex flex-col items-start gap-4">
+                  {/* আইকন কন্টেইনার */}
+                  <div className="p-3 bg-neutral-100 dark:bg-zinc-900 group-hover:bg-[#c4a482] group-hover:text-black text-[#c4a482] transition-colors duration-300">
+                    <IconComponent className="w-6 h-6" />
+                  </div>
 
-                    {/* টেক্সট কন্টেন্ট */}
-                    <div className="space-y-2">
-                      <h3 className="font-serif text-xl font-medium tracking-wide text-foreground group-hover:text-[#c4a482] transition-colors duration-200">
-                        {category.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground font-sans leading-relaxed line-clamp-2">
-                        {category.description}
-                      </p>
-                    </div>
+                  {/* টেক্সট কন্টেন্ট */}
+                  <div className="space-y-2">
+                    <h3 className="font-serif text-xl font-medium tracking-wide text-foreground group-hover:text-[#c4a482] transition-colors duration-200">
+                      {category.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground font-sans leading-relaxed line-clamp-2">
+                      {category.description}
+                    </p>
+                  </div>
 
-                    {/* এক্সট্রা ইন্ডিকেটর */}
-                    <span className="text-xs font-medium text-[#c4a482] uppercase tracking-wider pt-2 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
-                      Explore Lawyers &rarr;
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
+                  {/* এক্সট্রা ইন্ডিকেটর */}
+                  <span className="text-xs font-medium text-[#c4a482] uppercase tracking-wider pt-2 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                    Explore Lawyers &rarr;
+                  </span>
+                </CardContent>
+              </Card>
             );
           })}
         </div>

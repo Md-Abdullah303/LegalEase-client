@@ -32,7 +32,6 @@ const LawyerDetailsClient = ({
 }) => {
   const applicationData = areHeApplied[0];
   const status = applicationData?.status;
-  // console.log(status);
   const alreadyApplied = areHeApplied.length > 0 ? true : false;
   const router = useRouter();
 
@@ -58,7 +57,7 @@ const LawyerDetailsClient = ({
       return;
     }
 
-    if (alreadyApplied) return; // যদি আগেই অ্যাপ্লাই করে থাকে, তাহলে ফাংশন এখানেই থেমে যাবে
+    if (alreadyApplied) return;
 
     if (user?.role !== "user") {
       router.push("/auth/signin");
@@ -93,8 +92,6 @@ const LawyerDetailsClient = ({
     show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   };
 
-  console.log(lawyer?.hire);
-
   return (
     <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -109,8 +106,9 @@ const LawyerDetailsClient = ({
         >
           {/* Main Profile Card */}
           <motion.div variants={fadeInUp}>
-            <Card className="overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors px-3">
-              <div className="md:flex">
+            {/* লাইট মোডে সাদা এবং ডার্ক মোডে #1d1d1d ব্যাকগ্রাউন্ড */}
+            <Card className="overflow-hidden border-[#c4a482]/30 dark:border-[#c4a482]/20 bg-white dark:bg-[#1d1d1d] transition-colors px-3 py-3">
+              <div className="md:flex md:items-center">
                 <div className="relative w-full md:w-[280px] h-[300px] shrink-0">
                   <Image
                     src={
@@ -125,35 +123,37 @@ const LawyerDetailsClient = ({
                 <CardContent className="p-8 flex flex-col justify-center w-full">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors">
+                      <h1 className="text-3xl font-bold text-[#1d1d1d] dark:text-white transition-colors font-serif">
                         {lawyer?.name}
                       </h1>
-                      <p className="text-indigo-600 dark:text-indigo-400 font-medium text-lg mt-1">
+                      {/* টেক্সট হাইলাইটের জন্য #c4a482 ব্যবহার করা হয়েছে */}
+                      <p className="text-[#c4a482] font-medium text-lg mt-1">
                         {lawyer?.specialty} Lawyer
                       </p>
                     </div>
                     {lawyer?.status && (
-                      <span className="bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase">
+                      <span className="bg-[#c4a482]/10 text-[#c4a482] border border-[#c4a482]/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase">
                         Available
                       </span>
                     )}
                   </div>
 
+                  {/* আইকন কালার হিসেবে #c4a482 দিয়ে প্রিমিয়াম ভাইব আনা হয়েছে */}
                   <div className="grid grid-cols-2 gap-4 mt-6">
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                      <Briefcase className="w-5 h-5 text-slate-400" />
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <Briefcase className="w-5 h-5 text-[#c4a482]" />
                       <span>{lawyer?.experience || "N/A"} Exp.</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                      <MapPin className="w-5 h-5 text-slate-400" />
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <MapPin className="w-5 h-5 text-[#c4a482]" />
                       <span>{lawyer?.location || "N/A"}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                      <DollarSign className="w-5 h-5 text-slate-400" />
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <DollarSign className="w-5 h-5 text-[#c4a482]" />
                       <span>${lawyer?.hourlyRate || 0}/hr</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                      <Users className="w-5 h-5 text-slate-400" />
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <Users className="w-5 h-5 text-[#c4a482]" />
                       <span>
                         {lawyer?.hire || lawyerHiresHistory.length || 0} Hires
                       </span>
@@ -166,27 +166,28 @@ const LawyerDetailsClient = ({
 
           {/* Bio & Details Card */}
           <motion.div variants={fadeInUp}>
-            <Card className="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors">
+            <Card className="border-[#c4a482]/30 dark:border-[#c4a482]/20 bg-white dark:bg-[#1d1d1d] transition-colors">
               <CardHeader>
-                <CardTitle className="text-xl text-slate-800 dark:text-slate-200">
+                <CardTitle className="text-xl text-[#1d1d1d] dark:text-[#c4a482] font-serif">
                   About {lawyer?.name}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   {lawyer?.bio || "No biography provided by this lawyer."}
                 </p>
-                <div className="flex items-center gap-2 mt-4 text-sm text-slate-500 dark:text-slate-500">
-                  <Mail className="w-4 h-4" />
+                <div className="flex items-center gap-2 mt-4 text-sm text-gray-500 dark:text-gray-400">
+                  <Mail className="w-4 h-4 text-[#c4a482]" />
                   <span>Contact: {lawyer?.email}</span>
                 </div>
               </CardContent>
             </Card>
           </motion.div>
 
+          {/* Approved Banner & Payment Action */}
           {status === "Approved" && (
-            <Card className="px-20 flex items-center flex-col]">
-              <h1 className="text-center text-[14px] md:text-xl font-bold">
+            <Card className="p-8 flex items-center flex-col justify-center border-[#c4a482]/30 dark:border-[#c4a482]/20 bg-white dark:bg-[#1d1d1d]">
+              <h1 className="text-center text-[14px] md:text-xl font-bold text-[#1d1d1d] dark:text-white mb-4">
                 Your hiring is Approved by this lawyer
               </h1>
               <form action="/api/checkout_sessions" method="POST">
@@ -196,19 +197,13 @@ const LawyerDetailsClient = ({
                 <input type="hidden" name="lawyerName" value={lawyer?.name} />
 
                 {isPaid?._id ? (
-                  <p
-                    className={
-                      "w-fit py-1 px-4 bg-green-500 hover:bg-green-400 rounded-lg text-white shadow"
-                    }
-                  >
-                    Already Paid
+                  <p className="w-fit py-2 px-6 bg-emerald-600 rounded-lg text-white font-medium shadow text-sm">
+                    Paid
                   </p>
                 ) : (
                   <Button
                     type="submit"
-                    className={
-                      "w-fit py-1 px-4 bg-amber-500 hover:bg-amber-400"
-                    }
+                    className="w-fit py-2 px-6 bg-[#c4a482] hover:bg-[#b09270] text-[#1d1d1d] font-semibold rounded-lg transition-colors duration-300"
                   >
                     Pay the Lawyer
                   </Button>
@@ -225,12 +220,12 @@ const LawyerDetailsClient = ({
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Card className="sticky top-6 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-lg transition-colors">
-            <CardHeader className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 rounded-t-xl">
-              <CardTitle className="text-xl text-slate-800 dark:text-slate-100">
+          <Card className="sticky top-6 border-[#c4a482]/30 dark:border-[#c4a482]/20 bg-white dark:bg-[#1d1d1d] shadow-lg transition-colors">
+            <CardHeader className="bg-gray-50 dark:bg-[#151515] border-b border-[#c4a482]/20 rounded-t-xl">
+              <CardTitle className="text-xl text-[#1d1d1d] dark:text-[#c4a482] font-serif">
                 Hire this Lawyer
               </CardTitle>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                 Fill out the form below to initiate a consultation.
               </p>
             </CardHeader>
@@ -240,7 +235,7 @@ const LawyerDetailsClient = ({
                 <div className="space-y-2">
                   <Label
                     htmlFor="userName"
-                    className="text-slate-700 dark:text-slate-300"
+                    className="text-gray-700 dark:text-gray-300 font-medium"
                   >
                     Your Name
                   </Label>
@@ -251,8 +246,8 @@ const LawyerDetailsClient = ({
                     onChange={handleInputChange}
                     placeholder="Enter your full name"
                     required
-                    disabled={alreadyApplied} // Added disable condition
-                    className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus-visible:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={alreadyApplied}
+                    className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-zinc-800 focus-visible:ring-[#c4a482] disabled:opacity-50 disabled:cursor-not-allowed text-[#1d1d1d] dark:text-white"
                   />
                 </div>
 
@@ -260,7 +255,7 @@ const LawyerDetailsClient = ({
                 <div className="space-y-2">
                   <Label
                     htmlFor="reason"
-                    className="text-slate-700 dark:text-slate-300"
+                    className="text-gray-700 dark:text-gray-300 font-medium"
                   >
                     Why do you want to hire?
                   </Label>
@@ -272,25 +267,25 @@ const LawyerDetailsClient = ({
                     placeholder="Briefly describe your case or reason..."
                     rows={4}
                     required
-                    disabled={alreadyApplied} // Added disable condition
-                    className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus-visible:ring-indigo-500 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={alreadyApplied}
+                    className="bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-zinc-800 focus-visible:ring-[#c4a482] resize-none disabled:opacity-50 disabled:cursor-not-allowed text-[#1d1d1d] dark:text-white"
                   />
                 </div>
 
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  disabled={alreadyApplied} // Button disable condition
-                  className={`w-full py-6 text-lg font-medium rounded-xl transition-all shadow-md ${
+                  disabled={alreadyApplied}
+                  className={`w-full py-6 text-lg font-medium rounded-xl transition-all duration-300 shadow-md ${
                     alreadyApplied
-                      ? "bg-slate-400 text-slate-100 cursor-not-allowed shadow-none"
-                      : "bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-lg"
+                      ? "bg-gray-300 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 cursor-not-allowed shadow-none"
+                      : "bg-[#1d1d1d] hover:bg-[#2c2c2c] text-white dark:bg-[#c4a482] dark:hover:bg-[#b09270] dark:text-[#1d1d1d] hover:shadow-lg cursor-pointer"
                   }`}
                 >
                   {alreadyApplied ? "Already Applied" : "Send Hiring Request"}
                 </Button>
 
-                <p className="text-xs text-center text-slate-400 mt-4">
+                <p className="text-xs text-center text-gray-400 dark:text-gray-500 mt-4">
                   {`You won't be charged until the lawyer accepts your case.`}
                 </p>
               </form>

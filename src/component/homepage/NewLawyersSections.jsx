@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { Star } from "lucide-react"; // ইমোজির বদলে প্রিমিয়াম আইকন
 
 const container = {
   hidden: {},
@@ -29,21 +30,21 @@ const item = {
 
 const NewLawyersSections = ({ latestLawyer = [] }) => {
   return (
-    <section className="py-20">
+    <section className="py-20 bg-background text-foreground transition-colors duration-300">
       <div className="md:max-w-6xl max-w-4xl mx-auto px-4">
-        {/* Heading */}
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold">
+        {/* Heading Section */}
+        <div className="mb-16 text-center">
+          <h2 className="text-3xl md:text-5xl font-serif tracking-wide text-foreground">
             Featured <span className="text-[#c4a482]">Lawyers</span>
           </h2>
-
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-4 text-sm md:text-base font-sans text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
             Connect with experienced legal professionals ready to help you solve
             your legal matters.
           </p>
+          <div className="h-[2px] w-12 bg-[#c4a482] mx-auto mt-4" />
         </div>
 
-        {/* Cards */}
+        {/* Cards Grid */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -59,21 +60,24 @@ const NewLawyersSections = ({ latestLawyer = [] }) => {
               key={lawyer?._id}
               variants={item}
               whileHover={{
-                scale: 1.04,
+                y: -6,
               }}
               className="
+                flex flex-col
                 overflow-hidden
-                rounded-2xl
-                border
-                bg-background
+                rounded-none
+                border border-border/80
+                bg-card
                 shadow-sm
                 transition-all
                 duration-300
                 hover:shadow-xl
+                hover:border-[#c4a482]/60
+                group
               "
             >
-              {/* Image */}
-              <div className="relative h-[320px] overflow-hidden">
+              {/* Image Section */}
+              <div className="relative h-[240px] overflow-hidden bg-muted">
                 <Image
                   src={
                     lawyer?.image ||
@@ -81,57 +85,73 @@ const NewLawyersSections = ({ latestLawyer = [] }) => {
                   }
                   alt={lawyer?.name}
                   fill
-                  className="object-cover"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-w-7xl) 33vw, 100vw"
                 />
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex items-start justify-between">
+              {/* Content Body */}
+              <div className="p-6 flex flex-col flex-1 justify-between gap-6">
+                {/* Name & Specialty */}
+                <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h3 className="font-semibold text-xl">{lawyer?.name}</h3>
-
-                    <p className="text-sm text-[#c4a482] mt-1">
+                    <h3 className="font-serif font-medium text-xl tracking-wide group-hover:text-[#c4a482] transition-colors line-clamp-1">
+                      {lawyer?.name}
+                    </h3>
+                    <p className="text-xs font-sans font-medium text-[#c4a482] uppercase tracking-wider mt-1">
                       {lawyer?.specialty || "General Law"}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-1 text-[#c4a482] font-medium">
-                    ⭐ {lawyer?.rating || "4.8"}
+                  {/* Rating */}
+                  <div className="flex items-center gap-1 text-[#c4a482] font-sans text-xs font-bold shrink-0">
+                    <Star className="w-4 h-4 fill-current" />
+                    <span>{lawyer?.rating || "4.8"}</span>
                   </div>
                 </div>
 
-                {/* Bottom */}
-                <div className="mt-8 flex items-center justify-between">
+                {/* Bottom Pricing & Hires */}
+                <div className="flex items-end justify-between pt-4 border-t border-border/60">
                   <div>
-                    <p className="text-2xl font-bold">
+                    <p className="font-serif text-2xl font-semibold text-foreground">
                       ${lawyer?.hourlyRate || 290}
-                      <span className="text-sm text-muted-foreground">/hr</span>
+                      <span className="text-xs font-sans font-normal text-muted-foreground ml-0.5">
+                        /hr
+                      </span>
                     </p>
                   </div>
 
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-xs font-sans text-muted-foreground tracking-wide">
                     {lawyer?.hire || 0} hires
                   </div>
                 </div>
 
+                {/* View Profile Button */}
                 <Link
                   href={`/lawyers/${lawyer?._id}`}
                   className="
-                    mt-6
-                    flex
-                    justify-center
-                    rounded-xl
-                    bg-[#c4a482]
-                    px-4
+                    w-full
+                    text-center
+                    bg-neutral-100
+                    dark:bg-zinc-900
+                    text-foreground
+                    group-hover:bg-[#c4a482]
+                    group-hover:text-black
+                    dark:hover:text-[#c4a482]
+                    rounded-none
                     py-3
-                    font-medium
-                    text-black
+                    text-xs
+                    font-sans
+                    font-semibold
+                    uppercase
+                    tracking-widest
                     transition-all
-                    hover:opacity-90
+                    duration-300
+                    border border-border/40
+                    group-hover:border-[#c4a482]
                   "
                 >
-                  View Profile
+                  View Profile &rarr;
                 </Link>
               </div>
             </motion.div>

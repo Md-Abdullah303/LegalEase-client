@@ -27,10 +27,12 @@ const LawyerDetailsClient = ({
   lawyerHiresHistory,
   areHeApplied,
   comments,
+  userData,
+  isPaid,
 }) => {
   const applicationData = areHeApplied[0];
   const status = applicationData?.status;
-  // console.log(status);
+  console.log(status);
   const alreadyApplied = areHeApplied.length > 0 ? true : false;
   const router = useRouter();
 
@@ -90,6 +92,8 @@ const LawyerDetailsClient = ({
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   };
+
+  console.log(lawyer?.hourlyRate);
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6">
@@ -177,6 +181,39 @@ const LawyerDetailsClient = ({
               </CardContent>
             </Card>
           </motion.div>
+
+          {status === "Approved" && (
+            <Card className="px-20 flex items-center flex-col]">
+              <h1 className="text-center text-[14px] md:text-xl font-bold">
+                Your hiring is Approved by this lawyer
+              </h1>
+              <form action="/api/checkout_sessions" method="POST">
+                <input type="hidden" name="userId" value={user?.id} />
+                <input type="hidden" name="price" value={lawyer?.hourlyRate} />
+                <input type="hidden" name="lawyerId" value={lawyer?._id} />
+                <input type="hidden" name="lawyerName" value={lawyer?.name} />
+
+                {isPaid?._id ? (
+                  <p
+                    className={
+                      "w-fit py-1 px-4 bg-green-500 hover:bg-green-400 rounded-lg text-white shadow"
+                    }
+                  >
+                    Already Paid
+                  </p>
+                ) : (
+                  <Button
+                    type="submit"
+                    className={
+                      "w-fit py-1 px-4 bg-amber-500 hover:bg-amber-400"
+                    }
+                  >
+                    Pay the Lawyer
+                  </Button>
+                )}
+              </form>
+            </Card>
+          )}
         </motion.div>
 
         {/* Right Column: Hire Form */}
@@ -267,6 +304,7 @@ const LawyerDetailsClient = ({
           lawyer={lawyer}
           comments={comments}
           status={status}
+          isPaid={isPaid}
         />
       </div>
     </div>

@@ -7,8 +7,10 @@ import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const LawyerCard = ({ lawyer }) => {
+const LawyerCard = ({ lawyer, user }) => {
+  const router = useRouter();
   // কার্ড লোড হওয়ার এনিমেশন ভ্যারিয়েন্ট
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -17,6 +19,14 @@ const LawyerCard = ({ lawyer }) => {
       y: 0,
       transition: { type: "spring", stiffness: 100, damping: 15 },
     },
+  };
+
+  const handleDetails = async () => {
+    if (user) {
+      router.push(`/lawyers/${lawyer._id}`);
+    } else if (!user) {
+      router.push(`/auth/signin?callback=/lawyers/${lawyer._id}`);
+    }
   };
 
   return (
@@ -72,13 +82,13 @@ const LawyerCard = ({ lawyer }) => {
             </div>
 
             <div className="text-sm text-slate-400 dark:text-slate-500 font-medium mb-1 transition-colors">
-              124 hires
+              {lawyer?.hire || 0} hires
             </div>
           </div>
           <div className="mt-4">
-            <Link href={`/lawyers/${lawyer._id}`}>
-              <Button className={"cursor-pointer"}>See Details</Button>
-            </Link>
+            <Button onClick={handleDetails} className={"cursor-pointer"}>
+              See Details
+            </Button>
           </div>
         </CardContent>
       </Card>

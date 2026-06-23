@@ -1,15 +1,18 @@
 import LawyersContainer from "@/component/browseLawyers/LawyersContainer";
 import LawyerFilter from "@/component/UI/filteringForLayer";
-import { getAllLawyers } from "@/lib/api/lawyers";
+import { getLawyerHiringByLawerId } from "@/lib/api/applications";
+import { getAllLawyers, getLawyerByLawyerId } from "@/lib/api/lawyers";
+import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
 const BrowsLawyersPage = async ({ searchParams }) => {
   const searchQuery = await searchParams;
+  const lawyers = await getAllLawyers();
+  const user = await getUserSession();
 
   const { search, salary, popularity } = searchQuery;
-  console.log(search);
   const query = `?search=${search}`;
-  const lawyers = await getAllLawyers();
+  // console.log(search);
   //   console.log(lawyers);
   return (
     <div className="max-w-7xl md:w-[90%] mx-auto py-10">
@@ -21,7 +24,7 @@ const BrowsLawyersPage = async ({ searchParams }) => {
       <LawyerFilter />
 
       <div className="">
-        <LawyersContainer lawyers={lawyers} />
+        <LawyersContainer user={user} lawyers={lawyers} />
       </div>
     </div>
   );

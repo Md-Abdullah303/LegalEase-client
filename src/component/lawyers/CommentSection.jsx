@@ -26,12 +26,15 @@ export default function CommentSection({
   lawyer,
   comments = [],
   status,
+  isPaid,
 }) {
   const [showAll, setShowAll] = useState(false);
   const [commentText, setCommentText] = useState("");
 
+  console.log("comment box ", status);
+
   const router = useRouter();
-  const commentPermision = user?.role === "user" && status === "Approved";
+  const commentPermision = user?.role === "user" && isPaid?._id;
 
   const handleCommentSubmit = async () => {
     if (!commentText.trim()) return;

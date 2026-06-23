@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 const SignIn = () => {
@@ -22,6 +22,10 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callback = searchParams.get("callback");
+  console.log(callback);
+  const redirectTo = callback ? callback : "/";
 
   const [errors, setErrors] = useState({ email: "", password: "" });
 
@@ -62,8 +66,8 @@ const SignIn = () => {
     });
     if (data) {
       toast.success("Successfully Login");
-      router.push("/");
-      router.refresh("/");
+      router.push(redirectTo);
+      router.refresh(redirectTo);
     }
     if (error) {
       toast.error(error?.message);
@@ -141,7 +145,11 @@ const SignIn = () => {
             animate="visible"
             className="flex border-b border-border self-end mb-4"
           >
-            <Link href={"/auth/signin"}>
+            <Link
+              href={
+                callback ? `/auth/signin?callback=${callback}` : `/auth/signin`
+              }
+            >
               <button
                 type="button"
                 className="px-6 py-2 border-b-2 border-[#a17232] text-sm font-medium text-foreground"
@@ -149,7 +157,11 @@ const SignIn = () => {
                 Log In
               </button>
             </Link>
-            <Link href={"/auth/signup"}>
+            <Link
+              href={
+                callback ? `/auth/signup?callback=${callback}` : `/auth/signup`
+              }
+            >
               <button
                 type="button"
                 className="px-6 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"

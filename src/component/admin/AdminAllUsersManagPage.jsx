@@ -141,13 +141,13 @@ export default function ManageUsersPage({
     }
   };
   const handleMakeAdmin = async (user) => {
-    // const res = await editUsersRole(user?._id, { role: "admin" });
-    // if (res) {
-    //   toast.success("Get role set user..");
-    //   router.refresh();
-    // } else {
-    //   toast.error("Something was wrong!");
-    // }
+    const res = await editUsersRole(user?._id, { role: "admin" });
+    if (res) {
+      toast.success("Get role set user..");
+      router.refresh();
+    } else {
+      toast.error("Something was wrong!");
+    }
   };
   const handleDeleteUser = (user) => {
     console.log("delete", user);

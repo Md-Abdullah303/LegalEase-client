@@ -132,13 +132,13 @@ export default function ManageUsersPage({
     }
   };
   const handleMakeLawyer = async (user) => {
-    // const res = await editUsersRole(user?._id, { role: "lawyer" });
-    // if (res) {
-    //   toast.success("Get role set lawyer..");
-    //   router.refresh();
-    // } else {
-    //   toast.error("Something was wrong!");
-    // }
+    const res = await editUsersRole(user?._id, { role: "lawyer" });
+    if (res) {
+      toast.success("Get role set lawyer..");
+      router.refresh();
+    } else {
+      toast.error("Something was wrong!");
+    }
   };
   const handleMakeAdmin = async (user) => {
     // const res = await editUsersRole(user?._id, { role: "admin" });

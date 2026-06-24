@@ -1,9 +1,23 @@
+import { headers } from "next/headers";
+import { auth } from "../auth";
+
 const baseUrl = process.env.NEXT_SERVER_URL;
 
 export const publicFetch = async (path) => {
   const res = await fetch(`${baseUrl}${path}`);
   // console.log(res, path, baseUrl);
   // console.log(path);
+  return res.json() || null;
+};
+
+export const privateFetch = async (path) => {
+  const token = await getToken();
+  const res = await fetch(`${baseUrl}${path}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  console.log(token);
   return res.json() || null;
 };
 
@@ -41,4 +55,12 @@ export const deleteServerMutation = async (path) => {
     },
   });
   return res.json();
+};
+
+const getToken = async () => {
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  return token;
 };

@@ -3,6 +3,8 @@
 import React, { useMemo, useState } from "react";
 import LawyerCard from "./LawyerCard";
 import { motion } from "framer-motion";
+import { SearchX, RefreshCw } from "lucide-react"; // আইকন অ্যাড করা হয়েছে
+import { Button } from "@/components/ui/button"; // শ্যাডসিএন বাটন
 import {
   Pagination,
   PaginationContent,
@@ -14,13 +16,8 @@ import {
 } from "@/components/ui/pagination";
 
 const LawyersContainer = ({ lawyers = [], user }) => {
-  // =========================
-  // Added: Pagination State
-  // =========================
-  const ITEMS_PER_PAGE = 9; // <-- Added: per page lawyer count
-
-  const [currentPage, setCurrentPage] = useState(1); // <-- Added
-
+  const ITEMS_PER_PAGE = 9;
+  const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(lawyers.length / ITEMS_PER_PAGE);
 
   const currentLawyers = useMemo(() => {
@@ -41,7 +38,7 @@ const LawyersContainer = ({ lawyers = [], user }) => {
     },
   };
 
-  // Added: Page Numbers Generator
+  // Page Numbers Generator
   const getPageNumbers = () => {
     const pages = [];
 
@@ -73,6 +70,34 @@ const LawyersContainer = ({ lawyers = [], user }) => {
 
     return pages;
   };
+
+  // ডাটা না পাওয়া গেলে এই সুন্দর UI-টি শো করবে
+  if (!lawyers || lawyers.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center justify-center text-center py-20 px-4 min-h-[50vh]"
+      >
+        <div className="p-4 rounded-full bg-[#C4A482]/10 text-[#C4A482] mb-5 dark:bg-[#C4A482]/5">
+          <SearchX className="h-12 w-12 stroke-[1.5]" />
+        </div>
+        <h3 className="font-serif text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+          No Lawyers Found
+        </h3>
+        <p className="text-zinc-500 dark:text-zinc-400 max-w-sm mt-2 text-sm leading-relaxed">
+          We couldn't find any legal experts matching your current filters or
+          search terms. Try adjusting your query.
+        </p>
+        <Button
+          onClick={() => window.location.reload()}
+          className="mt-6 bg-[#C4A482] hover:bg-[#b39371] text-white font-medium shadow-sm gap-2"
+        >
+          <RefreshCw className="h-4 w-4" /> Clear Filters
+        </Button>
+      </motion.div>
+    );
+  }
 
   return (
     <div className="mt-10 py-4">

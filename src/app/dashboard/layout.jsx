@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export default async function Layout({ children }) {
   const user = await getUserSession();
   if (!user) {
-    redirect("/auth/signin");
+    redirect("/unauthorized");
   }
   return (
     <div className="flex flex-col lg:flex-row w-full bg-neutral-50 dark:bg-neutral-950 min-h-screen">

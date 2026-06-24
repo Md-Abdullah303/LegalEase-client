@@ -1,33 +1,33 @@
-import { publicFetch } from "../core/server";
+import { privateFetch, publicFetch } from "../core/server";
 
 export const getAdminData = async (id) => {
-  return await publicFetch(`/api/admin/${id}`);
+  return await privateFetch(`/api/admin/${id}`);
 };
 
 export const getAllAdminData = async () => {
-  return await publicFetch(`/api/allUsers?role=admin`);
+  return await privateFetch(`/api/allUsers?role=admin`);
 };
 
 export const getAllUsersData = async () => {
-  return await publicFetch(`/api/allUsers?role=user`);
+  return await privateFetch(`/api/allUsers?role=user`);
 };
 
 export const getAllLawyersData = async () => {
-  return await publicFetch(`/api/allUsers?role=lawyer`);
+  return await privateFetch(`/api/allUsers?role=lawyer`);
 };
 
 export const getApprovedData = async () => {
-  return await publicFetch(`/api/allUsers?role=lawyer&status=true`);
+  return await privateFetch(`/api/allUsers?role=lawyer&status=true`);
 };
 
 export const getHiresData = async () => {
-  return await publicFetch(`/api/hires?status=true`);
+  return await privateFetch(`/api/hires?status=true`);
 };
 
 export const getAllMembers = async () => {
-  return await publicFetch(`/api/allUsers`);
+  return await privateFetch(`/api/allUsers`);
 };
 
 export const getTopCategories = async () => {
-  return await publicFetch(`/api/topcategories`);
+  return await privateFetch(`/api/topcategories`);
 };

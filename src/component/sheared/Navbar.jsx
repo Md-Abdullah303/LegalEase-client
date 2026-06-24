@@ -20,15 +20,12 @@ const Navbar = ({ userData }) => {
 
   const closeMenu = () => setOpen(false);
 
-  // ২. সার্চ সাবমিট হ্যান্ডলার ফাংশন
   const handleSearchSubmit = (e) => {
-    e.preventDefault(); // পেজ রিফ্রেশ হওয়া বন্ধ করবে
-    if (!searchQuery.trim()) return; // ফাঁকা সার্চ ইগনোর করবে
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
 
-    // লয়ার ব্রাউজ পেজে কুয়েরি প্যারামিটারসহ রিডাইরেক্ট করবে
     router.push(`/lawyers?search=${encodeURIComponent(searchQuery.trim())}`);
 
-    // সার্চ হয়ে গেলে মোবাইল মেনু খোলা থাকলে তা বন্ধ করে দেবে
     setOpen(false);
   };
 

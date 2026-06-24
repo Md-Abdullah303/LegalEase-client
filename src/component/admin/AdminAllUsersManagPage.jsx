@@ -38,6 +38,7 @@ import Image from "next/image";
 import { editUsersRole, memberDltByMemberId } from "@/lib/actions/admin";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 // ---- design tokens transformed into Tailwind-friendly objects ----
 const ROLE_CONFIG = {
@@ -88,6 +89,7 @@ export default function ManageUsersPage({
   totalMembers,
   totalLawyerData,
   totalUsersData,
+  totalAdminData,
 }) {
   const STATS = [
     {
@@ -119,6 +121,10 @@ export default function ManageUsersPage({
         "text-[#1B2A4A] bg-[#1B2A4A]/10 dark:text-blue-400 dark:bg-blue-500/10",
     },
   ];
+
+  const [showingMember, setShowingMember] = useState(totalMembers);
+  const [showingLabel, setShowingLabel] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const router = useRouter();
 
@@ -159,6 +165,33 @@ export default function ManageUsersPage({
       toast.error("Something was wrong!");
     }
   };
+  const handleShowingUsers = async (label) => {
+    if (label === "Client") {
+      setShowingLabel("Client");
+      setShowingMember(totalUsersData);
+      router.refresh();
+    } else if (label === "Lawyer") {
+      setShowingLabel("Lawyer");
+      setShowingMember(totalLawyerData);
+      router.refresh();
+    } else if (label === "Admin") {
+      setShowingMember(totalAdminData);
+      setShowingLabel("Admin");
+      router.refresh();
+    } else if (label === "All") {
+      setShowingLabel("All");
+      setShowingMember(totalMembers);
+      router.refresh();
+    }
+  };
+  // const handleSearch = async (e) => {
+  //   e.preventDefault();
+  //   if (!searchQuery.trim()) return;
+
+  //   router.push(
+  //     `/dashboard/admin/all-users-manage?search=${encodeURIComponent(searchQuery.trim())}`,
+  //   );
+  // };
 
   return (
     // Light Background: #F5F4F0, Dark Background: black
@@ -216,19 +249,27 @@ export default function ManageUsersPage({
 
         {/* Toolbar */}
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="relative w-full max-w-sm">
+          {/* <div className="relative w-full max-w-sm">
+            <form
+            onSubmit={handleSearch}
+            className="relative w-full max-w-xs xl:max-w-sm"
+          >
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5B6472] dark:text-zinc-400" />
             <Input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or email"
               className="pl-9 bg-white dark:bg-zinc-950 text-[#161D2E] dark:text-zinc-100 border-[#E4E1DA] dark:border-zinc-800 focus-visible:ring-zinc-400"
             />
-          </div>
+          </form>
+          </div> */}
           <div className="flex items-center gap-2">
             {["All", "Admin", "Lawyer", "Client"].map((label, i) => (
               <button
+                onClick={() => handleShowingUsers(label)}
                 key={label}
                 className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-                  i === 0
+                  showingLabel === label
                     ? "bg-[#1B2A4A] border-[#1B2A4A] text-white dark:bg-[#E5D4B6] dark:border-[#E5D4B6] dark:text-black"
                     : "border-[#E4E1DA] dark:border-zinc-800 text-[#5B6472] dark:text-zinc-400 hover:bg-white/50 dark:hover:bg-zinc-800"
                 }`}
@@ -267,7 +308,7 @@ export default function ManageUsersPage({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {totalMembers.map((user) => (
+              {showingMember.map((user) => (
                 <TableRow
                   key={user._id}
                   className="group border-[#E4E1DA] dark:border-zinc-800 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/40 transition-colors"

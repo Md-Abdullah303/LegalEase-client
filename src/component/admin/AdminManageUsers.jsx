@@ -207,9 +207,9 @@ export default function AdminManageUsers({
                       <div className="flex justify-end gap-2">
                         <AdminManageUserShowModal user={user} />
 
-                        <Button size="icon" variant="destructive">
+                        {/* <Button size="icon" variant="destructive">
                           <Trash2 className="h-4 w-4" />
-                        </Button>
+                        </Button> */}
                       </div>
                     </TableCell>
                   </TableRow>

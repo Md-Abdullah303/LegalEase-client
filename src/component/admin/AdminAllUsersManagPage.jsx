@@ -35,7 +35,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { editUsersRole } from "@/lib/actions/admin";
+import { editUsersRole, memberDltByMemberId } from "@/lib/actions/admin";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -149,8 +149,15 @@ export default function ManageUsersPage({
       toast.error("Something was wrong!");
     }
   };
-  const handleDeleteUser = (user) => {
+  const handleDeleteUser = async (user) => {
     console.log("delete", user);
+    const res = await memberDltByMemberId(user?._id);
+    if (res.deletedCount > 0) {
+      toast.success("Member Deleted.");
+      router.refresh();
+    } else {
+      toast.error("Something was wrong!");
+    }
   };
 
   return (

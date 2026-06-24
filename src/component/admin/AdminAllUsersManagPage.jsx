@@ -14,6 +14,15 @@ import {
   Briefcase,
   TrendingUp,
 } from "lucide-react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,7 +47,7 @@ import Image from "next/image";
 import { editUsersRole, memberDltByMemberId } from "@/lib/actions/admin";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 // ---- design tokens transformed into Tailwind-friendly objects ----
 const ROLE_CONFIG = {
@@ -126,6 +135,19 @@ export default function ManageUsersPage({
   const [showingLabel, setShowingLabel] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const ITEMS_PER_PAGE = 10;
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(showingMember.length / ITEMS_PER_PAGE);
+
+  const paginatedMembers = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+
+    return showingMember.slice(start, end);
+  }, [showingMember, currentPage]);
+
   const router = useRouter();
 
   const handleMakeClient = async (user) => {
@@ -166,6 +188,8 @@ export default function ManageUsersPage({
     }
   };
   const handleShowingUsers = async (label) => {
+    setCurrentPage(1);
+
     if (label === "Client") {
       setShowingLabel("Client");
       setShowingMember(totalUsersData);
@@ -308,7 +332,7 @@ export default function ManageUsersPage({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {showingMember.map((user) => (
+              {paginatedMembers.map((user) => (
                 <TableRow
                   key={user._id}
                   className="group border-[#E4E1DA] dark:border-zinc-800 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/40 transition-colors"
@@ -403,46 +427,55 @@ export default function ManageUsersPage({
         </motion.div>
 
         {/* Pagination */}
-        <div className="mt-4 flex items-center justify-between text-xs text-[#5B6472] dark:text-zinc-400">
-          <span>Showing 8 of 142 members</span>
-          <div className="flex items-center gap-1">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-7 px-3 text-xs border-[#E4E1DA] dark:border-zinc-800 dark:bg-[#1d1d1d]"
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-7 px-3 text-xs border-[#1B2A4A] text-[#1B2A4A] dark:border-[#E5D4B6] dark:text-[#E5D4B6] dark:bg-zinc-900"
-            >
-              1
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 px-3 text-xs dark:hover:bg-zinc-800"
-            >
-              2
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 px-3 text-xs dark:hover:bg-zinc-800"
-            >
-              3
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-7 px-3 text-xs border-[#E4E1DA] dark:border-zinc-800 dark:bg-[#1d1d1d]"
-            >
-              Next
-            </Button>
-          </div>
-        </div>
+
+        <Pagination className="mt-5">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                className={`cursor-pointer ${
+                  currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                }`}
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              />
+            </PaginationItem>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1)
+              .slice(
+                Math.max(0, currentPage - 3),
+                Math.min(totalPages, currentPage + 2),
+              )
+              .map((page) => (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    isActive={currentPage === page}
+                    className="cursor-pointer"
+                    onClick={() => setCurrentPage(page)}
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+
+            {totalPages > 5 && currentPage < totalPages - 2 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+
+            <PaginationItem>
+              <PaginationNext
+                className={`cursor-pointer ${
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : ""
+                }`}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );

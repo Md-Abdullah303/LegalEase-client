@@ -15,7 +15,6 @@ import {
   FiMapPin,
   FiLinkedin,
   FiFileText,
-  FiUser,
 } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
@@ -38,87 +37,90 @@ const UserDashboardHome = ({
       title: "Total Hires",
       count: totalHires,
       icon: (
-        <FiBriefcase className="w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
+        <FiBriefcase className="w-5 h-5 md:w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
       ),
-      bg: "bg-[#f9f4ef] dark:bg-[#1a1815]",
+      bg: "bg-[#f9f4ef] dark:bg-[#1e1b18]",
     },
     {
       title: "Pending Requests",
       count: pendingCount,
-      icon: <FiClock className="w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />,
-      bg: "bg-[#f9f4ef] dark:bg-[#1a1815]",
+      icon: (
+        <FiClock className="w-5 h-5 md:w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
+      ),
+      bg: "bg-[#f9f4ef] dark:bg-[#1e1b18]",
     },
     {
       title: "To Pay",
-      count: totalPay.length || 0,
+      count: totalPay?.length || 0,
       icon: (
-        <FiCreditCard className="w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
+        <FiCreditCard className="w-5 h-5 md:w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
       ),
-      bg: "bg-[#f9f4ef] dark:bg-[#1a1815]",
+      bg: "bg-[#f9f4ef] dark:bg-[#1e1b18]",
     },
     {
       title: "Total Comments",
       count: userCommentsLength,
       icon: (
-        <FiMessageSquare className="w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
+        <FiMessageSquare className="w-5 h-5 md:w-6 h-6 text-[#c4a482] dark:text-[#d9bfa2]" />
       ),
-      bg: "bg-[#f9f4ef] dark:bg-[#1a1815]",
+      bg: "bg-[#f9f4ef] dark:bg-[#1e1b18]",
     },
   ];
 
   return (
-    <div className="w-full min-h-screen bg-[#f8f5f2] dark:bg-[#0a0a0a] transition-colors duration-500 p-4 md:p-8 font-sans">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="w-full min-h-screen bg-[#fcfaf7] dark:bg-[#090909] transition-colors duration-300 p-4 sm:p-6 lg:p-8 font-sans antialiased text-neutral-800 dark:text-neutral-200">
+      <div className="max-w-6xl mx-auto space-y-6 md:space-y-8">
         {/* Page Header */}
-        <div>
-          <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-[#d9bfa2] tracking-wide">
-            Welcome back,{" "}
-            {userData?.name ? userData.name.split(" ")[0] : "User"}! 👋
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            Manage your legal hiring profile and activities here.
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-neutral-200/50 dark:border-neutral-800/50 pb-5">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-serif font-extrabold text-neutral-900 dark:text-white tracking-wide">
+              Welcome back,{" "}
+              <span className="text-[#c4a482] dark:text-[#d9bfa2]">
+                {userData?.name ? userData.name.split(" ")[0] : "User"}
+              </span>
+              ! 👋
+            </h1>
+            <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1 font-medium">
+              Manage your legal hiring profile and real-time activities here.
+            </p>
+          </div>
         </div>
 
         {/* Premium Profile Card Section */}
-        <div className="bg-white dark:bg-[#121212] border border-[#e5ded5] dark:border-[#222222] rounded-2xl shadow-xl p-6 md:p-8 flex flex-col gap-8 transition-colors">
-          <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+        <div className="bg-white dark:bg-[#121212] border border-[#e5ded5] dark:border-neutral-800/70 rounded-2xl shadow-sm hover:shadow-md p-5 sm:p-6 lg:p-8 flex flex-col gap-6 md:gap-8 transition-all">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-6">
             {/* Avatar & Basic Info */}
-            <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
-              <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-[#f9f4ef] dark:border-[#1a1a1a] shadow-md shrink-0 bg-gray-200">
+            <div className="flex flex-col sm:flex-row items-center gap-5 w-full lg:w-auto">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-4 ring-[#f9f4ef] dark:ring-[#1a1a1a] shadow-inner shrink-0 bg-neutral-100 dark:bg-neutral-800 relative">
                 <Image
-                  width={600}
-                  height={400}
+                  fill
                   src={
                     userData?.image ||
                     `https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168`
                   }
                   alt={userData?.name || "Profile Picture"}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.src = "https://via.placeholder.com/150";
-                  }}
+                  className="object-cover"
+                  sizes="(max-width: 640px) 96px, 112px"
+                  priority
                 />
               </div>
 
-              <div className="text-center md:text-left space-y-2">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+              <div className="text-center sm:text-left space-y-2 w-full">
+                <h2 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white font-serif tracking-wide capitalize">
                   {userData?.name || "N/A"}
                 </h2>
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm font-medium">
-                  <span className="flex items-center gap-1.5 bg-[#f9f4ef] dark:bg-[#1a1a1a] text-[#c4a482] dark:text-[#d9bfa2] px-3 py-1 rounded-full border border-[#e5ded5] dark:border-[#333]">
-                    <FiShield className="w-4 h-4" /> {userData?.role || "User"}
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs sm:text-sm font-semibold">
+                  <span className="flex items-center gap-1.5 bg-[#f9f4ef] dark:bg-[#1c1a17] text-[#c4a482] dark:text-[#d9bfa2] px-3 py-1 rounded-lg border border-[#e5ded5]/60 dark:border-neutral-800 uppercase tracking-wider text-[11px]">
+                    <FiShield className="w-3.5 h-3.5" />{" "}
+                    {userData?.role || "User"}
                   </span>
-                  <span className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
-                    <FiCalendar className="w-4 h-4" /> Joined:{" "}
+                  <span className="flex items-center gap-1.5 text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-900 px-3 py-1 rounded-lg border border-neutral-100 dark:border-neutral-800/40">
+                    <FiCalendar className="w-3.5 h-3.5 text-[#c4a482]" />{" "}
+                    Joined:{" "}
                     {userData?.createdAt
                       ? new Date(userData?.createdAt).toLocaleDateString(
                           "en-US",
-                          {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          },
+                          { month: "short", day: "numeric", year: "numeric" },
                         )
                       : "N/A"}
                   </span>
@@ -129,61 +131,65 @@ const UserDashboardHome = ({
             {/* Update Profile Button */}
             <Link
               href="/dashboard/user/update-profile"
-              className="flex items-center justify-center gap-2 bg-[#222] hover:bg-black text-[#d9bfa2] dark:bg-[#d9bfa2] dark:hover:bg-[#cbb092] dark:text-[#0a0a0a] px-6 py-3 rounded-lg font-bold text-sm uppercase tracking-widest transition-all shadow-md shrink-0 w-full md:w-auto"
+              className="flex items-center justify-center gap-2 bg-[#1d1d1d] hover:bg-neutral-800 text-white dark:bg-[#c4a482] dark:hover:bg-[#b09270] dark:text-[#1d1d1d] px-5 py-3 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-widest transition-all shadow-sm active:scale-98 w-full sm:w-max lg:w-auto shrink-0"
             >
               <FiEdit className="w-4 h-4" />
               Edit Profile
             </Link>
           </div>
 
-          <hr className="border-[#e5ded5] dark:border-[#222222]" />
+          <hr className="border-neutral-100 dark:border-neutral-800/60" />
 
-          {/* New Expanded Details Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-              <div className="p-2 bg-[#f9f4ef] dark:bg-[#1a1a1a] rounded-md text-[#c4a482] dark:text-[#d9bfa2]">
-                <FiMail className="w-5 h-5" />
+          {/* Contact Details Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 text-sm">
+            <div className="flex items-center gap-3.5 p-3.5 bg-neutral-50 dark:bg-[#161616]/40 rounded-xl border border-neutral-100/70 dark:border-neutral-900/40">
+              <div className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg text-[#c4a482] dark:text-[#d9bfa2] shadow-sm shrink-0">
+                <FiMail className="w-4 h-4 md:w-5 md:h-5" />
               </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-0.5">
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] text-neutral-400 dark:text-neutral-500 uppercase tracking-widest font-bold mb-0.5">
                   Email Address
                 </p>
-                <p className="font-medium">{userData?.email || "N/A"}</p>
+                <p className="font-semibold text-neutral-800 dark:text-neutral-200 truncate">
+                  {userData?.email || "N/A"}
+                </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-              <div className="p-2 bg-[#f9f4ef] dark:bg-[#1a1a1a] rounded-md text-[#c4a482] dark:text-[#d9bfa2]">
-                <FiPhone className="w-5 h-5" />
+            <div className="flex items-center gap-3.5 p-3.5 bg-neutral-50 dark:bg-[#161616]/40 rounded-xl border border-neutral-100/70 dark:border-neutral-900/40">
+              <div className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg text-[#c4a482] dark:text-[#d9bfa2] shadow-sm shrink-0">
+                <FiPhone className="w-4 h-4 md:w-5 md:h-5" />
               </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-0.5">
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] text-neutral-400 dark:text-neutral-500 uppercase tracking-widest font-bold mb-0.5">
                   Phone Number
                 </p>
-                <p className="font-medium">{userServerData?.phone || "N/A"}</p>
+                <p className="font-semibold text-neutral-800 dark:text-neutral-200 truncate">
+                  {userServerData?.phone || "N/A"}
+                </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-              <div className="p-2 bg-[#f9f4ef] dark:bg-[#1a1a1a] rounded-md text-[#c4a482] dark:text-[#d9bfa2]">
-                <FiMapPin className="w-5 h-5" />
+            <div className="flex items-center gap-3.5 p-3.5 bg-neutral-50 dark:bg-[#161616]/40 rounded-xl border border-neutral-100/70 dark:border-neutral-900/40">
+              <div className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg text-[#c4a482] dark:text-[#d9bfa2] shadow-sm shrink-0">
+                <FiMapPin className="w-4 h-4 md:w-5 md:h-5" />
               </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-0.5">
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] text-neutral-400 dark:text-neutral-500 uppercase tracking-widest font-bold mb-0.5">
                   Location / Address
                 </p>
-                <p className="font-medium">
+                <p className="font-semibold text-neutral-800 dark:text-neutral-200 truncate">
                   {userServerData?.address || "N/A"}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-              <div className="p-2 bg-[#f9f4ef] dark:bg-[#1a1a1a] rounded-md text-[#c4a482] dark:text-[#d9bfa2]">
-                <FiLinkedin className="w-5 h-5" />
+            <div className="flex items-center gap-3.5 p-3.5 bg-neutral-50 dark:bg-[#161616]/40 rounded-xl border border-neutral-100/70 dark:border-neutral-900/40">
+              <div className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg text-[#c4a482] dark:text-[#d9bfa2] shadow-sm shrink-0">
+                <FiLinkedin className="w-4 h-4 md:w-5 md:h-5" />
               </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-0.5">
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] text-neutral-400 dark:text-neutral-500 uppercase tracking-widest font-bold mb-0.5">
                   LinkedIn Profile
                 </p>
                 {userServerData?.linkedinUrl ? (
@@ -191,24 +197,26 @@ const UserDashboardHome = ({
                     href={userServerData?.linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-[#c4a482] dark:text-[#d9bfa2] hover:underline"
+                    className="font-bold text-[#c4a482] dark:text-[#d9bfa2] hover:underline flex items-center gap-1 text-sm truncate"
                   >
                     View Profile ↗
                   </a>
                 ) : (
-                  <p className="font-medium">N/A</p>
+                  <p className="font-semibold text-neutral-400 dark:text-neutral-500">
+                    N/A
+                  </p>
                 )}
               </div>
             </div>
           </div>
 
           {/* Bio Section */}
-          <div className="bg-[#fdfdfc] dark:bg-[#1a1a1a] p-5 rounded-xl border border-[#e5ded5] dark:border-[#333]">
-            <div className="flex items-center gap-2 mb-2 text-gray-800 dark:text-gray-200 font-semibold uppercase tracking-wider text-xs">
-              <FiFileText className="text-[#c4a482] dark:text-[#d9bfa2] text-lg" />
+          <div className="bg-neutral-50 dark:bg-[#161616] p-4 sm:p-5 rounded-xl border border-neutral-100 dark:border-neutral-900">
+            <div className="flex items-center gap-2 mb-2.5 text-neutral-800 dark:text-neutral-200 font-bold uppercase tracking-wider text-xs">
+              <FiFileText className="text-[#c4a482] dark:text-[#d9bfa2] text-base" />
               Bio / About
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed whitespace-pre-wrap">
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap font-medium">
               {userServerData?.bio ||
                 "No bio provided yet. Update your profile to tell us a bit about yourself."}
             </p>
@@ -216,22 +224,22 @@ const UserDashboardHome = ({
         </div>
 
         {/* Quick Overview (Stats Cards) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-[#121212] border border-[#e5ded5] dark:border-[#222222] rounded-xl shadow-md p-6 flex items-center gap-5 transition-transform hover:-translate-y-1 duration-300"
+              className="bg-white dark:bg-[#121212] border border-[#e5ded5]/80 dark:border-neutral-800/70 rounded-xl shadow-sm p-4 sm:p-5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
             >
               <div
-                className={`w-14 h-14 rounded-full flex items-center justify-center ${stat.bg} shrink-0`}
+                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center ${stat.bg} shrink-0 shadow-inner`}
               >
                 {stat.icon}
               </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wider mb-1">
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-xs text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-wider mb-0.5 truncate">
                   {stat.title}
                 </p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white font-serif">
                   {stat.count}
                 </h3>
               </div>
@@ -240,49 +248,102 @@ const UserDashboardHome = ({
         </div>
 
         {/* Recent Activity Mini-Table */}
-        <div className="bg-white dark:bg-[#121212] border border-[#e5ded5] dark:border-[#222222] rounded-xl shadow-md overflow-hidden">
-          <div className="px-6 py-5 border-b border-[#e5ded5] dark:border-[#222222] flex justify-between items-center bg-[#fdfdfc] dark:bg-[#1a1a1a]">
-            <h3 className="text-lg font-serif font-semibold text-gray-900 dark:text-[#d9bfa2]">
+        <div className="bg-white dark:bg-[#121212] border border-[#e5ded5]/80 dark:border-neutral-800/70 rounded-2xl shadow-sm overflow-hidden">
+          <div className="px-5 py-4 sm:px-6 sm:py-5 border-b border-neutral-100 dark:border-neutral-800/70 flex justify-between items-center bg-neutral-50/60 dark:bg-[#151515]">
+            <h3 className="text-base sm:text-lg font-serif font-bold text-neutral-900 dark:text-[#d9bfa2]">
               Recent Hiring Activity
             </h3>
             <Link
               href="/dashboard/user/hiring-history"
-              className="text-[#c4a482] dark:text-[#d9bfa2] hover:text-black dark:hover:text-white text-sm font-semibold uppercase tracking-wider flex items-center gap-1 transition-colors"
+              className="text-[#c4a482] dark:text-[#d9bfa2] hover:text-[#b09270] text-xs font-bold uppercase tracking-widest flex items-center gap-1 transition-colors"
             >
-              View All <FiArrowRight className="w-4 h-4" />
+              View All <FiArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-          <div className="overflow-x-auto">
+
+          {/* Card Based Layout for Mobile, Table layout for Tablet/Desktop */}
+          <div className="block md:hidden divide-y divide-neutral-100 dark:divide-neutral-900">
+            {userHiringHistories?.length > 0 ? (
+              userHiringHistories.slice(0, 2).map((history) => (
+                <div
+                  key={history?._id}
+                  className="p-4 space-y-3 bg-white dark:bg-[#121212]"
+                >
+                  <div className="flex justify-between items-start gap-2">
+                    <div>
+                      <h4 className="font-bold text-sm text-neutral-900 dark:text-white capitalize">
+                        {history?.lawyerName || "N/A"}
+                      </h4>
+                      <p className="text-xs text-neutral-400 mt-0.5">
+                        {history?.specialization || "N/A"}
+                      </p>
+                    </div>
+                    <span
+                      className={`px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider ${
+                        history?.status === "Approved"
+                          ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+                          : history?.status === "Rejected"
+                            ? "bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400"
+                            : "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400"
+                      }`}
+                    >
+                      {history?.status || "N/A"}
+                    </span>
+                  </div>
+                  <div className="flex justify-end pt-1">
+                    {history?.status === "Approved" ? (
+                      <Link
+                        href={`/dashboard/user/hiring-history`}
+                        className="w-full text-center py-2 text-xs font-bold text-[#1d1d1d] bg-[#d9bfa2] hover:bg-[#cbb092] rounded-lg transition-colors uppercase tracking-widest shadow-sm"
+                      >
+                        Pay Now
+                      </Link>
+                    ) : (
+                      <span className="text-[11px] text-neutral-400 dark:text-neutral-500 italic font-medium">
+                        Awaiting Action
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="p-6 text-center text-xs text-neutral-400 font-medium">
+                No hiring history found.
+              </div>
+            )}
+          </div>
+
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="bg-[#f9f4ef] dark:bg-[#151515] text-gray-600 dark:text-gray-400 uppercase tracking-wider text-xs font-semibold">
+              <thead className="bg-[#f9f4ef]/60 dark:bg-[#161616] text-neutral-400 dark:text-neutral-500 uppercase tracking-widest text-[10px] font-bold border-b border-neutral-100 dark:border-neutral-900">
                 <tr>
-                  <th className="px-6 py-4">Lawyer Name</th>
-                  <th className="px-6 py-4">Specialization</th>
-                  <th className="px-6 py-4">Status</th>
-                  <th className="px-6 py-4 text-right">Action</th>
+                  <th className="px-6 py-3.5">Lawyer Name</th>
+                  <th className="px-6 py-3.5">Specialization</th>
+                  <th className="px-6 py-3.5">Status</th>
+                  <th className="px-6 py-3.5 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#e5ded5] dark:divide-[#222222]">
+              <tbody className="divide-y divide-neutral-100 dark:divide-neutral-900 font-medium">
                 {userHiringHistories?.length > 0 ? (
                   userHiringHistories.slice(0, 2).map((history) => (
                     <tr
                       key={history?._id}
-                      className="bg-white dark:bg-[#121212] hover:bg-[#fdfdfc] dark:hover:bg-[#1a1a1a] transition-colors"
+                      className="bg-white dark:bg-[#121212] hover:bg-neutral-50/50 dark:hover:bg-[#161616]/40 transition-colors"
                     >
-                      <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                      <td className="px-6 py-4 font-bold text-neutral-900 dark:text-white capitalize">
                         {history?.lawyerName || "N/A"}
                       </td>
-                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
+                      <td className="px-6 py-4 text-neutral-500 dark:text-neutral-400 text-xs">
                         {history?.specialization || "N/A"}
                       </td>
                       <td className="px-6 py-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide ${
+                          className={`px-3 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase ${
                             history?.status === "Approved"
-                              ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                              ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400"
                               : history?.status === "Rejected"
-                                ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-                                : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
+                                ? "bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400"
+                                : "bg-amber-50 text-amber-600 dark:bg-amber-950/30 dark:text-amber-400"
                           }`}
                         >
                           {history?.status || "N/A"}
@@ -292,12 +353,12 @@ const UserDashboardHome = ({
                         {history?.status === "Approved" ? (
                           <Link
                             href={`/dashboard/user/hiring-history`}
-                            className="px-4 py-2 text-xs font-bold text-[#0a0a0a] bg-[#d9bfa2] hover:bg-[#cbb092] rounded-md transition-colors uppercase tracking-wider"
+                            className="px-4 py-2 text-xs font-bold text-[#0a0a0a] bg-[#d9bfa2] hover:bg-[#cbb092] rounded-lg transition-colors uppercase tracking-widest shadow-sm inline-block"
                           >
                             Pay Now
                           </Link>
                         ) : (
-                          <span className="text-xs text-gray-400 dark:text-gray-600 italic font-medium">
+                          <span className="text-xs text-neutral-400 dark:text-neutral-600 italic font-medium">
                             Awaiting Action
                           </span>
                         )}
@@ -308,7 +369,7 @@ const UserDashboardHome = ({
                   <tr>
                     <td
                       colSpan="4"
-                      className="px-6 py-8 text-center text-gray-500 dark:text-gray-400 font-medium"
+                      className="px-6 py-8 text-center text-neutral-400 dark:text-neutral-500 font-medium text-xs sm:text-sm"
                     >
                       No hiring history found.
                     </td>

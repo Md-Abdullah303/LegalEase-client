@@ -6,6 +6,9 @@ export const getIsPaid = async (userId, lawyerId) => {
   );
 };
 
-export const getTotalPay = async (userId) => {
+export const getTotalPayForUser = async (userId) => {
   return await publicFetch(`/api/multiple/payment?userId=${userId}`);
+};
+export const getAllPayments = async () => {
+  return await publicFetch(`/api/multiple/payment`);
 };

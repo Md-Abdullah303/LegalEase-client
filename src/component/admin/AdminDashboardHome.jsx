@@ -19,6 +19,7 @@ export default function AdminDashboardHome({
   totalUsersData,
   totalLawyerData,
   totalApprovedData,
+  totalRevenue,
 }) {
   // Animation Variants
   const containerVariants = {
@@ -203,7 +204,7 @@ export default function AdminDashboardHome({
                 Total Revenue
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
-                $12,450
+                ${totalRevenue || 0}
               </h3>
             </div>
             <div className="p-3 rounded-full bg-zinc-100 dark:bg-zinc-800/50">

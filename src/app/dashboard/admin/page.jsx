@@ -5,6 +5,7 @@ import {
   getAllUsersData,
   getApprovedData,
 } from "@/lib/api/admin";
+import { getAllPayments } from "@/lib/api/payments";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
@@ -14,8 +15,13 @@ const page = async () => {
   const totalUsersData = await getAllUsersData();
   const totalLawyerData = await getAllLawyersData();
   const totalApprovedData = await getApprovedData();
+  const totalPaymentData = await getAllPayments();
+  const sum = totalPaymentData.reduce(
+    (accumulator, item) => accumulator + item.price,
+    0,
+  );
 
-  // console.log(totalApprovedData);
+  // console.log(totalPaymentData);
   return (
     <div>
       <AdminDashboardHome
@@ -23,6 +29,7 @@ const page = async () => {
         totalUsersData={totalUsersData}
         totalLawyerData={totalLawyerData}
         totalApprovedData={totalApprovedData}
+        totalRevenue={Number(sum)}
       />
     </div>
   );

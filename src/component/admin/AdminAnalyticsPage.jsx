@@ -15,6 +15,7 @@ export default function AnalyticsPage({
   totalLawyerData,
   totalHiresData,
   topCategories,
+  totalRevenue,
 }) {
   // Static Mock Data
   const stats = [
@@ -38,7 +39,7 @@ export default function AnalyticsPage({
     },
     {
       title: "Total Revenue",
-      value: "$12,450",
+      value: totalRevenue || 0,
       increase: "+24%",
       icon: DollarSign,
     },

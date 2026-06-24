@@ -27,6 +27,15 @@ import {
 } from "@/components/ui/table";
 
 import { Badge } from "@/components/ui/badge";
+import { useMemo, useState } from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const lawyers = [
   {
@@ -102,6 +111,18 @@ export default function ManageLawyersPage({ totalLawyerData }) {
       iconColor: "text-rose-500",
     },
   ];
+  const ITEMS_PER_PAGE = 10;
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil((totalLawyerData?.length || 0) / ITEMS_PER_PAGE);
+
+  const paginatedUsers = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+
+    return totalLawyerData.slice(start, end);
+  }, [totalLawyerData, currentPage]);
 
   return (
     <div className="space-y-8 p-6">
@@ -166,7 +187,7 @@ export default function ManageLawyersPage({ totalLawyerData }) {
               </TableHeader>
 
               <TableBody>
-                {totalLawyerData.map((lawyer) => (
+                {paginatedUsers.map((lawyer) => (
                   <TableRow key={lawyer?._id}>
                     <TableCell>
                       <div>
@@ -223,12 +244,48 @@ export default function ManageLawyersPage({ totalLawyerData }) {
           </div>
 
           {/* Pagination */}
-          <div className="mt-6 flex items-center justify-end gap-2">
-            <Button variant="outline">Previous</Button>
-            <Button>1</Button>
-            <Button variant="outline">2</Button>
-            <Button variant="outline">3</Button>
-            <Button variant="outline">Next</Button>
+          <div className="flex items-center justify-end gap-2 border-t p-4">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    className={`cursor-pointer ${
+                      currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                    }`}
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
+                  />
+                </PaginationItem>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        isActive={currentPage === page}
+                        className="cursor-pointer"
+                        onClick={() => setCurrentPage(page)}
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ),
+                )}
+
+                <PaginationItem>
+                  <PaginationNext
+                    className={`cursor-pointer ${
+                      currentPage === totalPages
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </div>
         </CardContent>
       </Card>

@@ -28,6 +28,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { AdminManageUserShowModal } from "../modals/AdminManageUserShowModal";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { useMemo, useState } from "react";
 
 // const users = [
 //   {
@@ -98,6 +108,19 @@ export default function AdminManageUsers({
     },
   ];
 
+  const ITEMS_PER_PAGE = 10;
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil((totalUsersData?.length || 0) / ITEMS_PER_PAGE);
+
+  const paginatedUsers = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+
+    return totalUsersData.slice(start, end);
+  }, [totalUsersData, currentPage]);
+
   return (
     <div className="space-y-8 p-6">
       {/* Header */}
@@ -154,7 +177,7 @@ export default function AdminManageUsers({
               </TableHeader>
 
               <TableBody>
-                {totalUsersData.map((user) => (
+                {paginatedUsers.map((user) => (
                   <TableRow
                     key={user._id}
                     className="transition-all hover:bg-muted/50"
@@ -207,9 +230,9 @@ export default function AdminManageUsers({
                       <div className="flex justify-end gap-2">
                         <AdminManageUserShowModal user={user} />
 
-                        {/* <Button size="icon" variant="destructive">
+                        <Button size="icon" variant="destructive">
                           <Trash2 className="h-4 w-4" />
-                        </Button> */}
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -220,15 +243,51 @@ export default function AdminManageUsers({
 
           {/* Pagination */}
           <div className="flex items-center justify-end gap-2 border-t p-4">
-            <Button variant="outline">Previous</Button>
+            <div className="flex items-center justify-end gap-2 border-t p-4">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      className={`cursor-pointer ${
+                        currentPage === 1
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.max(prev - 1, 1))
+                      }
+                    />
+                  </PaginationItem>
 
-            <Button>1</Button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                          onClick={() => setCurrentPage(page)}
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ),
+                  )}
 
-            <Button variant="outline">2</Button>
-
-            <Button variant="outline">3</Button>
-
-            <Button variant="outline">Next</Button>
+                  <PaginationItem>
+                    <PaginationNext
+                      className={`cursor-pointer ${
+                        currentPage === totalPages
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
           </div>
         </CardContent>
       </Card>

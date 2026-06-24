@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ⚖️ LegalEase
 
-## Getting Started
+![LegalEase Preview](src/assests/lawyer-kana-img.avif)
 
-First, run the development server:
+## 📌 Project Name
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+LegalEase – Online Lawyer Hiring Platform
+
+## 📝 Project Description
+
+LegalEase is a modern web application that connects clients with professional lawyers online. Users can browse lawyer profiles, view details, request services, make payments, and leave comments. The platform also supports role-based dashboards for users, lawyers, and admins.
+
+## 🧩 Frontend Technologies Used
+
+I used the following frontend technologies and tools:
+
+- Next.js
+- React
+- Tailwind CSS
+- shadcn/ui
+- Better Auth
+- Stripe
+- Framer Motion
+- React Hot Toast
+- Lucide React
+- Next Themes
+
+## 🛠️ Backend Technologies Used
+
+For the backend, I used:
+
+- Node.js
+- Express.js
+- MongoDB
+- CORS
+- dotenv
+- jose-cjs
+
+### Backend Package Details
+
+```json
+{
+  "name": "legal-ease-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jose-cjs": "^6.2.3",
+    "mongodb": "^7.3.0"
+  }
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Live Link
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Live Demo: [Add your deployed link here](https://your-live-link-here.com)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+- User registration and login
+- Lawyer browsing and profile viewing
+- Hiring request flow
+- Payment integration
+- Role-based dashboards
+- Admin management panel
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Project Status
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is currently being developed and improved for go a best stage.

@@ -78,6 +78,10 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (confirmPassword === "") {
+      return toast.error("Fill the form!");
+    }
+
     const { data, error } = await authClient.signUp.email({
       name: name,
       email: email,

@@ -170,7 +170,7 @@ export default function ManageUsersPage({
     },
     {
       label: "Clients",
-      value: totalUsersData.label || 0,
+      value: totalUsersData.length || 0,
       icon: User,
       colorClass:
         "text-[#5B6472] bg-[#5B6472]/10 dark:text-zinc-400 dark:bg-zinc-800",

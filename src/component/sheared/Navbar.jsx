@@ -14,7 +14,6 @@ import { ModeToggle } from "../shadcn/ModeToggle";
 
 const Navbar = ({ userData }) => {
   const [open, setOpen] = useState(false);
-  // ১. সার্চের ভ্যালু ট্র্যাকিংয়ের জন্য স্টেট ডিক্লেয়ারেশন
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
@@ -95,7 +94,6 @@ const Navbar = ({ userData }) => {
 
           {/* ডেস্কটপ সার্চ বক্স */}
           <div className="hidden lg:flex items-center gap-4 flex-1 justify-end max-w-xl">
-            {/* ৩. ইনপুট ফিল্ডকে form ট্যাগ দিয়ে র‍্যাপ করা হয়েছে */}
             <form
               onSubmit={handleSearchSubmit}
               className="relative w-full max-w-xs xl:max-w-sm"
@@ -167,7 +165,6 @@ const Navbar = ({ userData }) => {
 
         {/* মোবাইল রেসপন্সিভ সার্চ বক্স ও মেনু */}
         <div className="lg:hidden">
-          {/* ৩. মোবাইল ইনপুট ফিল্ডকেও form ট্যাগ দিয়ে র‍্যাপ করা হয়েছে */}
           <form onSubmit={handleSearchSubmit} className="mt-3 relative">
             <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
@@ -184,13 +181,15 @@ const Navbar = ({ userData }) => {
               <ul className="flex flex-col gap-2">
                 {navLinks.map((link) => (
                   <li key={link.id}>
-                    <MyNavLink
-                      href={link.href}
-                      className="block py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
-                      onClick={closeMenu}
-                    >
-                      {link.title}
-                    </MyNavLink>
+                    {/* এখানে MyNavLink-কে একটি div দিয়ে wrap করে onClick দেওয়া হয়েছে, যা ১০০% কাজ করবে */}
+                    <div onClick={closeMenu} className="w-full">
+                      <MyNavLink
+                        href={link.href}
+                        className="block py-2 px-3 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
+                      >
+                        {link.title}
+                      </MyNavLink>
+                    </div>
                   </li>
                 ))}
               </ul>

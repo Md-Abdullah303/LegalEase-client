@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/pagination";
 
 const LawyersContainer = ({ lawyers = [], user }) => {
-  const ITEMS_PER_PAGE = 9;
+  const ITEMS_PER_PAGE = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(lawyers.length / ITEMS_PER_PAGE);
 
@@ -107,7 +107,7 @@ const LawyersContainer = ({ lawyers = [], user }) => {
         variants={containerVariants}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6"
       >
         {currentLawyers?.map((lawyer) => (
           <LawyerCard lawyer={lawyer} user={user} key={lawyer?._id} />

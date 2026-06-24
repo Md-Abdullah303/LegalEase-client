@@ -11,8 +11,8 @@ import { Send, MessageSquare, ChevronDown, ChevronUp } from "lucide-react";
 import { createComment } from "@/lib/actions/comments";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { CommentEditModal } from "../modals/CommentEditModal";
-import { CommentDeleteModal } from "../modals/CommentDeleteModal";
+import { CommentEditModal } from "../modals/CommentEditModal"; // পাথ ঠিক রাখবেন
+import { CommentDeleteModal } from "../modals/CommentDeleteModal"; // পাথ ঠিক রাখবেন
 
 export default function CommentSection({
   user,
@@ -53,91 +53,91 @@ export default function CommentSection({
   const displayedComments = showAll ? comments : comments.slice(0, 2);
 
   return (
-    /* কার্ডের বর্ডার ও ব্যাকগ্রাউন্ড কালার পরিবর্তন */
-    <Card className="w-full shadow-sm border-[#c4a482]/30 dark:border-[#c4a482]/20 bg-white dark:bg-[#1d1d1d] transition-colors">
-      <CardHeader>
-        <CardTitle className="text-xl flex items-center gap-2 text-[#1d1d1d] dark:text-white font-serif">
-          {/* আইকন কালার হিসেবে #c4a482 দেওয়া হয়েছে */}
+    <Card className="w-full border border-neutral-200/60 dark:border-neutral-800/80 bg-white dark:bg-[#1d1d1d] shadow-sm rounded-2xl transition-colors overflow-hidden">
+      <CardHeader className="p-5 md:p-6 border-b border-neutral-100 dark:border-neutral-800/60">
+        <CardTitle className="text-lg md:text-xl flex items-center gap-2.5 text-[#1d1d1d] dark:text-white font-serif font-bold">
           <MessageSquare className="w-5 h-5 text-[#c4a482]" />
-          Comments ({comments.length})
+          <span>Discussion Matrix ({comments.length})</span>
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-6">
-        {/* Input Box */}
+      <CardContent className="p-5 md:p-6 space-y-6">
+        {/* Comment Entry Input Box */}
         {commentPermision && (
-          <div className="flex gap-4 items-start">
-            <Avatar className="w-10 h-10 border border-gray-200 dark:border-zinc-800">
-              <AvatarFallback className="bg-gray-100 dark:bg-zinc-800 text-[#1d1d1d] dark:text-gray-300">
+          <div className="flex gap-3 md:gap-4 items-start w-full">
+            <Avatar className="w-9 h-9 md:w-10 md:h-10 border border-neutral-100 dark:border-neutral-800 shadow-sm shrink-0">
+              <AvatarFallback className="bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-bold text-xs">
                 Me
               </AvatarFallback>
             </Avatar>
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-2.5 w-full">
               <Textarea
-                placeholder="Write a comment..."
+                placeholder="Share your experience or inquiry regarding this counsel..."
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
-                className="resize-none min-h-[80px] bg-gray-50 dark:bg-[#1a1a1a] border-gray-200 dark:border-zinc-800 focus-visible:ring-[#c4a482] text-[#1d1d1d] dark:text-white"
+                className="resize-none min-h-[85px] w-full bg-neutral-50 dark:bg-[#1a1a1a] border-neutral-200 dark:border-neutral-800 focus-visible:ring-[#c4a482] text-neutral-900 dark:text-white rounded-xl p-3 text-sm md:text-base"
               />
               <div className="flex justify-end">
-                {/* 
-                  পোস্ট বাটনটিকে আগের বাটনগুলোর মতো লাইট মোডে ডার্ক (#1d1d1d) 
-                  এবং ডার্ক মোডে গোল্ডেন (#c4a482) লুক দেওয়া হয়েছে।
-                */}
                 <Button
                   onClick={handleCommentSubmit}
                   disabled={!commentText.trim()}
                   size="sm"
-                  className="bg-[#1d1d1d] hover:bg-[#2c2c2c] text-white dark:bg-[#c4a482] dark:hover:bg-[#b09270] dark:text-[#1d1d1d] font-medium transition-colors duration-300 cursor-pointer disabled:opacity-50"
+                  className="bg-[#1d1d1d] hover:bg-[#2c2c2c] text-white dark:bg-[#c4a482] dark:hover:bg-[#b09270] dark:text-[#1d1d1d] font-bold transition-all duration-300 cursor-pointer disabled:opacity-40 px-4 py-2.5 rounded-xl h-auto active:scale-97 text-xs md:text-sm"
                 >
-                  <Send className="w-4 h-4 mr-2" /> Post
+                  <Send className="w-3.5 h-3.5 mr-2" /> Post Feed
                 </Button>
               </div>
             </div>
           </div>
         )}
 
-        {/* সেপারেটরের কালার গোল্ডেন টোনের হালকা অপাসিটি করা হয়েছে */}
-        <Separator className="bg-[#c4a482]/20" />
+        {commentPermision && <Separator className="bg-[#c4a482]/15" />}
 
-        {/* Empty State */}
+        {/* Empty State vs Comment List */}
         {comments.length === 0 ? (
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400 italic">
-            No comments yet. Be the first to share your thoughts!
+          <div className="text-center py-10 text-neutral-400 dark:text-neutral-500 text-sm italic">
+            No public interactions listed yet. Be the first to share your
+            thoughts!
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-5 md:space-y-6">
             <AnimatePresence initial={false}>
               {displayedComments.map((comment) => (
                 <motion.div
                   key={comment?._id}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="flex gap-4 items-start"
+                  className="flex gap-3 md:gap-4 items-start w-full"
                 >
-                  <Avatar className="w-10 h-10 border border-gray-200 dark:border-zinc-800">
-                    <AvatarFallback className="bg-gray-100 dark:bg-zinc-800 text-[#1d1d1d] dark:text-gray-300 font-medium">
-                      {comment?.userName?.charAt(0)}
+                  <Avatar className="w-9 h-9 md:w-10 md:h-10 border border-neutral-100 dark:border-neutral-800 shadow-sm shrink-0">
+                    <AvatarFallback className="bg-neutral-100 dark:bg-neutral-800 text-[#1d1d1d] dark:text-[#c4a482] font-bold text-sm">
+                      {comment?.userName?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
 
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center justify-between">
-                      {/* ইউজারনেম ডার্ক মোডে গোল্ডেন হাইলাইট পাবে */}
-                      <h4 className="text-sm font-semibold text-[#1d1d1d] dark:text-[#c4a482]">
+                  <div className="flex-1 space-y-1 bg-neutral-50/50 dark:bg-[#151515]/40 rounded-xl p-3 md:p-4 border border-neutral-100/50 dark:border-neutral-900/40 w-full overflow-hidden">
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+                      <h4 className="text-xs md:text-sm font-bold text-[#1d1d1d] dark:text-[#c4a482] capitalize">
                         {comment?.userName}
                       </h4>
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center gap-2.5 shrink-0">
+                        <span className="text-[11px] text-neutral-400 dark:text-neutral-500 font-medium">
                           {comment?.createdAt
-                            ? new Date(comment.createdAt).toLocaleDateString()
+                            ? new Date(comment.createdAt).toLocaleDateString(
+                                undefined,
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                },
+                              )
                             : "N/A"}
                         </span>
 
-                        {/* Edit & Delete Buttons */}
+                        {/* Edit & Delete Action Modals */}
                         {user?.id === comment?.userId && (
-                          <div className="flex gap-1 items-center">
+                          <div className="flex gap-1 items-center scale-90 md:scale-100 origin-right">
                             <CommentEditModal
                               userId={user?.id}
                               lawyerId={lawyer?._id}
@@ -151,7 +151,7 @@ export default function CommentSection({
                         )}
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <p className="text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed break-words">
                       {comment?.comment}
                     </p>
                   </div>
@@ -159,22 +159,23 @@ export default function CommentSection({
               ))}
             </AnimatePresence>
 
-            {/* Show More / Less Button */}
+            {/* View More / Show Less Pagination Button */}
             {comments.length > 2 && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowAll(!showAll)}
-                className="w-full text-gray-600 dark:text-gray-400 hover:text-[#c4a482] dark:hover:text-[#c4a482] hover:bg-[#c4a482]/5 transition-colors duration-200"
+                className="w-full text-neutral-500 dark:text-neutral-400 hover:text-[#c4a482] dark:hover:text-[#c4a482] hover:bg-[#c4a482]/5 transition-colors duration-200 mt-2 py-3 rounded-xl font-semibold text-xs md:text-sm"
               >
                 {showAll ? (
-                  <>
-                    Show Less <ChevronUp className="ml-2 w-4 h-4" />
-                  </>
+                  <span className="flex items-center justify-center gap-1.5">
+                    Collapse Thread <ChevronUp className="w-4 h-4" />
+                  </span>
                 ) : (
-                  <>
-                    Show More <ChevronDown className="ml-2 w-4 h-4" />
-                  </>
+                  <span className="flex items-center justify-center gap-1.5">
+                    View Complete Thread ({comments.length - 2} more){" "}
+                    <ChevronDown className="w-4 h-4" />
+                  </span>
                 )}
               </Button>
             )}

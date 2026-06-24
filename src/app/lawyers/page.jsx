@@ -16,7 +16,7 @@ const BrowsLawyersPage = async ({ searchParams }) => {
   const lawyers = await getAllLawyers(query);
 
   return (
-    <div className="max-w-7xl md:w-[90%] mx-auto py-10">
+    <div className="max-w-7xl md:w-[90%] mx-auto py-10 px-3 md:px-5">
       <p>Find Your COUNSEL</p>
       <h1 className="text-2xl md:text-4xl font-bold">
         Browse <span>Expert Lawyers</span>

@@ -30,8 +30,8 @@ const UserHiringTable = ({ hiringHistory = [] }) => {
               No Hiring Requests
             </h3>
             <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 max-w-xs mx-auto leading-relaxed font-medium">
-              You haven't made any booking requests yet. Your applied requests
-              will safely appear here.
+              {` You haven't made any booking requests yet. Your applied requests
+              will safely appear here.`}
             </p>
           </div>
         </div>

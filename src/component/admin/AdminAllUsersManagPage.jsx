@@ -35,6 +35,9 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import Image from "next/image";
+import { editUsersRole } from "@/lib/actions/admin";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 // ---- design tokens transformed into Tailwind-friendly objects ----
 const ROLE_CONFIG = {
@@ -42,7 +45,7 @@ const ROLE_CONFIG = {
     label: "Admin",
     icon: Shield,
     className:
-      "text-[#1B2A4A] bg-[#1B2A4A]/10 border-[#1B2A4A]/20 dark:text-blue-400 dark:bg-blue-500/10 dark:border-blue-500/20",
+      "text-purple-700 bg-purple-500/15 border-purple-500/30 dark:text-purple-300 dark:bg-purple-500/20 dark:border-purple-500/40",
   },
   lawyer: {
     label: "Lawyer",
@@ -57,73 +60,6 @@ const ROLE_CONFIG = {
       "text-[#5B6472] bg-[#5B6472]/10 border-[#5B6472]/20 dark:text-zinc-400 dark:bg-zinc-800 dark:border-zinc-700",
   },
 };
-
-// const totalUsersData = [
-//   {
-//     id: 1,
-//     name: "Ayesha Rahman",
-//     email: "ayesha.rahman@gmail.com",
-//     role: "admin",
-//     joined: "Jan 14, 2025",
-//     avatar: "AR",
-//   },
-//   {
-//     id: 2,
-//     name: "Tanvir Hossain",
-//     email: "tanvir.legal@gmail.com",
-//     role: "lawyer",
-//     joined: "Feb 02, 2025",
-//     avatar: "TH",
-//   },
-//   {
-//     id: 3,
-//     name: "Nusrat Jahan",
-//     email: "nusrat.j@gmail.com",
-//     role: "user",
-//     joined: "Feb 19, 2025",
-//     avatar: "NJ",
-//   },
-//   {
-//     id: 4,
-//     name: "Imran Chowdhury",
-//     email: "imran.c@outlook.com",
-//     role: "lawyer",
-//     joined: "Mar 03, 2025",
-//     avatar: "IC",
-//   },
-//   {
-//     id: 5,
-//     name: "Farzana Akter",
-//     email: "farzana.akter@gmail.com",
-//     role: "user",
-//     joined: "Mar 21, 2025",
-//     avatar: "FA",
-//   },
-//   {
-//     id: 6,
-//     name: "Shahriar Kabir",
-//     email: "shahriar.k@gmail.com",
-//     role: "lawyer",
-//     joined: "Apr 09, 2025",
-//     avatar: "SK",
-//   },
-//   {
-//     id: 7,
-//     name: "Mehjabin Islam",
-//     email: "mehjabin.i@gmail.com",
-//     role: "user",
-//     joined: "Apr 27, 2025",
-//     avatar: "MI",
-//   },
-//   {
-//     id: 8,
-//     name: "Rafiqul Karim",
-//     email: "rafiqul.karim@gmail.com",
-//     role: "admin",
-//     joined: "May 11, 2025",
-//     avatar: "RK",
-//   },
-// ];
 
 const containerVariants = {
   hidden: {},
@@ -183,6 +119,40 @@ export default function ManageUsersPage({
         "text-[#1B2A4A] bg-[#1B2A4A]/10 dark:text-blue-400 dark:bg-blue-500/10",
     },
   ];
+
+  const router = useRouter();
+
+  const handleMakeClient = async (user) => {
+    const res = await editUsersRole(user?._id, { role: "user" });
+    if (res) {
+      toast.success("Get role set user..");
+      router.refresh();
+    } else {
+      toast.error("Something was wrong!");
+    }
+  };
+  const handleMakeLawyer = async (user) => {
+    // const res = await editUsersRole(user?._id, { role: "lawyer" });
+    // if (res) {
+    //   toast.success("Get role set lawyer..");
+    //   router.refresh();
+    // } else {
+    //   toast.error("Something was wrong!");
+    // }
+  };
+  const handleMakeAdmin = async (user) => {
+    // const res = await editUsersRole(user?._id, { role: "admin" });
+    // if (res) {
+    //   toast.success("Get role set user..");
+    //   router.refresh();
+    // } else {
+    //   toast.error("Something was wrong!");
+    // }
+  };
+  const handleDeleteUser = (user) => {
+    console.log("delete", user);
+  };
+
   return (
     // Light Background: #F5F4F0, Dark Background: black
     <div className="min-h-screen bg-[#F5F4F0] dark:bg-black transition-colors duration-200">
@@ -347,17 +317,29 @@ export default function ManageUsersPage({
                             align="end"
                             className="dark:bg-[#1d1d1d] dark:border-zinc-800"
                           >
-                            <DropdownMenuItem className="dark:focus:bg-zinc-800 dark:text-zinc-200">
+                            <DropdownMenuItem
+                              onClick={() => handleMakeClient(user)}
+                              className="dark:focus:bg-zinc-800 dark:text-zinc-200"
+                            >
                               Make client
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="dark:focus:bg-zinc-800 dark:text-zinc-200">
+                            <DropdownMenuItem
+                              onClick={() => handleMakeLawyer(user)}
+                              className="dark:focus:bg-zinc-800 dark:text-zinc-200"
+                            >
                               Make lawyer
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="dark:focus:bg-zinc-800 dark:text-zinc-200">
+                            <DropdownMenuItem
+                              onClick={() => handleMakeAdmin(user)}
+                              className="dark:focus:bg-zinc-800 dark:text-zinc-200"
+                            >
                               Make admin
                             </DropdownMenuItem>
                             <DropdownMenuSeparator className="dark:bg-zinc-800" />
-                            <DropdownMenuItem className="gap-2 text-[#B3261E] dark:text-red-400 focus:text-[#B3261E] dark:focus:text-red-400 dark:focus:bg-red-950/20">
+                            <DropdownMenuItem
+                              onClick={() => handleDeleteUser(user)}
+                              className="gap-2 text-[#B3261E] dark:text-red-400 focus:text-[#B3261E] dark:focus:text-red-400 dark:focus:bg-red-950/20"
+                            >
                               <Trash2 className="h-3.5 w-3.5" />
                               Remove user
                             </DropdownMenuItem>

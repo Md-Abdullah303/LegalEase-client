@@ -70,12 +70,12 @@ const Navbar = ({ userData }) => {
             >
               <div className="w-9 h-9 md:w-11 md:h-11 relative flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                 <Image
+                  loading="lazy"
                   src={logo}
                   alt="Legal Ease Logo"
                   width={44}
                   height={44}
                   className="object-contain"
-                  priority
                 />
               </div>
               <h1 className="text-xl base-primary1-font md:text-2xl font-bold tracking-tight whitespace-nowrap bg-gradient-to-r from-neutral-900 to-neutral-700 dark:from-neutral-50 dark:to-neutral-300 bg-clip-text text-transparent">

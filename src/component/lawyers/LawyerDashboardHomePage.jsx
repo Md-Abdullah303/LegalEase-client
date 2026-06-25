@@ -59,6 +59,7 @@ const LawyerDashboardHome = ({ lawyer, totalHires }) => {
           <div className="flex gap-6 items-center">
             <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#c4a482]">
               <Image
+                loading="lazy"
                 width={600}
                 height={400}
                 src={

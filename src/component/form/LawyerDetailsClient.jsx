@@ -120,7 +120,7 @@ const LawyerDetailsClient = ({
                     }
                     alt={lawyer?.name || "Lawyer"}
                     fill
-                    priority
+                    loading="lazy"
                     className="object-cover transition-transform duration-500 hover:scale-103"
                     sizes="(max-width: 640px) 100vw, 280px"
                   />

@@ -70,6 +70,7 @@ export default function AdminDashboardHome({
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800/60">
             <div className="flex items-center gap-5">
               <Image
+                loading="lazy"
                 width={600}
                 height={400}
                 src={

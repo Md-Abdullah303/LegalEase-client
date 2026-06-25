@@ -101,7 +101,7 @@ const UserDashboardHome = ({
                   alt={userData?.name || "Profile Picture"}
                   className="object-cover"
                   sizes="(max-width: 640px) 96px, 112px"
-                  priority
+                  loading="lazy"
                 />
               </div>
 

@@ -1,5 +1,7 @@
 # ⚖️ LegalEase
 
+![LegalEase Preview](src/assests/lawyer-kana-img.avif)
+
 LegalEase is a modern lawyer-hiring platform that connects clients with verified legal professionals. The app supports role-based dashboards for users, lawyers, and admins, along with hiring requests, payments, comments, and profile management.
 
 ## 📌 Project Name
@@ -45,7 +47,7 @@ This project helps clients discover lawyers, request consultations, make payment
 
 ## 🚀 Live Link
 
-Live Demo: Add your deployed URL here
+Live Demo: https://legal-ease-omega-five.vercel.app/lawyers
 
 ## ⚙️ Environment Variables
 

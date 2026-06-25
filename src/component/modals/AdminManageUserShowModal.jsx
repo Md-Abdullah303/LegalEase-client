@@ -52,6 +52,7 @@ export function AdminManageMemberShowModal({ data }) {
           <div className="flex flex-col items-center text-center space-y-3 pb-5 border-b border-border">
             {/* Avatar / Image */}
             <Image
+              loading="lazy"
               width={600}
               height={400}
               src={

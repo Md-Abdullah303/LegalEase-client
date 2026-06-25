@@ -98,7 +98,7 @@ const SignIn = () => {
             alt="Justice Statue"
             fill
             className="object-cover object-center"
-            priority
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-zinc-950/90" />
         </div>
@@ -111,6 +111,7 @@ const SignIn = () => {
         >
           <div className="flex items-center gap-3">
             <Image
+              loading="lazy"
               src={footerLogo}
               alt="LegalEase Logo"
               width={38}

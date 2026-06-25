@@ -341,6 +341,7 @@ export default function ManageUsersPage({
                     <div className="flex items-center gap-3">
                       <Avatar className="h-9 w-9 border border-[#A8823C]/30 dark:border-zinc-700">
                         <Image
+                          loading="lazy"
                           src={
                             user?.image ||
                             `https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168`

@@ -8,22 +8,27 @@ import { getLawyerByLawyerId } from "@/lib/api/lawyers";
 import { getIsPaid } from "@/lib/api/payments";
 import { getUserProfile } from "@/lib/api/users";
 import { getUserSession } from "@/lib/core/session";
-import { redirect } from "next/navigation";
 import React from "react";
 
 const LawyersDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const user = await getUserSession();
 
-  const lawyer = await getLawyerByLawyerId(id);
-  const lawyerHiresHistory = await getLawyerHiringByLawerId(id);
-  const userData = await getUserProfile(user?.id);
-  const areHeApplied = await isUserApplied(user?.id, lawyer._id);
-  const comments = await getCommentsByLawyerId(lawyer?._id);
-  const isPaid = await getIsPaid(user?.id, lawyer?._id);
-  // console.log("isPaid", isPaid);
+  // user আর lawyer আগে fetch — বাকি সব এদের উপর নির্ভরশীল
+  const [user, lawyer] = await Promise.all([
+    getUserSession(),
+    getLawyerByLawyerId(id),
+  ]);
 
-  // console.log(userData[0]);
+  // lawyer._id পাওয়ার পর বাকি ৫টা একসাথে
+  const [lawyerHiresHistory, userData, areHeApplied, comments, isPaid] =
+    await Promise.all([
+      getLawyerHiringByLawerId(id),
+      getUserProfile(user?.id),
+      isUserApplied(user?.id, lawyer._id),
+      getCommentsByLawyerId(lawyer._id),
+      getIsPaid(user?.id, lawyer._id),
+    ]);
+
   return (
     <div className="min-h-screen bg-slate-50/50 dark:bg-black transition-colors">
       <LawyerDetailsClient
@@ -32,7 +37,7 @@ const LawyersDetailsPage = async ({ params }) => {
         user={user}
         comments={comments}
         lawyerHiresHistory={lawyerHiresHistory}
-        userData={userData[0]}
+        userData={userData?.[0]}
         isPaid={isPaid}
       />
     </div>

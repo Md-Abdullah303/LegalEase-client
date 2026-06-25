@@ -233,6 +233,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
                 <div className="absolute inset-0 bg-[#c4a482]/20 blur-3xl opacity-60 group-hover:opacity-100 transition-opacity rounded-full"></div>
                 <div className="relative">
                   <Image
+                    loading="lazy"
                     width={600}
                     height={400}
                     src={
@@ -341,6 +342,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
                           {preview ? (
                             <div className="relative">
                               <Image
+                                loading="lazy"
                                 width={600}
                                 height={400}
                                 src={preview}

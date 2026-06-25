@@ -183,6 +183,7 @@ export default function UpdateProfilePage({ user }) {
               {previewImg ? (
                 <div className="flex flex-col items-center">
                   <Image
+                    loading="lazy"
                     width={600}
                     height={400}
                     src={previewImg}

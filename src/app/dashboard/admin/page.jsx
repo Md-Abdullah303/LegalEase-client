@@ -11,17 +11,27 @@ import React from "react";
 
 const page = async () => {
   const user = await getUserSession();
-  const adminData = await getAdminData(user?.id);
-  const totalUsersData = await getAllUsersData();
-  const totalLawyerData = await getAllLawyersData();
-  const totalApprovedData = await getApprovedData();
-  const totalPaymentData = await getAllPayments();
+
+  // user আগে fetch — adminData তে user?.id দরকার
+  const [
+    adminData,
+    totalUsersData,
+    totalLawyerData,
+    totalApprovedData,
+    totalPaymentData,
+  ] = await Promise.all([
+    getAdminData(user?.id),
+    getAllUsersData(),
+    getAllLawyersData(),
+    getApprovedData(),
+    getAllPayments(),
+  ]);
+
   const sum = totalPaymentData.reduce(
     (accumulator, item) => accumulator + item.price,
     0,
   );
 
-  // console.log(totalPaymentData);
   return (
     <div>
       <AdminDashboardHome

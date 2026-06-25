@@ -7,11 +7,15 @@ import {
 } from "@/lib/api/admin";
 import React from "react";
 
-const page = async ({}) => {
-  const totalUsersData = await getAllUsersData();
-  const totalLawyerData = await getAllLawyersData();
-  const totalAdminData = await getAllAdminData();
-  const totalMembers = await getAllMembers();
+const page = async () => {
+  const [totalUsersData, totalLawyerData, totalAdminData, totalMembers] =
+    await Promise.all([
+      getAllUsersData(),
+      getAllLawyersData(),
+      getAllAdminData(),
+      getAllMembers(),
+    ]);
+
   return (
     <div>
       <ManageUsersPage

@@ -142,6 +142,7 @@ export default function AdminProfilePage({ adminData }) {
               {/* ডাটাবেজে ইমেজ থাকলে সেটা দেখাবে, না থাকলে ডিফল্ট প্লেসহোল্ডার */}
               {form.image ? (
                 <Image
+                  loading="lazy"
                   width={600}
                   height={400}
                   src={form.image}
@@ -207,7 +208,10 @@ export default function AdminProfilePage({ adminData }) {
                     </div>
                   ) : form.image ? (
                     <div className="flex flex-col items-center space-y-2">
-                      <img
+                      <Image
+                        loading="lazy"
+                        width={600}
+                        height={400}
                         src={form.image}
                         alt="Preview"
                         className="w-16 h-16 rounded-full object-cover"

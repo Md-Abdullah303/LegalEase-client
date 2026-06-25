@@ -47,6 +47,7 @@ const TopLawyers = ({ topLawyers = [] }) => {
                     <div className="relative w-40 h-40 md:w-44 md:h-44 rounded-full p-1 border-2 border-border group-hover:border-[#c4a482] transition-colors duration-300 bg-background overflow-hidden shadow-md">
                       <div className="relative w-full h-full rounded-full overflow-hidden bg-muted">
                         <Image
+                          loading="lazy"
                           src={
                             image ||
                             "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"

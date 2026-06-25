@@ -55,6 +55,7 @@ const LawyerCard = ({ lawyer, user }) => {
         {/* টপ ইমেজ সেকশন */}
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900">
           <Image
+            loading="lazy"
             src={
               lawyer?.image ||
               "https://images.unsplash.com/photo-1707396172424-f3293f788364"

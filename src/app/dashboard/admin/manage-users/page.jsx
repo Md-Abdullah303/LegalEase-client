@@ -8,10 +8,14 @@ import {
 import React from "react";
 
 const page = async () => {
-  const totalMembers = await getAllMembers();
-  const totalAdmin = await getAllAdminData();
-  const totalUsersData = await getAllUsersData();
-  const totalLawyerData = await getAllLawyersData();
+  const [totalMembers, totalAdmin, totalUsersData, totalLawyerData] =
+    await Promise.all([
+      getAllMembers(),
+      getAllAdminData(),
+      getAllUsersData(),
+      getAllLawyersData(),
+    ]);
+
   return (
     <div>
       <AdminManageUsers

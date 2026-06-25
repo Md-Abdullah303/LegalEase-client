@@ -81,6 +81,7 @@ const NewLawyersSections = ({ latestLawyer = [] }) => {
               {/* Image Section */}
               <div className="relative h-[220px] md:h-[240px] overflow-hidden bg-muted">
                 <Image
+                  loading="lazy"
                   src={
                     lawyer?.image ||
                     "https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168"

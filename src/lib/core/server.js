@@ -5,8 +5,6 @@ const baseUrl = process.env.NEXT_SERVER_URL;
 
 export const publicFetch = async (path) => {
   const res = await fetch(`${baseUrl}${path}`);
-  // console.log(res, path, baseUrl);
-  // console.log(path);
   return res.json() || null;
 };
 
@@ -17,7 +15,7 @@ export const privateFetch = async (path) => {
       authorization: `Bearer ${token}`,
     },
   });
-  console.log(token);
+  // console.log(token);
   return res.json() || null;
 };
 

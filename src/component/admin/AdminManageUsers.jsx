@@ -38,6 +38,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useMemo, useState } from "react";
+import { AdminMembersDeleteDayalog } from "./AdminUserDeleteDayalog";
 
 // const users = [
 //   {
@@ -80,7 +81,6 @@ export default function AdminManageUsers({
   totalUsersData,
   totalAdmin,
 }) {
-  // কার্ডগুলোর জন্য সেফ কনফিগারেশন অ্যারে
   const STATS_CARDS = [
     {
       label: "Total Users",
@@ -230,9 +230,7 @@ export default function AdminManageUsers({
                       <div className="flex justify-end gap-2">
                         <AdminManageUserShowModal user={user} />
 
-                        <Button size="icon" variant="destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+                        <AdminMembersDeleteDayalog data={user} />
                       </div>
                     </TableCell>
                   </TableRow>

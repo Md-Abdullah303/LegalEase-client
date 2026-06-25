@@ -36,6 +36,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { AdminMembersDeleteDayalog } from "./AdminUserDeleteDayalog";
 
 const lawyers = [
   {
@@ -232,9 +233,7 @@ export default function ManageLawyersPage({ totalLawyerData }) {
                           <XCircle className="h-4 w-4 text-amber-500" />
                         </Button> */}
 
-                        <Button size="icon" variant="destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+                        <AdminMembersDeleteDayalog data={lawyer} />
                       </div>
                     </TableCell>
                   </TableRow>

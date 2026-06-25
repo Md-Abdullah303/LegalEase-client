@@ -27,7 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { AdminManageUserShowModal } from "../modals/AdminManageUserShowModal";
+import { AdminManageMemberShowModal } from "../modals/AdminManageUserShowModal";
 import {
   Pagination,
   PaginationContent,
@@ -228,7 +228,7 @@ export default function AdminManageUsers({
 
                     <TableCell>
                       <div className="flex justify-end gap-2">
-                        <AdminManageUserShowModal user={user} />
+                        <AdminManageMemberShowModal data={user} />
 
                         <AdminMembersDeleteDayalog data={user} />
                       </div>

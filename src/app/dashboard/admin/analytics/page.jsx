@@ -24,7 +24,7 @@ const page = async () => {
       getAllPayments(),
     ]);
 
-    console.log(totalPaymentData);
+    // console.log(totalPaymentData);
 
     const totalRevenue = totalPaymentData.reduce(
       (acc, item) => acc + item.price,

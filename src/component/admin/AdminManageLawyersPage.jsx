@@ -37,6 +37,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { AdminMembersDeleteDayalog } from "./AdminUserDeleteDayalog";
+import { AdminManageMemberShowModal } from "../modals/AdminManageUserShowModal";
 
 const lawyers = [
   {
@@ -220,9 +221,7 @@ export default function ManageLawyersPage({ totalLawyerData }) {
 
                     <TableCell>
                       <div className="flex justify-end gap-2">
-                        <Button size="icon" variant="outline">
-                          <Eye className="h-4 w-4" />
-                        </Button>
+                        <AdminManageMemberShowModal data={lawyer} />
 
                         {/* futurely added */}
                         {/* <Button size="icon" variant="outline">

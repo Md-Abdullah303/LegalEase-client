@@ -368,7 +368,7 @@ export default function AdminAnalyticsPage({
                 >
                   <span className="flex items-center gap-2 text-muted-foreground">
                     <span
-                      className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
+                      className="w-2.5 h-2.5 rounded-sm shrink-0"
                       style={{ background: donutColors[i] }}
                     />
                     {l}

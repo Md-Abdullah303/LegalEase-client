@@ -43,9 +43,9 @@ export function AdminManageMemberShowModal({ data }) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[480px] p-0 overflow-hidden border border-border bg-background text-foreground shadow-lg rounded-lg">
+      <DialogContent className="sm:max-w-120 p-0 overflow-hidden border border-border bg-background text-foreground shadow-lg rounded-lg">
         {/* Top Unique Banner Gradient */}
-        <div className="h-28 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 dark:from-blue-600 dark:via-indigo-700 dark:to-purple-800" />
+        <div className="h-28 bg-linear-to-r from-blue-500 via-indigo-500 to-purple-600 dark:from-blue-600 dark:via-indigo-700 dark:to-purple-800" />
 
         {/* Profile Info Section */}
         <div className="px-6 pb-6 -mt-12">

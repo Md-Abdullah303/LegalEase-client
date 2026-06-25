@@ -137,7 +137,7 @@ export default function ManageLawyersPage({ totalLawyerData }) {
           </p>
         </div>
 
-        <div className="relative w-full lg:w-[350px]">
+        <div className="relative w-full lg:w-87.5">
           <Search className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
           <Input placeholder="Search lawyers..." className="pl-10" />
         </div>

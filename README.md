@@ -1,18 +1,28 @@
 # ⚖️ LegalEase
 
-![LegalEase Preview](src/assests/lawyer-kana-img.avif)
+LegalEase is a modern lawyer-hiring platform that connects clients with verified legal professionals. The app supports role-based dashboards for users, lawyers, and admins, along with hiring requests, payments, comments, and profile management.
 
 ## 📌 Project Name
 
 LegalEase – Online Lawyer Hiring Platform
 
-## 📝 Project Description
+## 🎯 Purpose
 
-LegalEase is a modern web application that connects clients with professional lawyers online. Users can browse lawyer profiles, view details, request services, make payments, and leave comments. The platform also supports role-based dashboards for users, lawyers, and admins.
+This project helps clients discover lawyers, request consultations, make payments, and track hiring history. Lawyers can manage their profiles and services, while admins oversee users, lawyers, transactions, and analytics.
 
-## 🧩 Frontend Technologies Used
+## ✨ Key Features
 
-I used the following frontend technologies and tools:
+- User and lawyer authentication with Better Auth
+- Role-based dashboards for client, lawyer, and admin
+- Lawyer browsing, search, filtering, and details page
+- Hiring request flow with Stripe payment support
+- Comment system for hired clients
+- Admin controls for users, lawyers, transactions, and analytics
+- Responsive UI with dark/light mode support
+
+## 🧰 Technologies Used
+
+### Frontend
 
 - Next.js
 - React
@@ -20,60 +30,45 @@ I used the following frontend technologies and tools:
 - shadcn/ui
 - Better Auth
 - Stripe
-- Framer Motion
 - React Hot Toast
 - Lucide React
 - Next Themes
 
-## 🛠️ Backend Technologies Used
-
-For the backend, I used:
+### Backend / Services
 
 - Node.js
 - Express.js
 - MongoDB
-- CORS
 - dotenv
 - jose-cjs
-
-### Backend Package Details
-
-```json
-{
-  "name": "legal-ease-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "jose-cjs": "^6.2.3",
-    "mongodb": "^7.3.0"
-  }
-}
-```
+- imgBB for image uploads
 
 ## 🚀 Live Link
 
-Live Demo: [Add your deployed link here](https://your-live-link-here.com)
+Live Demo: Add your deployed URL here
 
-## ✨ Key Features
+## ⚙️ Environment Variables
 
-- User registration and login
-- Lawyer browsing and profile viewing
-- Hiring request flow
-- Payment integration
-- Role-based dashboards
-- Admin management panel
+Create a local environment file using the sample values below:
+
+```env
+NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_key
+NEXT_PUBLIC_URL=http://localhost:3000
+BETTER_AUTH_URL=http://localhost:3000
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+MONGODB_URL=your_mongodb_connection_string
+STRIPE_SECRET_KEY=your_stripe_secret_key
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+```
+
+## ▶️ Run Locally
+
+```bash
+npm install
+npm run dev
+```
 
 ## 📂 Project Status
 
-This project is currently being developed and improved for go a best stage.
+The core assignment features are implemented and the app is ready for deployment and final review.

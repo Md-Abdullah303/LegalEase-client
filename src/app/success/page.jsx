@@ -7,6 +7,10 @@ import { stripe } from "../../lib/stripe";
 import { createPayment } from "@/lib/actions/payment";
 import { getUserSession } from "@/lib/core/session";
 
+export const metadata = {
+  title: "LegalEase | Payment Successful",
+};
+
 export default async function Success({ searchParams }) {
   const { session_id } = await searchParams;
 

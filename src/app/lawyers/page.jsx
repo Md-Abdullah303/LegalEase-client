@@ -4,6 +4,10 @@ import { getAllLawyers } from "@/lib/api/lawyers";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "LegalEase | Browse Lawyers",
+};
+
 const BrowsLawyersPage = async ({ searchParams }) => {
   const searchQuery = await searchParams;
   const user = await getUserSession();

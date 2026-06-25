@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 // একটা card এর skeleton — actual card এর মতোই layout
 function LawyerCardSkeleton() {
   return (
-    <div className="rounded-xl overflow-hidden border border-white/10 bg-zinc-900 dark:bg-zinc-900">
+    <div className="rounded-xl overflow-hidden border border-white/10  dark:bg-zinc-900">
       {/* image area */}
       <Skeleton className="h-48 w-full rounded-none" />
 

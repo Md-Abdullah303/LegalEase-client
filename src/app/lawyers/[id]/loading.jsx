@@ -8,7 +8,7 @@ export default function LawyerDetailsPageLoading() {
           {/* Left column */}
           <div className="lg:col-span-2 space-y-6">
             {/* Profile card — image + name + stats */}
-            <div className="rounded-xl border border-white/10 bg-zinc-900 dark:bg-zinc-900 p-5">
+            <div className="rounded-xl border border-white/10  dark:bg-zinc-900 p-5">
               <div className="flex gap-5">
                 {/* photo */}
                 <Skeleton className="h-44 w-36 rounded-lg flex-shrink-0" />
@@ -29,7 +29,7 @@ export default function LawyerDetailsPageLoading() {
             </div>
 
             {/* About card */}
-            <div className="rounded-xl border border-white/10 bg-zinc-900 dark:bg-zinc-900 p-5 space-y-4">
+            <div className="rounded-xl border border-white/10  dark:bg-zinc-900 p-5 space-y-4">
               {/* "About" heading */}
               <Skeleton className="h-5 w-20" />
               {/* bio lines */}
@@ -41,7 +41,7 @@ export default function LawyerDetailsPageLoading() {
             </div>
 
             {/* Discussion Matrix card */}
-            <div className="rounded-xl border border-white/10 bg-zinc-900 dark:bg-zinc-900 p-5 space-y-4">
+            <div className="rounded-xl border border-white/10  dark:bg-zinc-900 p-5 space-y-4">
               {/* heading */}
               <Skeleton className="h-5 w-48" />
               {/* empty state placeholder */}
@@ -52,7 +52,7 @@ export default function LawyerDetailsPageLoading() {
 
           {/* Right column — Hire form */}
           <div className="lg:col-span-1">
-            <div className="rounded-xl border border-white/10 bg-zinc-900 dark:bg-zinc-900 p-5 space-y-5">
+            <div className="rounded-xl border border-white/10  dark:bg-zinc-900 p-5 space-y-5">
               {/* "Hire this Lawyer" heading */}
               <Skeleton className="h-6 w-40" />
               {/* subtitle */}

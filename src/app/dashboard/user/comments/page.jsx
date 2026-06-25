@@ -4,6 +4,10 @@ import { getUserCommentByUserid } from "@/lib/api/comments";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "User Dashboard | Comments",
+};
+
 const page = async () => {
   const user = await getUserSession();
   const userComments = await getUserCommentByUserid(user?.id);

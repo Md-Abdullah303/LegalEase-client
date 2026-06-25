@@ -10,6 +10,10 @@ import { getUserProfile } from "@/lib/api/users";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "LegalEase | Lawyers Details",
+};
+
 const LawyersDetailsPage = async ({ params }) => {
   const { id } = await params;
 

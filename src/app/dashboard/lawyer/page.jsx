@@ -6,6 +6,10 @@ import { getLawyerByLawyerId } from "@/lib/api/lawyers";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "User Dashboard | Lawyer Dashboard",
+};
+
 const LawyerHomePage = async () => {
   const user = await getUserSession();
   const lawyerData = await getLawyerByLawyerId(user?.id);

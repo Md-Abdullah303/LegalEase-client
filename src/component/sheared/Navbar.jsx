@@ -50,11 +50,13 @@ const Navbar = ({ userData }) => {
     admin: "/dashboard/admin",
   };
 
+  console.log(userData);
+
   if (userData) {
     navLinks.push({
       id: 3,
       title: "Dashboard",
-      href: dashboardLink[userData?.role],
+      href: dashboardLink[userData?.role] || `/dashboard`,
     });
   }
 
@@ -71,7 +73,10 @@ const Navbar = ({ userData }) => {
               <div className="w-9 h-9 md:w-11 md:h-11 relative flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                 <Image
                   loading="lazy"
-                  src={logo}
+                  src={
+                    logo ||
+                    `https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168`
+                  }
                   alt="Legal Ease Logo"
                   width={44}
                   height={44}

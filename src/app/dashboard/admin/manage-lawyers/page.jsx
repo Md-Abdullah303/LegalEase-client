@@ -2,6 +2,10 @@ import ManageLawyersPage from "@/component/admin/AdminManageLawyersPage";
 import { getAllLawyersData } from "@/lib/api/admin";
 import React from "react";
 
+export const metadata = {
+  title: "Admin Dashboard | Manage Lawyers",
+};
+
 const page = async () => {
   const totalLawyerData = await getAllLawyersData();
   return (

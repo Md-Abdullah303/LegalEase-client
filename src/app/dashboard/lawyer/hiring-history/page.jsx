@@ -4,6 +4,10 @@ import { getLawyerHiringByLawerId } from "@/lib/api/applications";
 import { getUserSession } from "@/lib/core/session";
 import React, { Suspense } from "react";
 
+export const metadata = {
+  title: "User Dashboard | Hiring History",
+};
+
 // --- SKELETON COMPONENT ---
 const HiringRequestsSkeleton = () => {
   return (

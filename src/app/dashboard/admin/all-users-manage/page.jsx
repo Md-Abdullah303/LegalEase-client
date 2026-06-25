@@ -7,6 +7,10 @@ import {
 } from "@/lib/api/admin";
 import React from "react";
 
+export const metadata = {
+  title: "Admin Dashboard | All Users",
+};
+
 const page = async () => {
   const [totalUsersData, totalLawyerData, totalAdminData, totalMembers] =
     await Promise.all([

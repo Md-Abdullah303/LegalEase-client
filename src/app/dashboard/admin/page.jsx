@@ -9,6 +9,10 @@ import { getAllPayments } from "@/lib/api/payments";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "LegalEase | Admin Dashboard",
+};
+
 const page = async () => {
   const user = await getUserSession();
 

@@ -3,6 +3,10 @@ import { getAdminData } from "@/lib/api/admin";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "Admin Dashboard | Updated Profile",
+};
+
 const page = async () => {
   const user = await getUserSession();
   const adminData = await getAdminData(user?.id);

@@ -5,6 +5,10 @@ import { getUserHiringHistory, getUserProfile } from "@/lib/api/users";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "LegalEase | User Dashboard",
+};
+
 const page = async () => {
   const userData = await getUserSession();
 

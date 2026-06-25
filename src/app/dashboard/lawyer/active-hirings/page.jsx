@@ -3,6 +3,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getLawyerHiringByLawerId } from "@/lib/api/applications";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
+export const metadata = {
+  title: "User Dashboard | Active Hiring",
+};
 
 const page = async () => {
   const user = await getUserSession();

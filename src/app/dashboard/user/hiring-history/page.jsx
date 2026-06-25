@@ -4,6 +4,10 @@ import { getIsPaid } from "@/lib/api/payments";
 import { getUserSession } from "@/lib/core/session";
 import React from "react";
 
+export const metadata = {
+  title: "User Dashboard | Hiring History",
+};
+
 const UserHiringHistoryPage = async () => {
   const user = await getUserSession();
   const userHistory = await getUserHiringHistoryByUserId(user.id);

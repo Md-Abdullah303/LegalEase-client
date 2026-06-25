@@ -8,6 +8,10 @@ import {
 import { getAllPayments } from "@/lib/api/payments";
 import React from "react";
 
+export const metadata = {
+  title: "Admin Dashboard | Analytics",
+};
+
 const page = async () => {
   try {
     const [

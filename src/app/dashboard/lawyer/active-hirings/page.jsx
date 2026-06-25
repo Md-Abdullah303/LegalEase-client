@@ -7,7 +7,7 @@ import React from "react";
 const page = async () => {
   const user = await getUserSession();
   const lawyerHirings = await getLawyerHiringByLawerId(user?.id);
-  console.log(lawyerHirings);
+  // console.log(lawyerHirings);
   return (
     <div className="">
       <ActiveHiringPage lawyerHirings={lawyerHirings} />

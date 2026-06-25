@@ -11,7 +11,7 @@ const BrowsLawyersPage = async ({ searchParams }) => {
 
   const { search, salary, popularity } = searchQuery;
   const query = `?search=${search || ""}&salary=${salary || ""}&popularity=${popularity || ""}`;
-  console.log(query);
+  // console.log(query);
 
   const lawyers = await getAllLawyers(query);
 

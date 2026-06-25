@@ -122,7 +122,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
 
         if (imgBbData?.success) {
           finalImageUrl = imgBbData.data.url;
-          console.log("Image successfully uploaded to ImgBB:", finalImageUrl);
+          // console.log("Image successfully uploaded to ImgBB:", finalImageUrl);
           router.refresh();
         } else {
           toast.error("ImgBB upload failed.");
@@ -143,7 +143,7 @@ export default function LawyerProfile({ lawyerData, userData }) {
       }
 
       const result = await updateLawyerByLawyerId(userData?.id, updatedValues);
-      console.log(`${section} Updated Data:`, result);
+      // console.log(`${section} Updated Data:`, result);
 
       if (result?.modifiedCount > 0) {
         if (setDialogOpen) setDialogOpen(false);

@@ -15,7 +15,7 @@ const page = async () => {
   const userServerData = userDataFormServer[0];
 
   // console.log(userHiringHistories);
-  console.log(totalPay);
+  // console.log(totalPay);
 
   return (
     <div>

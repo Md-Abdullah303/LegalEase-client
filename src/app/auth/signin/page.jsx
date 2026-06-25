@@ -24,7 +24,7 @@ const SignIn = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callback = searchParams.get("callback");
-  console.log(callback);
+  // console.log(callback);
   const redirectTo = callback ? callback : "/";
 
   const [errors, setErrors] = useState({ email: "", password: "" });

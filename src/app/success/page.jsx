@@ -36,9 +36,9 @@ export default async function Success({ searchParams }) {
     };
 
     try {
-      console.log("Sending data to DB:", paymentData);
+      // console.log("Sending data to DB:", paymentData);
       await createPayment(paymentData);
-      console.log("Database insertion successful!");
+      // console.log("Database insertion successful!");
     } catch (error) {
       console.error("Database Insertion Failed Error:", error);
     }

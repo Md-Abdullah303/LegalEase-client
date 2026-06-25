@@ -10,7 +10,7 @@ const LawyerHomePage = async () => {
   const user = await getUserSession();
   const lawyerData = await getLawyerByLawyerId(user?.id);
   const totalHires = await getLawyerHiringByLawerId(lawyerData?._id);
-  console.log(totalHires);
+  // console.log(totalHires);
 
   return (
     <div className="">

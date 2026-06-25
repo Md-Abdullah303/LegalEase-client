@@ -178,7 +178,7 @@ export default function ManageUsersPage({
     }
   };
   const handleDeleteUser = async (user) => {
-    console.log("delete", user);
+    // console.log("delete", user);
     const res = await memberDltByMemberId(user?._id);
     if (res.deletedCount > 0) {
       toast.success("Member Deleted.");

@@ -21,7 +21,7 @@ const LawyersDetailsPage = async ({ params }) => {
   const areHeApplied = await isUserApplied(user?.id, lawyer._id);
   const comments = await getCommentsByLawyerId(lawyer?._id);
   const isPaid = await getIsPaid(user?.id, lawyer?._id);
-  console.log("isPaid", isPaid);
+  // console.log("isPaid", isPaid);
 
   // console.log(userData[0]);
   return (

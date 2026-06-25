@@ -6,10 +6,6 @@ import { ShieldAlert, ArrowLeft, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export const metadata = {
-  title: "LegalEase | Unauthorized",
-};
-
 export default function UnauthorizedPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 transition-colors duration-300">

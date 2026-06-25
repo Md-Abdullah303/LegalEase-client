@@ -21,6 +21,8 @@ const page = async () => {
       getTotalPayForUser(userData?.id),
     ]);
 
+  console.log(userDataFormServer?.[0]);
+
   return (
     <div>
       <UserDashboardHome

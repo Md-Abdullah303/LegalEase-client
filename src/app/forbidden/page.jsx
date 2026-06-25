@@ -7,10 +7,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
-export const metadata = {
-  title: "LegalEase | Forbidden",
-};
-
 export default function ForbiddenPage() {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;

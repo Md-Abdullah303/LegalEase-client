@@ -95,10 +95,10 @@ const UserDashboardHome = ({
                 <Image
                   fill
                   src={
-                    userData?.image ||
+                    userServerData?.image ||
                     `https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168`
                   }
-                  alt={userData?.name || "Profile Picture"}
+                  alt={userServerData?.name || "Profile Picture"}
                   className="object-cover"
                   sizes="(max-width: 640px) 96px, 112px"
                   loading="lazy"
@@ -107,18 +107,18 @@ const UserDashboardHome = ({
 
               <div className="text-center sm:text-left space-y-2 w-full">
                 <h2 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white font-serif tracking-wide capitalize">
-                  {userData?.name || "N/A"}
+                  {userServerData?.name || "N/A"}
                 </h2>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs sm:text-sm font-semibold">
                   <span className="flex items-center gap-1.5 bg-[#f9f4ef] dark:bg-[#1c1a17] text-[#c4a482] dark:text-[#d9bfa2] px-3 py-1 rounded-lg border border-[#e5ded5]/60 dark:border-neutral-800 uppercase tracking-wider text-[11px]">
                     <FiShield className="w-3.5 h-3.5" />{" "}
-                    {userData?.role || "User"}
+                    {userServerData?.role || "User"}
                   </span>
                   <span className="flex items-center gap-1.5 text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-900 px-3 py-1 rounded-lg border border-neutral-100 dark:border-neutral-800/40">
                     <FiCalendar className="w-3.5 h-3.5 text-[#c4a482]" />{" "}
                     Joined:{" "}
-                    {userData?.createdAt
-                      ? new Date(userData?.createdAt).toLocaleDateString(
+                    {userServerData?.createdAt
+                      ? new Date(userServerData?.createdAt).toLocaleDateString(
                           "en-US",
                           { month: "short", day: "numeric", year: "numeric" },
                         )

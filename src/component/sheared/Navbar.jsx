@@ -50,7 +50,7 @@ const Navbar = ({ userData }) => {
     admin: "/dashboard/admin",
   };
 
-  console.log(userData);
+  // console.log(userData);
 
   if (userData) {
     navLinks.push({

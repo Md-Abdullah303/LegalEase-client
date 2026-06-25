@@ -77,13 +77,11 @@ export default function UpdateProfilePage({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ভ্যালিডেশন: কোনো ফিল্ড খালি আছে কি না চেক করা হচ্ছে
-    // এখানে imageFile বাদে সবগুলোকে চেক করা হচ্ছে (ইমেজ অপশনাল হলে)
     const { fullName, phone, address, linkedin, bio } = formData;
 
     if (!fullName || !phone || !address || !linkedin || !bio) {
       toast.error("Please fill in all the fields before saving!");
-      return; // এখানেই প্রসেস আটকে যাবে
+      return;
     }
 
     setIsUploading(true);
@@ -121,8 +119,10 @@ export default function UpdateProfilePage({ user }) {
         bio: formData.bio,
         image: uploadedImageUrl,
       };
+      console.log(finalDataToSubmit);
 
       const result = await updatedUserData(user?.id, finalDataToSubmit);
+      console.log(result);
       if (result) {
         toast.success("Profile Updated.");
         router.push("/dashboard/user");

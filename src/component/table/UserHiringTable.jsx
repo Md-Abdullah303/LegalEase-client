@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { GoArrowUpLeft } from "react-icons/go";
 import { FolderOpen } from "lucide-react";
 import {
   Table,
@@ -11,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from "next/link";
 
 const UserHiringTable = ({ hiringHistory = [] }) => {
   const handlePay = async (historyData) => {
@@ -167,6 +169,9 @@ const UserHiringTable = ({ hiringHistory = [] }) => {
               <TableHead className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
                 Status
               </TableHead>
+              <TableHead className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+                View
+              </TableHead>
               <TableHead className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 text-right">
                 Action
               </TableHead>
@@ -208,6 +213,14 @@ const UserHiringTable = ({ hiringHistory = [] }) => {
                   >
                     {history?.status}
                   </span>
+                </TableCell>
+                <TableCell>
+                  <Link
+                    href={`/lawyers/${history?.lawyerId}`}
+                    className="flex items-center gap-1 w-fit hover:bg-[#dfdfdf] dark:hover:bg-[#1d1d1d] py-1 px-2 rounded-lg cursor-pointer"
+                  >
+                    <GoArrowUpLeft /> View
+                  </Link>
                 </TableCell>
 
                 <TableCell className="px-6 py-4 text-right">

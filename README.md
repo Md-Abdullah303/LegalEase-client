@@ -47,7 +47,7 @@ This project helps clients discover lawyers, request consultations, make payment
 
 ## 🚀 Live Link
 
-Live Demo: https://legal-ease-omega-five.vercel.app/lawyers
+Live Demo: https://legal-ease-omega-five.vercel.app
 
 ## ⚙️ Environment Variables
 

@@ -59,3 +59,24 @@ LegalEase implements a granular, role-based architecture designed around the nee
 - **User & Lawyer Moderation**: Search, view, update roles (promote to Lawyer/Admin or demote), and manage user accounts with confirmation dialogs.
 - **Transaction Oversight**: Full ledger of Stripe transactions including customer identifiers, amounts, transaction IDs, and payment timestamps.
 - **Analytics Suite**: Interactive data visualizations and charts showcasing category popularity, user growth trends, and transaction volume.
+
+---
+
+## ⚡ Core Capabilities & Architecture
+
+### 🔐 Authentication & Authorization
+- **Better Auth Integration**: High-security session management supporting Google OAuth single sign-on (SSO) and standard email/password authentication.
+- **Role-Based Access Control (RBAC)**: Route middleware and layout guards ensuring strict separation between Client, Lawyer, and Admin dashboards, complete with custom unauthorized and forbidden fallback views.
+
+### 💳 Integrated Stripe Payments
+- **Secure Checkout**: Seamlessly handles consultation fee transactions with Stripe Elements and secure backend tokenization.
+- **Instant Booking Confirmation**: Automatically updates booking state and generates verified transaction records upon payment completion.
+
+### 📊 Real-Time Analytics & Data Visualization
+- **Multi-Chart Analytics**: Leverages Chart.js and Recharts to generate visual breakdowns of consultation distributions, top legal categories, revenue metrics, and user acquisition metrics.
+
+### 🎨 Modern UI & Adaptive Experience
+- **Next Themes (Dark & Light Mode)**: Fully integrated theme switcher with persistent user preference.
+- **Modern Component Library**: Crafted using shadcn/ui and Radix UI primitives for accessible, high-performance interactive elements.
+- **Micro-Interactions**: Smooth animations powered by Framer Motion and tw-animate.
+- **Zero-Flicker Skeleton Loading**: React Suspense and custom skeleton placeholders deliver instant perceived performance during asynchronous data fetching.

@@ -80,3 +80,57 @@ LegalEase implements a granular, role-based architecture designed around the nee
 - **Modern Component Library**: Crafted using shadcn/ui and Radix UI primitives for accessible, high-performance interactive elements.
 - **Micro-Interactions**: Smooth animations powered by Framer Motion and tw-animate.
 - **Zero-Flicker Skeleton Loading**: React Suspense and custom skeleton placeholders deliver instant perceived performance during asynchronous data fetching.
+
+---
+
+## 🔄 End-to-End User Journey
+
+```
+[ Discover Lawyers ] 
+        │
+        ▼
+[ Compare Profiles & Expertise ] 
+        │
+        ▼
+[ Request Consultation & Stripe Payment ] 
+        │
+        ▼
+[ Lawyer Receives & Manages Active Case ] 
+        │
+        ▼
+[ Consultation Completed ] 
+        │
+        ▼
+[ Client Leaves Verified Rating & Review ]
+```
+
+---
+
+## 🧰 Technology Stack
+
+| Category | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | [Next.js 16](https://nextjs.org/) (App Router, Server & Client Components) |
+| **Core UI Library** | [React 19](https://react.dev/) |
+| **Styling & Design System** | [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/), [Radix UI](https://www.radix-ui.com/) |
+| **Icons & Typography** | [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/) |
+| **Theme & Animations** | [Next Themes](https://github.com/pacocoursey/next-themes), [Motion](https://motion.dev/), `tw-animate-css` |
+| **Authentication** | [Better Auth](https://www.better-auth.com/) (Google OAuth + Email/Password) |
+| **Payment Gateway** | [Stripe](https://stripe.com/) (`@stripe/stripe-js`, Stripe API) |
+| **Data Visualization** | [Recharts](https://recharts.org/), [Chart.js](https://www.chartjs.org/) (`react-chartjs-2`) |
+| **Notifications** | [React Hot Toast](https://react-hot-toast.com/) |
+| **Backend & Database** | [Node.js](https://nodejs.org/), [Express.js](https://expressjs.com/), [MongoDB](https://www.mongodb.com/) |
+| **Hosting & Deployment** | [Vercel](https://vercel.com/) |
+
+---
+
+## 📱 Core Application Pages
+
+- **`/` (Home)**: Hero section, top legal disciplines, featured attorneys, and platform statistics.
+- **`/lawyers` (Browse Lawyers)**: Dynamic directory with filtering, sorting, and search capabilities.
+- **`/lawyers/[id]` (Lawyer Details)**: Deep-dive view of lawyer experience, fees, qualifications, and booking trigger.
+- **`/auth/signin` & `/auth/signup`**: Clean authentication portal supporting credentials and Google OAuth.
+- **`/dashboard/user`**: Client consultation history, feedback panel, and profile management.
+- **`/dashboard/lawyer`**: Lawyer active case monitor, profile customization, and client testimonials.
+- **`/dashboard/admin`**: Administrative control center for users, lawyers, financial ledger, and platform analytics.
+- **`/forbidden` & `/unauthorized`**: Graceful route protection and permission error handling.

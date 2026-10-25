@@ -31,3 +31,31 @@ Traditional legal hiring can be opaque, time-consuming, and difficult to navigat
 - **Transparency**: Clear consultation pricing, verified lawyer profiles, and authentic client feedback.
 - **Streamlined Workflow**: Frictionless booking flow from search to consultation with integrated Stripe checkout.
 - **Role-Dedicated Portals**: Tailored interfaces for Clients, Legal Practitioners, and Administrators.
+
+---
+
+## 👥 Multi-Role Ecosystem
+
+LegalEase implements a granular, role-based architecture designed around the needs of three distinct user types:
+
+### 1. 👤 Client Portal
+- **Lawyer Discovery & Search**: Filter attorneys by practice area (Criminal, Corporate, Family, Civil, Real Estate, Cyber Law, etc.), experience level, and consultation fees.
+- **Comprehensive Lawyer Profiles**: Inspect verified bios, license details, years in practice, case specializations, and authentic client ratings.
+- **Direct Consultation Booking**: Choose desired consultation packages and secure bookings via integrated Stripe checkout.
+- **Client Dashboard**:
+  - **Hiring History**: Real-time status tracking for all ongoing and completed consultations.
+  - **Lawyer Quick View**: Conveniently review previously hired attorney details.
+  - **Feedback & Reviews**: Post comments and ratings for hired practitioners to help other clients make informed decisions.
+  - **Profile Management**: Maintain personal credentials and contact information.
+
+### 2. ⚖️ Lawyer Workspace
+- **Practitioner Dashboard**: Centralized hub displaying active client engagements and past case records.
+- **Active Consultation Management**: Track incoming hiring requests, review client case briefs, and update case progress.
+- **Practice Profile**: Customize professional bio, certifications, hourly/consultation rates, and contact details.
+- **Client Feedback Feed**: View ratings and testimonial comments received from consulted clients.
+
+### 3. 🛡️ Admin Command Center
+- **Executive Overview**: Real-time metrics tracking total registered clients, active lawyers, bookings, and platform revenue.
+- **User & Lawyer Moderation**: Search, view, update roles (promote to Lawyer/Admin or demote), and manage user accounts with confirmation dialogs.
+- **Transaction Oversight**: Full ledger of Stripe transactions including customer identifiers, amounts, transaction IDs, and payment timestamps.
+- **Analytics Suite**: Interactive data visualizations and charts showcasing category popularity, user growth trends, and transaction volume.
